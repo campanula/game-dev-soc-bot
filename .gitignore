@@ -400,3 +400,4 @@ FodyWeavers.xsd
 node_modules
 .env
 config.json
+.vscode/settings.json
