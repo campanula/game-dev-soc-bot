@@ -22,5 +22,5 @@ const eventFiles = fs.readdirSync(__dirname+'/events').filter(file => file.endsW
         client.eventHandler(eventFiles, __dirname+"/events");
         client.commandHandler(commandFiles, __dirname+"/commands");
         client.login(process.env.TOKEN)
-    
+        client.dbHandler();
 })();

@@ -13,6 +13,6 @@ module.exports = {
             }]
         });
         const messageChannel = client.channels.cache.get(channelId);
-        messageChannel.send(client.user.tag + ' starting...');
+        //messageChannel.send(client.user.tag + ' starting...');
     },
 };
