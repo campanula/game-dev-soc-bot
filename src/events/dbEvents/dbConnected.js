@@ -4,3 +4,4 @@ module.exports = {
         console.log("DB connected");
     },
 };
+ 
