@@ -16,6 +16,6 @@ module.exports = {
                 content: 'There was an error executing the command',
                 ephemeral: true
             });
-        };
-    },
-};
+        }
+    }
+}

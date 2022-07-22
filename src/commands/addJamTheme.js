@@ -16,5 +16,5 @@ module.exports = {
         theme.push(value);
         console.log(theme);
         await interaction.reply('Theme added to list');
-    },
-};
+    }
+}

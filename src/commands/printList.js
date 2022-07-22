@@ -12,6 +12,6 @@ module.exports = {
             await interaction.reply(theme.toString());
         } else {
             await interaction.reply('List is empty');
-        };
-    },
-};
+        }
+    }
+}

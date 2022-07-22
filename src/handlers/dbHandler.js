@@ -17,5 +17,5 @@ module.exports = (client) => {
 
         mongoose.Promise = global.Promise;
         await mongoose.connect(process.env.DB_TOKEN);
-    };
-};
+    }
+}

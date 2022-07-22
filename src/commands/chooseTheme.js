@@ -13,7 +13,7 @@ module.exports = {
             await interaction.reply('I have chosen the theme: ' + theme[random]);
         } else {
             await interaction.reply('List is empty');
-        };
+        }
 
-    },
-};
+    }
+}

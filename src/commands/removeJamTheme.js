@@ -21,8 +21,8 @@ module.exports = {
             await interaction.reply('Theme removed from list');
         } else {
             await interaction.reply('Could not remove theme');
-        };
+        }
 
         console.log(theme);
-    },
-};
+    }
+}

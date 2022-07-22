@@ -12,5 +12,5 @@ module.exports = {
         theme.length = 0;
         await interaction.reply('List emptied');
         console.log(theme);
-    },
-};
+    }
+}
