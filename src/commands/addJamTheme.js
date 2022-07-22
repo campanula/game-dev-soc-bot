@@ -10,10 +10,10 @@ module.exports = {
             option.setName('input')
                 .setDescription('The theme to add')
                 .setRequired(true)),
-    async execute(interaction, client) {
+    async execute(interaction) {
         console.log("Add theme attempt");
-        const SpamOn = interaction.options.getString('input');
-        theme.push(SpamOn);
+        const value = interaction.options.getString('input');
+        theme.push(value);
         console.log(theme);
         await interaction.reply('Theme added to list')
     }

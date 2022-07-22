@@ -7,9 +7,13 @@ module.exports = {
         .setName('choosetheme')
         .setDescription('Chooses a theme from list'),
     async execute(interaction) {
-        const random = Math.floor(Math.random() * theme.length);
-        console.log(theme[random]);
-        await interaction.reply("I have chosen the theme: " + theme[random])
+        if (theme.length != 0) {
+            const random = Math.floor(Math.random() * theme.length);
+            console.log(theme[random]);
+            await interaction.reply("I have chosen the theme: " + theme[random])
+        } else {
+            await interaction.reply("List is empty")
+        }
     }
 };
 

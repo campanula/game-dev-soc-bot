@@ -1,2 +1,2 @@
 
-module.exports = ['test'];
+module.exports = []; // array for themes

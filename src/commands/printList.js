@@ -7,8 +7,12 @@ module.exports = {
         .setName('print')
         .setDescription('Prints jam list'),
     async execute(interaction) {
-        console.log(theme)
-        await interaction.reply(theme.toString())
+        if (theme.length != 0) {
+            console.log(theme)
+            await interaction.reply(theme.toString())
+        } else {
+            await interaction.reply("List is empty")
+        }
     }
 };
 
