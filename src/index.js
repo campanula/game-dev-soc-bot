@@ -19,9 +19,8 @@ const eventFiles = fs.readdirSync(__dirname+'/events').filter(file => file.endsW
     for (file of handlerFiles){
         require(__dirname+`/handlers/${file}`)(client);
     }
-        client.eventHandler(eventFiles, __dirname+"/events");
-        client.commandHandler(commandFiles, __dirname+"/commands");
+        client.eventHandler(eventFiles, __dirname+'/events');
+        client.commandHandler(commandFiles, __dirname+'/commands');
         client.login(process.env.TOKEN);
         client.dbHandler();
 })();
-

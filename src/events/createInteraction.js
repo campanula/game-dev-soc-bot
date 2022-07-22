@@ -15,7 +15,7 @@ module.exports = {
             await interaction.reply({
                 content: 'There was an error executing the command',
                 ephemeral: true
-            })
-        }
-    }
-}
+            });
+        };
+    },
+};

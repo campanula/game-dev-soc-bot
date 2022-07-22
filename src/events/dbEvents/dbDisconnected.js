@@ -1,6 +1,6 @@
 module.exports = {
     name: 'disconnected',
     async execute() {
-        console.log("DB Disconnected");
+        console.log('DB Disconnected');
     },
 };

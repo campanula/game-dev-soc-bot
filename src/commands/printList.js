@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
-var theme = require('../themelist.js')
+var theme = require('../themelist.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -8,11 +8,10 @@ module.exports = {
         .setDescription('Prints jam list'),
     async execute(interaction) {
         if (theme.length != 0) {
-            console.log(theme)
-            await interaction.reply(theme.toString())
+            console.log(theme);
+            await interaction.reply(theme.toString());
         } else {
-            await interaction.reply("List is empty")
-        }
-    }
+            await interaction.reply('List is empty');
+        };
+    },
 };
-

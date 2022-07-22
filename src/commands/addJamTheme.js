@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
-var theme = require('../themelist.js')
+var theme = require('../themelist.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,11 +11,10 @@ module.exports = {
                 .setDescription('The theme to add')
                 .setRequired(true)),
     async execute(interaction) {
-        console.log("Add theme attempt");
+        console.log('Add theme attempt');
         const value = interaction.options.getString('input');
         theme.push(value);
         console.log(theme);
-        await interaction.reply('Theme added to list')
-    }
+        await interaction.reply('Theme added to list');
+    },
 };
-

@@ -7,10 +7,10 @@ module.exports = (client) => {
     client.commandHandler = async (commandFiles, path) => {
         client.commandArray = [];
         for (const file of commandFiles) {
-            const command = require(`../commands/${file}`)
-            client.commands.set(command.data.name, command)
+            const command = require(`../commands/${file}`);
+            client.commands.set(command.data.name, command);
             client.commandArray.push(command.data.toJSON());
-        }
+        };
 
     const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
 
@@ -29,4 +29,4 @@ module.exports = (client) => {
         }
     })();
 
-}}
+}};

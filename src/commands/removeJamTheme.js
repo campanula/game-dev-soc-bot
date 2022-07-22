@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
-var theme = require('../themelist.js')
+var theme = require('../themelist.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -12,17 +12,17 @@ module.exports = {
                 .setRequired(true)),
     defaultPermission: false,
     async execute(interaction) {
-        console.log("Remove theme attempt");
+        console.log('Remove theme attempt');
         const value = interaction.options.getString('input');
 
         const index = theme.indexOf(value);
         if (index > -1) { // splice array when item is found
             theme.splice(index, 1); // Splice on input, remove 1 item only
-            await interaction.reply('Theme removed from list')
+            await interaction.reply('Theme removed from list');
         } else {
-            await interaction.reply('Could not remove theme')
-        }
+            await interaction.reply('Could not remove theme');
+        };
 
         console.log(theme);
-    }
+    },
 };

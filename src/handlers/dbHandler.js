@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const fs = require('fs');
-const dbEvents = fs.readdirSync("./src/events/dbEvents").filter(file => file.endsWith(".js"));
+
+const dbEvents = fs.readdirSync('./src/events/dbEvents').filter(file => file.endsWith('.js'));
+
 module.exports = (client) => {
     client.dbHandler = async () => {
 
