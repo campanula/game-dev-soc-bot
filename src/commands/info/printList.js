@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
-let theme = require('../themelist.js');
+let theme = require('../../themelist.js');
 
 module.exports = {
     data: new SlashCommandBuilder()

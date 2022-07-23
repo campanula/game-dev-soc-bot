@@ -12,7 +12,5 @@ module.exports = {
                 type: 'WATCHING'
             }]
         });
-        const messageChannel = client.channels.cache.get(channelId);
-        //messageChannel.send(client.user.tag + ' starting...');
     }
 }

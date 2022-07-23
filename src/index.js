@@ -12,16 +12,16 @@ const client = new Client({
 
 client.commands = new Collection();
 
-const commandFiles = fs.readdirSync(__dirname+'/commands').filter(file => file.endsWith('.js'));
 const handlerFiles = fs.readdirSync(__dirname+'/handlers').filter(file => file.endsWith('.js'));
 const eventFiles = fs.readdirSync(__dirname+'/events').filter(file => file.endsWith('.js'));
+const commandFolders = fs.readdirSync('./src/commands');
 
 (async () => {
     for (file of handlerFiles){
         require(__dirname+`/handlers/${file}`)(client);
     }
         client.eventHandler(eventFiles, __dirname+'/events');
-        client.commandHandler(commandFiles, __dirname+'/commands');
+        client.commandHandler(commandFolders, __dirname+'/commands');
         client.login(process.env.TOKEN);
         client.dbHandler();
 })();
