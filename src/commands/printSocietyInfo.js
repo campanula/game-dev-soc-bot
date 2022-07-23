@@ -8,7 +8,7 @@ module.exports = {
     async execute(interaction, client) {
         console.log('Print info');
 
-        const userEmbed = new MessageEmbed()
+        const societyEmbed = new MessageEmbed()
             .setTitle('Essex Game Dev Society')
             .setDescription('All the info and links you need :)')
             .addFields(
@@ -22,6 +22,6 @@ module.exports = {
                 text: `Triggered by ${interaction.user.tag}`
                 })
 
-        await interaction.reply({ embeds: [userEmbed] });
+        await interaction.reply({ embeds: [societyEmbed] });
     }
 }
