@@ -24,6 +24,11 @@ module.exports = {
                         description: 'List of game jam-related commands',
                         value: 'jam_help',
                     },
+                    {
+                        label: 'Fun',
+                        description: 'List of fun commands',
+                        value: 'fun_help',
+                    },
                 ),
         );
 
