@@ -62,8 +62,9 @@ module.exports = {
                 if (!target){
                     let userEmbed = new MessageEmbed()
                         .setTitle('User Info')
+                        .setThumbnail("https://cdn.discordapp.com/avatars/"+interaction.user.id+"/"+interaction.user.avatar+".jpeg")
                         .addFields(
-                            {name: 'Name', value: `${interaction.user.username}`, inline: true},
+                            {name: 'Name', value: `${interaction.user.tag}`, inline: true},
                             {name: 'ID', value: `${interaction.user.id}`, inline: true}
                         )
                         .setColor('BLURPLE')
@@ -71,14 +72,15 @@ module.exports = {
                         .setFooter({
                             text: `Triggered by ${interaction.user.tag}`
                         })
-                        
+
                     await interaction.reply({ embeds: [userEmbed] });
 
                 } else {
                     let userEmbed = new MessageEmbed()
                         .setTitle('User Info')
+                        .setThumbnail("https://cdn.discordapp.com/avatars/"+target.id+"/"+target.avatar+".jpeg")
                         .addFields(
-                            {name: 'Name', value: `${target.username}`, inline: true},
+                            {name: 'Name', value: `${target.tag}`, inline: true},
                             {name: 'ID', value: `${target.id}`, inline: true}
                         )
                         .setColor('BLURPLE')
