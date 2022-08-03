@@ -8,6 +8,14 @@ module.exports = {
         let welcomeChannel = member.guild.channels.cache.get(channelId)
         welcomeChannel.send(`${member.user} has joined the server!`);
 
+        const dmWelEmbed = new MessageEmbed()
+            .setTitle(`Welcome to Essex GDS!`)
+            .setDescription("Thanks for joining the server! If you're not a society member, you can pick up a membership for free from https://www.essexstudent.com/society/gamedevsociety/")
+            .setColor('BLURPLE')
+            .setTimestamp()
+
+        member.send({ embeds: [dmWelEmbed] });
+
         const welcomeEmbed = new MessageEmbed()
             .setTitle(`Welcome, ${member.user.username}!`)
             .setDescription('Thanks for joining!')
