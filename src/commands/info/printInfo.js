@@ -63,7 +63,7 @@ module.exports = {
                 if (!target){
                     let userEmbed = new MessageEmbed()
                         .setTitle('User Info')
-                        .setThumbnail(interaction.member.user.avatarURL())
+                        .setThumbnail(interaction.member.user.avatarURL({size: 256}))
                         .addFields(
                             {name: 'Name', value: `${interaction.user.tag}`, inline: true},
                             {name: 'ID', value: `${interaction.user.id}`, inline: true},
@@ -85,7 +85,7 @@ module.exports = {
                 } else {
                     let userEmbed = new MessageEmbed()
                         .setTitle('User Info')
-                        .setThumbnail("https://cdn.discordapp.com/avatars/"+target.id+"/"+target.avatar+".jpeg") // need to figure out how to get target to work with avatarURL
+                        .setThumbnail(target.avatarURL({size: 256}))
                         .addFields(
                             {name: 'Name', value: `${target.tag}`, inline: true},
                             {name: 'Nickname', value: `${target.id.displayName ?? target.username}`, inline: true},
@@ -109,7 +109,7 @@ module.exports = {
             break;
 
             default:
-                await interaction.reply('Invalid command');
+                await interaction.reply({content: "Invalid Command", ephemeral: true});  
             break;
         }
     },
