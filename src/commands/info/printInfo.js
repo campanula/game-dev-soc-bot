@@ -28,6 +28,7 @@ module.exports = {
                 const societyEmbed = new MessageEmbed()
                     .setTitle('Essex Game Dev Society')
                     .setDescription('All the info and links you need :)')
+                    .setThumbnail('https://cdn.discordapp.com/attachments/1000126955024285736/1004446804873588867/Essex2.png')
                     .addFields(
                         {name: 'Join  the society!', value: 'Join here: https://www.essexstudent.com/society/gamedevsociety/', inline: true},
                         {name: 'Linktree', value: 'Find all our other socials: https://linktr.ee/essexGDS ', inline: true}

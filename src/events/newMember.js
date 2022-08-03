@@ -18,6 +18,7 @@ module.exports = {
 
         const welcomeEmbed = new MessageEmbed()
             .setTitle(`Welcome, ${member.user.username}!`)
+            .setThumbnail(member.user.avatarURL({size: 256}))
             .setDescription('Thanks for joining!')
             .addFields(
                 {name: 'Not a society member?', value: 'You can join for free here! \nhttps://www.essexstudent.com/society/gamedevsociety/ '},
