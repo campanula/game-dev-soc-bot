@@ -12,10 +12,12 @@ const client = new Client({
 });
 
 client.commands = new Collection();
+client.menus = new Collection();
 
 const handlerFiles = fs.readdirSync(__dirname+'/handlers').filter(file => file.endsWith('.js'));
 const eventFiles = fs.readdirSync(__dirname+'/events').filter(file => file.endsWith('.js'));
 const commandFolders = fs.readdirSync('./src/commands');
+const menuFiles = fs.readdirSync(__dirname+'/menus').filter(file => file.endsWith('.js'));
 
 (async () => {
     for (file of handlerFiles){
@@ -23,6 +25,7 @@ const commandFolders = fs.readdirSync('./src/commands');
     }
         client.eventHandler(eventFiles, __dirname+'/events');
         client.commandHandler(commandFolders, __dirname+'/commands');
+        client.menuHandler(menuFiles, __dirname+'/menus');
         client.login(process.env.TOKEN);
         client.dbHandler();
 })();
