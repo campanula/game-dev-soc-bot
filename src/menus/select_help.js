@@ -47,7 +47,8 @@ module.exports = {
                 const fun_helpEmbed = new MessageEmbed()
                     .setTitle('All Fun Commands')
                     .addFields(
-                        { name: '/avatar', value: "Get a user's avatar" }
+                        { name: '/avatar', value: "Get a user's avatar" },
+                        { name: '/congrats', value: "Congratulate a user!" }
                     )
                     .setColor('BLURPLE')
                     .setTimestamp()
