@@ -6,6 +6,6 @@ module.exports = {
         .setDescription('Replies with pong'),
     async execute(interaction) {
         console.log('Ping triggered');
-        await interaction.reply('Pong!');
+        await interaction.reply({ content: 'Pong!', ephemeral: true});
     }
 }

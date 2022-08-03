@@ -12,44 +12,89 @@ module.exports = {
         .addSubcommand(subcommand =>
             subcommand
                 .setName('bot')
-                .setDescription('Info about the bot')),
+                .setDescription('Info about the bot'))
+         .addSubcommand(subcommand =>
+            subcommand
+                .setName('user')
+                .setDescription('Info about a user')
+                .addUserOption(option => option.setName('target').setDescription('The user'))),
 
     async execute(interaction) {
         console.log('Print info');
-        if (interaction.options.getSubcommand() === 'society'){
-            const societyEmbed = new MessageEmbed()
-            .setTitle('Essex Game Dev Society')
-            .setDescription('All the info and links you need :)')
-            .addFields(
-                {name: 'Join  the society!', value: 'Join here: https://www.essexstudent.com/society/gamedevsociety/', inline: true},
-                {name: 'Linktree', value: 'Find all our other socials: https://linktr.ee/essexGDS ', inline: true}
-            )
-            .setURL('https://github.com/campanula/game-dev-soc-bot')
-            .setColor('BLURPLE')
-            .setTimestamp()
-            .setFooter({
-                text: `Triggered by ${interaction.user.tag}`
-            })
-        
-            await interaction.reply({ embeds: [societyEmbed] });
-        
-        } else if (interaction.options.getSubcommand() === 'bot'){
-            const botEmbed = new MessageEmbed()
-            .setTitle('GDS Bot')
-            .addFields(
-                {name: 'Link to repo', value: 'https://github.com/campanula/game-dev-soc-bot'},
-            )
-            .setColor('BLURPLE')
-            .setTimestamp()
-            .setFooter({
-                text: `Triggered by ${interaction.user.tag}`
-            })
 
-            await interaction.reply({ embeds: [botEmbed] });
+        switch (interaction.options.getSubcommand()){
+            case 'society':
+                const societyEmbed = new MessageEmbed()
+                    .setTitle('Essex Game Dev Society')
+                    .setDescription('All the info and links you need :)')
+                    .addFields(
+                        {name: 'Join  the society!', value: 'Join here: https://www.essexstudent.com/society/gamedevsociety/', inline: true},
+                        {name: 'Linktree', value: 'Find all our other socials: https://linktr.ee/essexGDS ', inline: true}
+                    )
+                    .setURL('https://github.com/campanula/game-dev-soc-bot')
+                    .setColor('BLURPLE')
+                    .setTimestamp()
+                    .setFooter({
+                        text: `Triggered by ${interaction.user.tag}`
+                    })
+            
+                await interaction.reply({ embeds: [societyEmbed] });
+            break;
 
-        } else {
-            await interaction.reply('Please use a sub-command');
+            case 'bot':
+                const botEmbed = new MessageEmbed()
+                    .setTitle('GDS Bot')
+                    .addFields(
+                        {name: 'Link to repo', value: 'https://github.com/campanula/game-dev-soc-bot'}
+                    )
+                    .setColor('BLURPLE')
+                    .setTimestamp()
+                    .setFooter({
+                        text: `Triggered by ${interaction.user.tag}`
+                    })
+    
+                await interaction.reply({ embeds: [botEmbed]});
+            break;
+
+            case 'user':
+                const target = interaction.options.getUser('target');
+                
+                if (!target){
+                    let userEmbed = new MessageEmbed()
+                        .setTitle('User Info')
+                        .addFields(
+                            {name: 'Name', value: `${interaction.user.username}`, inline: true},
+                            {name: 'ID', value: `${interaction.user.id}`, inline: true}
+                        )
+                        .setColor('BLURPLE')
+                        .setTimestamp()
+                        .setFooter({
+                            text: `Triggered by ${interaction.user.tag}`
+                        })
+                        
+                    await interaction.reply({ embeds: [userEmbed] });
+
+                } else {
+                    let userEmbed = new MessageEmbed()
+                        .setTitle('User Info')
+                        .addFields(
+                            {name: 'Name', value: `${target.username}`, inline: true},
+                            {name: 'ID', value: `${target.id}`, inline: true}
+                        )
+                        .setColor('BLURPLE')
+                        .setTimestamp()
+                        .setFooter({
+                            text: `Triggered by ${interaction.user.tag}`
+                        })
+
+                    await interaction.reply({ embeds: [userEmbed] });   
+                } 
+
+            break;
+
+            default:
+                await interaction.reply('Invalid command');
+            break;
         }
-
     },
 }
