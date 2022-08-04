@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
+const { MessageEmbed } = require("discord.js");
 
 let theme = require("../../themelist.js");
 
@@ -13,7 +14,19 @@ module.exports = {
 
         if (theme.length != 0) {
             console.log(theme);
-            await interaction.reply(theme.toString());
+            let themePrint = theme.join(",  ")
+
+            const print_Embed = new MessageEmbed()
+            .setTitle("Theme List")
+            .setDescription(themePrint.toString())
+            .setColor("BLURPLE")
+            .setTimestamp()
+            .setFooter({
+                text: `Triggered by ${interaction.user.tag}`
+            })
+
+            await interaction.reply({ embeds: [print_Embed] });
+
         } else {
             await interaction.reply({
                 content: "List is empty",
