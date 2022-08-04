@@ -11,7 +11,7 @@ module.exports = {
             console.log(theme);
             await interaction.reply(theme.toString());
         } else {
-            await interaction.reply('List is empty');
+            await interaction.reply({content: 'List is empty', ephemeral: true});
         }
     }
 }
