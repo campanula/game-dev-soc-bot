@@ -1,6 +1,6 @@
 module.exports = {
-    name: 'connected',
+    name: "connected",
     async execute() {
-        console.log('DB connected');
-    }
-}
+        console.log("DB connected");
+    },
+};

@@ -1,28 +1,27 @@
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed } = require("discord.js");
 
-let theme = require('../themelist.js');
+let theme = require("../themelist.js");
 
 module.exports = {
     data: {
-        name: 'refresh_choice'
+        name: "refresh_choice",
     },
-    async execute(interaction, client) {
+    async execute(interaction) {
         if (theme.length != 0) {
             const random = Math.floor(Math.random() * theme.length);
             console.log(theme[random]);
 
             const choice_Embed = new MessageEmbed()
-                .setDescription('I have chosen the theme: ' + theme[random])
-                .setColor('BLURPLE')
+                .setDescription("I have chosen the theme: " + theme[random])
+                .setColor("BLURPLE")
                 .setTimestamp()
                 .setFooter({
-                    text: `Triggered by ${interaction.user.tag}`
-                })
+                    text: `Triggered by ${interaction.user.tag}`,
+                });
 
             await interaction.reply({ embeds: [choice_Embed] });
-
         } else {
-            await interaction.reply('List is empty');
+            await interaction.reply("List is empty");
         }
-    }
-}
+    },
+};

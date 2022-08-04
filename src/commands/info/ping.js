@@ -1,11 +1,11 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('ping')
-        .setDescription('Replies with pong'),
+        .setName("ping")
+        .setDescription("Replies with pong"),
     async execute(interaction) {
-        console.log('Ping triggered');
-        await interaction.reply({ content: 'Pong!', ephemeral: true});
-    }
-}
+        console.log("Ping triggered");
+        await interaction.reply({ content: "Pong!", ephemeral: true });
+    },
+};

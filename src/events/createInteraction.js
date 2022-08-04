@@ -1,48 +1,48 @@
 module.exports = {
-    name: 'interactionCreate',
+    name: "interactionCreate",
     async execute(interaction, client) {
         console.log(`${interaction.user.tag} in #${interaction.channel.name} triggered an interaction.`);
 
-        if (interaction.isCommand()){
+        if (interaction.isCommand()) {
             const command = client.commands.get(interaction.commandName);
 
             if (!command) return;
-    
+
             try {
                 await command.execute(interaction);
             } catch (error) {
                 console.error(error);
                 await interaction.reply({
-                    content: 'There was an error executing the command',
+                    content: "There was an error executing the command",
                     ephemeral: true
                 });
             }
 
-        } else if (interaction.isSelectMenu()){
+        } else if (interaction.isSelectMenu()) {
             const menu = client.menus.get(interaction.customId);
 
             if (!menu) return;
 
             try {
                 await menu.execute(interaction, client);
-            } catch(error){
+            } catch (error) {
                 console.error(error);
                 await interaction.reply({
-                    content: 'There was an error executing the menu',
+                    content: "There was an error executing the menu",
                     ephemeral: true
                 });
             }
-        } else if (interaction.isButton()){
+        } else if (interaction.isButton()) {
             const button = client.buttons.get(interaction.customId);
 
             if (!button) return;
 
             try {
                 await button.execute(interaction, client);
-            } catch(error){
+            } catch (error) {
                 console.error(error);
                 await interaction.reply({
-                    content: 'There was an error executing the button',
+                    content: "There was an error executing the button",
                     ephemeral: true
                 });
             }
