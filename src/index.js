@@ -18,18 +18,14 @@ client.menus = new Collection();
 client.buttons = new Collection();
 
 const handlerFiles = fs.readdirSync(__dirname + "/handlers").filter((file) => file.endsWith(".js"));
-const eventFiles = fs.readdirSync(__dirname + "/events").filter((file) => file.endsWith(".js"));
-const commandFolders = fs.readdirSync("./src/commands");
-const menuFiles = fs.readdirSync(__dirname + "/menus").filter((file) => file.endsWith(".js"));
-const buttonFiles = fs.readdirSync(__dirname + "/buttons").filter((file) => file.endsWith(".js"));
 
 (async () => {
     for (file of handlerFiles) {
         require(__dirname + `/handlers/${file}`)(client);
     }
-    client.eventHandler(eventFiles, __dirname + "/events");
-    client.commandHandler(commandFolders, __dirname + "/commands");
-    client.menuHandler(menuFiles, __dirname + "/menus");
-    client.buttonHandler(buttonFiles, __dirname + "/buttons");
+    client.eventHandler();
+    client.commandHandler();
+    client.menuHandler();
+    client.buttonHandler();
     client.login(process.env.TOKEN);
 })();

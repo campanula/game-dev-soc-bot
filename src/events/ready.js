@@ -11,7 +11,7 @@ module.exports = {
         console.log(theme);
         console.log(theme.length);
 
-        console.log("Bot is running!");
+        console.log(client.user.tag + " bot is running!");
         client.user.setPresence({
             status: "online",
             activities: [

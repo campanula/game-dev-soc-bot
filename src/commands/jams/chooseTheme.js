@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageActionRow, MessageButton, MessageEmbed } = require("discord.js");
 
 let theme = require("../../themelist.js");
+const {read} = require("../../saveArray.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
