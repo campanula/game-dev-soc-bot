@@ -32,5 +32,4 @@ const buttonFiles = fs.readdirSync(__dirname + "/buttons").filter((file) => file
     client.menuHandler(menuFiles, __dirname + "/menus");
     client.buttonHandler(buttonFiles, __dirname + "/buttons");
     client.login(process.env.TOKEN);
-    client.dbHandler();
 })();
