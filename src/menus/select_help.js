@@ -12,7 +12,7 @@ module.exports = {
                     .addFields(
                         { name: "/help", value: "Get a list of all commands" },
                         { name: "/events", value: "Get info on current society events" },
-                        { name: "/ping", value: "Ping" },
+                        { name: "/ping", value: "Get info about the bot's current uptime and latency" },
                         { name: "/info", value: "Get info on either the bot, the society, or a user" }
                     )
                     .setColor("BLURPLE")
