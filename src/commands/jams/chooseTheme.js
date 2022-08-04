@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
 
 let theme = require('../../themelist.js');
 
@@ -10,9 +11,26 @@ module.exports = {
         if (theme.length != 0) {
             const random = Math.floor(Math.random() * theme.length);
             console.log(theme[random]);
-            await interaction.reply('I have chosen the theme: ' + theme[random]);
+
+            let row = new MessageActionRow()
+                .addComponents(
+                    new MessageButton()
+                        .setLabel('Refresh')
+                        .setCustomId('refresh_choice')
+                        .setStyle('PRIMARY')
+                )
+
+            const choice_Embed = new MessageEmbed()
+                .setDescription('I have chosen the theme: ' + theme[random])
+                .setColor('BLURPLE')
+                .setTimestamp()
+                .setFooter({
+                    text: `Triggered by ${interaction.user.tag}`
+                })
+
+            await interaction.reply({ embeds: [choice_Embed], components: [row] });
         } else {
-            await interaction.reply('List is empty');
+            await interaction.reply({ content: 'List is empty', ephemeral: true });
         }
 
     }
