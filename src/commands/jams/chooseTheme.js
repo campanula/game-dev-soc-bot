@@ -8,6 +8,8 @@ module.exports = {
         .setName("choosetheme")
         .setDescription("Chooses a theme from list"),
     async execute(interaction) {
+        theme = read("src/txt/themes.txt");
+
         if (theme.length != 0) {
             const random = Math.floor(Math.random() * theme.length);
             console.log(theme[random]);

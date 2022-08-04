@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js");
 
 let theme = require("../../themelist.js");
+const {write} = require("../../saveArray.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -9,6 +10,7 @@ module.exports = {
         .setDescription("Clears theme list - admin only"), //command perms currently controlled in server settings not here
     defaultPermission: false,
     async execute(interaction) {
+        theme = read("src/txt/themes.txt");
         if (theme.length === 0) {
             await interaction.reply({
                 content: "The list is already empty!",
@@ -18,6 +20,7 @@ module.exports = {
 
             console.log("Clear list attempt");
             theme.length = 0;
+            write(theme, "src/txt/themes.txt");
 
             const clear_Embed = new MessageEmbed()
                 .setDescription("List cleared\nThere are now " + theme.length + " themes in the list.")

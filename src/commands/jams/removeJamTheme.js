@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js");
 
 let theme = require("../../themelist.js");
+const {write} = require("../../saveArray.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -13,12 +14,15 @@ module.exports = {
                 .setRequired(true)),
     defaultPermission: false,
     async execute(interaction) {
+        theme = read("src/txt/themes.txt");
         console.log("Remove theme attempt");
         const value = interaction.options.getString("input");
 
         const index = theme.indexOf(value);
         if (index > -1) { // splice array when item is found
             theme.splice(index, 1); // Splice on input, remove 1 item only
+
+            write(theme, "src/txt/themes.txt");
 
             const delete_Embed = new MessageEmbed()
                 .setDescription("Theme " + value + " deleted from list\nThere are now " + theme.length + " themes in the list.")

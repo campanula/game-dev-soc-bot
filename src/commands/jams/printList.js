@@ -7,6 +7,10 @@ module.exports = {
         .setName("print")
         .setDescription("Prints jam list"),
     async execute(interaction) {
+        theme = read("src/txt/themes.txt");
+        console.log(theme);
+        console.log(theme.length);
+
         if (theme.length != 0) {
             console.log(theme);
             await interaction.reply(theme.toString());

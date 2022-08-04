@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js");
 
 let theme = require("../../themelist.js");
+const {write} = require("../../saveArray.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -14,8 +15,12 @@ module.exports = {
     async execute(interaction) {
         console.log("Add theme attempt");
         const value = interaction.options.getString("input");
+
+        theme = read("src/txt/themes.txt");
         theme.push(value);
         console.log(theme);
+
+        write(theme, "src/txt/themes.txt");
 
         const add_Embed = new MessageEmbed()
             .setDescription("Theme " + value + " added to list\nThere are now " + theme.length + " themes in the list.")
