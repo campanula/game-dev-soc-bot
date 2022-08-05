@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
-let { read, write } = require("../../saveArray.js");
-const { validUrl } = require("../../checkURL.js");
+let { read, write } = require("../../misc/saveArray.js");
+const { validUrl } = require("../../misc/checkURL.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -78,7 +78,7 @@ module.exports = {
             let allEntries = [];
             for (const [key, val] of Object.entries(dict)) { //Add dict entries to array then save to file
                 let entry = "Team " + key + "'s submission: " + val
-                allEntries.push(entry); 
+                allEntries.push(entry);
             }
 
             write(allEntries, "src/txt/submissions.txt");

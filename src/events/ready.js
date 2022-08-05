@@ -1,4 +1,4 @@
-const {read, write} = require("../saveArray.js");
+const {read, write} = require("../misc/saveArray.js");
 
 module.exports = {
     name: "ready",

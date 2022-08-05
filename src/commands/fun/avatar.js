@@ -7,7 +7,7 @@ module.exports = {
         .setDescription("Get a users avatar!")
         .addUserOption(option => option.setName("target").setDescription("The user")),
 
-    async execute(interaction, client) {
+    async execute(interaction) {
         const target = interaction.options.getUser("target");
 
         if (!target) {

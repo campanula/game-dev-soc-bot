@@ -5,7 +5,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("help")
         .setDescription("Help with commands"),
-    async execute(interaction, client) {
+    async execute(interaction) {
         console.log("help command triggered");
 
         const row = new MessageActionRow().addComponents(
