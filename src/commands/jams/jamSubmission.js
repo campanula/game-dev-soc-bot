@@ -20,9 +20,30 @@ module.exports = {
         const sub = interaction.options.getString("submission");
         const team = interaction.options.getString("team");
         console.log(validUrl(sub));
-        
+
         if (isNaN(+team) || !validUrl(sub)) { // Add validation for team numbers and submissions
-            await interaction.reply({ content: "Please enter only numbers for your team & a url starting with http or https for your submission", ephemeral: true });
+            const invalid_Embed = new MessageEmbed()
+                .setTitle("Invalid Submission")
+                .setDescription("Below are some possible reasons your submission was not accepted.")
+                .addFields(
+                    {
+                        name: "Check your team name is valid!",
+                        value: "Please enter the number for your team (e.g., 7)",
+                        inline: true,
+                    },
+                    {
+                        name: "Check your submission is valid!",
+                        value: "Your submission must be from the websites https://github.com, https://itch.io, and https://gamejolt.com\nYour submission must also be a valid url starting with http:// or https://\nAn example of a valid submission could be https://ninja-muffin24.itch.io/funkin",
+                        inline: true,
+                    })
+                .setColor("BLURPLE")
+                .setTimestamp()
+                .setFooter({
+                    text: `Triggered by ${interaction.user.tag}`
+                })
+
+            await interaction.reply({ embeds: [invalid_Embed], ephemeral: true });
+
         } else {
             let allEntries = read("src/txt/submissions.txt");
             let entry = "Team " + team + "'s submission: " + sub
