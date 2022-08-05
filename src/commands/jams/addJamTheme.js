@@ -1,7 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js");
-
-let theme = require("../../themelist.js");
 const {read, write} = require("../../saveArray.js");
 
 module.exports = {
@@ -16,7 +14,7 @@ module.exports = {
         console.log("Add theme attempt");
         const value = interaction.options.getString("input");
 
-        theme = read("src/txt/themes.txt");
+        let theme = read("src/txt/themes.txt");
         theme.push(value);
         console.log(theme);
 

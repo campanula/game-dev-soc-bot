@@ -1,7 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js");
-
-let theme = require("../../themelist.js");
 const {read, write} = require("../../saveArray.js");
 
 module.exports = {
@@ -14,7 +12,7 @@ module.exports = {
                 .setRequired(true)),
     defaultPermission: false,
     async execute(interaction) {
-        theme = read("src/txt/themes.txt");
+        let theme = read("src/txt/themes.txt");
         console.log("Remove theme attempt");
         const value = interaction.options.getString("input");
 

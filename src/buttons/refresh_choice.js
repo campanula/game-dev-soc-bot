@@ -1,14 +1,12 @@
 const { MessageEmbed } = require("discord.js");
-
-let theme = require("../themelist.js");
-const {read} = require("../saveArray.js");
+const { read } = require("../saveArray.js");
 
 module.exports = {
     data: {
         name: "refresh_choice",
     },
     async execute(interaction) {
-        theme = read("src/txt/themes.txt");
+        let theme = read("src/txt/themes.txt");
 
         if (theme.length != 0) {
             const random = Math.floor(Math.random() * theme.length);
