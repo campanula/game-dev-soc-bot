@@ -1,7 +1,8 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js");
+const { read, write } = require("../../saveArray.js");
 
-let dict = require("../../submissionDict.js");
+let {dict, allEntries} = require("../../submissionDict.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -22,6 +23,14 @@ module.exports = {
 
         dict[team] = sub; // Create key value pair for team and their submission
         console.log(dict);
+
+        allEntries = read("src/txt/submissions.txt");
+
+        for (const [key, val] of Object.entries(dict)) { //Add dict entries to array then save to file
+            let entry = "Team " + key + "'s submission: " + val
+            allEntries.push(entry); 
+        }
+        write(allEntries, "src/txt/submissions.txt");
 
         const submit_Embed = new MessageEmbed()
             .setTitle("Submission added")

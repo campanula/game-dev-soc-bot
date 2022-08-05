@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js");
 let dict = require("../../submissionDict.js");
+const { read, write } = require("../../saveArray.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -14,9 +15,12 @@ module.exports = {
         if (!isEmp) {
             console.log(dict);
 
+            submissions = read("src/txt/submissions.txt"); // Read submissions from file then print
+            let subPrint = submissions.join("\n")
+
             const submit_Embed = new MessageEmbed()
                 .setTitle("All submissions")
-                .setDescription(JSON.stringify(dict))
+                .setDescription(subPrint.toString())
                 .setColor("BLURPLE")
                 .setTimestamp()
                 .setFooter({
