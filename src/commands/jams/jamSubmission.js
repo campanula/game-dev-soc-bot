@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js");
 const { read, write } = require("../../saveArray.js");
+const { validUrl } = require("../../checkURL.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -18,21 +19,26 @@ module.exports = {
         console.log("Add sub attempt");
         const sub = interaction.options.getString("submission");
         const team = interaction.options.getString("team");
+        console.log(validUrl(sub));
+        
+        if (isNaN(+team) || !validUrl(sub)) { // Add validation for team numbers and submissions
+            await interaction.reply({ content: "Please enter only numbers for your team & a url starting with http or https for your submission", ephemeral: true });
+        } else {
+            let allEntries = read("src/txt/submissions.txt");
+            let entry = "Team " + team + "'s submission: " + sub
+            allEntries.push(entry);
+            write(allEntries, "src/txt/submissions.txt");
 
-        let allEntries = read("src/txt/submissions.txt");
-        let entry = "Team " + team + "'s submission: " + sub
-        allEntries.push(entry);
-        write(allEntries, "src/txt/submissions.txt");
+            const submit_Embed = new MessageEmbed()
+                .setTitle("Submission added")
+                .setDescription("Submission " + sub + " has been added for team " + team)
+                .setColor("BLURPLE")
+                .setTimestamp()
+                .setFooter({
+                    text: `Triggered by ${interaction.user.tag}`
+                })
 
-        const submit_Embed = new MessageEmbed()
-            .setTitle("Submission added")
-            .setDescription("Submission " + sub + " has been added for team " + team)
-            .setColor("BLURPLE")
-            .setTimestamp()
-            .setFooter({
-                text: `Triggered by ${interaction.user.tag}`
-            })
-
-        await interaction.reply({ embeds: [submit_Embed] });
+            await interaction.reply({ embeds: [submit_Embed] });
+        }
     },
 };
