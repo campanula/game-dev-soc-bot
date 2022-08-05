@@ -23,15 +23,15 @@ module.exports = {
         dict[team] = sub; // Create key value pair for team and their submission
         console.log(dict);
 
-            const submit_Embed = new MessageEmbed()
-                .setTitle("Submission added")
-                .setDescription("Submission " + sub + " has been added for team " + team)
-                .setColor("BLURPLE")
-                .setTimestamp()
-                .setFooter({
-                    text: `Triggered by ${interaction.user.tag}`
-                })
+        const submit_Embed = new MessageEmbed()
+            .setTitle("Submission added")
+            .setDescription("Submission " + sub + " has been added for team " + team)
+            .setColor("BLURPLE")
+            .setTimestamp()
+            .setFooter({
+                text: `Triggered by ${interaction.user.tag}`
+            })
 
-            await interaction.reply({ embeds: [submit_Embed] });
+        await interaction.reply({ embeds: [submit_Embed] });
     },
 };
