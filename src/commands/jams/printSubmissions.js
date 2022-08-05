@@ -1,7 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js");
-let dict = require("../../submissionDict.js");
-const { read, write } = require("../../saveArray.js");
+const { read } = require("../../saveArray.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -10,12 +9,10 @@ module.exports = {
     async execute(interaction) {
         console.log("Print sub attempt");
 
-        let isEmp = Object.keys(dict).length === 0; //Check if dictionary is empty
+        submissions = read("src/txt/submissions.txt"); // Read submissions from file then print
 
-        if (!isEmp) {
-            console.log(dict);
+        if (submissions.length != 0) {
 
-            submissions = read("src/txt/submissions.txt"); // Read submissions from file then print
             let subPrint = submissions.join("\n")
 
             const submit_Embed = new MessageEmbed()

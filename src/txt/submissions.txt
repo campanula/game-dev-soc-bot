@@ -1,1 +1,1 @@
-[]
+["Team team's submission: test","Team team2's submission: test2"]
