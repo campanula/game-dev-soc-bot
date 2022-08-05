@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed } = require("discord.js");
-const { read, write } = require("../../saveArray.js");
+const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
+let { read, write } = require("../../saveArray.js");
 const { validUrl } = require("../../checkURL.js");
 
 module.exports = {
@@ -20,6 +20,7 @@ module.exports = {
         const sub = interaction.options.getString("submission");
         const team = interaction.options.getString("team");
         console.log(validUrl(sub));
+        let dict = read("src/txt/submissionsDict.txt");
 
         if (isNaN(+team) || !validUrl(sub)) { // Add validation for team numbers and submissions
             const invalid_Embed = new MessageEmbed()
@@ -44,10 +45,42 @@ module.exports = {
 
             await interaction.reply({ embeds: [invalid_Embed], ephemeral: true });
 
+        } else if (team in dict) {
+            write(team, "src/txt/saveTeam.txt");
+
+            let row = new MessageActionRow()
+                .addComponents(
+                    new MessageButton()
+                        .setLabel("Delete")
+                        .setCustomId("overwrite_submissions")
+                        .setStyle("PRIMARY")
+                )
+
+            const overwrite_Embed = new MessageEmbed()
+                .setTitle("Team already exists in database")
+                .setDescription("Team " + team + ", would you like to delete your previous submission?")
+                .setColor("BLURPLE")
+                .setTimestamp()
+                .setFooter({
+                    text: `Triggered by ${interaction.user.tag}`
+                })
+
+            await interaction.reply({ embeds: [overwrite_Embed], components: [row], ephemeral: true });
+
         } else {
-            let allEntries = read("src/txt/submissions.txt");
-            let entry = "Team " + team + "'s submission: " + sub
-            allEntries.push(entry);
+
+            // Store values in dictionary for validation
+            dict[team] = sub.toString(); // Create key value pair for team and their submission
+            console.log(dict);
+            write(dict, "src/txt/submissionsDict.txt");
+
+            // Store values in array for printing
+            let allEntries = [];
+            for (const [key, val] of Object.entries(dict)) { //Add dict entries to array then save to file
+                let entry = "Team " + key + "'s submission: " + val
+                allEntries.push(entry); 
+            }
+
             write(allEntries, "src/txt/submissions.txt");
 
             const submit_Embed = new MessageEmbed()

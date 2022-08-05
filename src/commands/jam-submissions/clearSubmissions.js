@@ -9,6 +9,7 @@ module.exports = {
     defaultPermission: false,
     async execute(interaction) {
         submissions = read("src/txt/submissions.txt");
+
         if (submissions.length === 0) {
             await interaction.reply({
                 content: "The list is already empty!",
@@ -18,6 +19,8 @@ module.exports = {
 
             console.log("Clear sublist attempt");
             submissions.length = 0;
+            let dict = {}
+            write(dict, "src/txt/submissionsDict.txt");
             write(submissions, "src/txt/submissions.txt");
 
             const clear_Embed = new MessageEmbed()

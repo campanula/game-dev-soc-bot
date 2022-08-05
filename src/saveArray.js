@@ -1,13 +1,17 @@
 const fs = require("fs");
 
 read = (path) => {
-    const fileContent = fs.readFileSync(path);
-    const array = JSON.parse(fileContent);
-    return array;
+    try { // Stopping possible crashing in the case a file is emptied during runtime
+        const fileContent = fs.readFileSync(path);
+        const array = JSON.parse(fileContent);
+        return array;
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 write = (array, path) => {
     fs.writeFileSync(path, JSON.stringify(array));
 }
 
-module.exports = {read, write} 
+module.exports = { read, write } 
