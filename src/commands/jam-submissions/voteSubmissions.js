@@ -58,17 +58,22 @@ module.exports = {
 
             const collector = message.createReactionCollector({ filter, time: 15000, max: 2, maxEmojis: 10, maxUsers: 10 });
 
+            let votingDict = {};
             collector.on('collect', (reaction, user) => {
                 console.log(`Collected ${reaction.emoji.name} from ${user.tag}`);
 
-                if (chosenEmojis.includes(reaction.emoji.name)) {
+                    chosenEmojis.forEach(element => { // Find the element in chosenEmojis
+                        if (element == reaction.emoji.name){ //If the emoji matches the emojis added by the bot
+                            votingDict[element] = (votingDict[element] || 0) + 1; // if it exists in the dict already add 1 - if not, add it 
+                        }
+                    });
                     message.reply('Reaction detected');
 
-                }
             });
 
             collector.on('end', collected => {
                 console.log(`Collected ${collected.size} items`);
+                console.log(votingDict);
             });
 
         } else {
