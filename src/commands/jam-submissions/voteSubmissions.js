@@ -38,7 +38,7 @@ module.exports = {
                     text: `Triggered by ${interaction.user.tag}`
                 })
 
-            const message = await interaction.reply({ embeds: [submit_Embed], fetchReply: true });
+            const message = await interaction.reply({ content: "This vote will last for 15min\nPlease wait 5 seconds before voting to ensure your vote is counted", embeds: [submit_Embed], fetchReply: true });
 
             try {
                 for (const [key, val] of Object.entries(emojiDict)) {
@@ -56,24 +56,51 @@ module.exports = {
                 return chosenEmojis.includes(reaction.emoji.name) && user.id === interaction.user.id;
             };
 
-            const collector = message.createReactionCollector({ filter, time: 15000, max: 2, maxEmojis: 10, maxUsers: 10 });
+            const collector = message.createReactionCollector({ filter, time: 900000 });
 
             let votingDict = {};
             collector.on('collect', (reaction, user) => {
                 console.log(`Collected ${reaction.emoji.name} from ${user.tag}`);
 
-                    chosenEmojis.forEach(element => { // Find the element in chosenEmojis
-                        if (element == reaction.emoji.name){ //If the emoji matches the emojis added by the bot
-                            votingDict[element] = (votingDict[element] || 0) + 1; // if it exists in the dict already add 1 - if not, add it 
-                        }
-                    });
-                    message.reply('Reaction detected');
+                chosenEmojis.forEach(element => { // Find the element in chosenEmojis
+                    if (element == reaction.emoji.name) { //If the emoji matches the emojis added by the bot
+                        votingDict[element] = (votingDict[element] || 0) + 1; // if it exists in the dict already add 1 - if not, add it 
+                    }
+                });
 
             });
 
+
             collector.on('end', collected => {
+                message.reply("Voting concluded")
                 console.log(`Collected ${collected.size} items`);
                 console.log(votingDict);
+
+                resultsArray = [];
+                resultsDict = {};
+
+                for (const [key, val] of Object.entries(emojiDict)) { // ewww ugly
+                    for (const [key2, val2] of Object.entries(votingDict)) { // it works though? /shrug
+                        if (val == key2) { // If the emojis match, add to results array
+                            resultsArray.push("Team " + key + " results: " + val2);
+                            resultsDict[key] = val2;
+                        }
+                    }
+                }
+
+                console.log(resultsDict);
+                const result = Object.entries(resultsDict).reduce((a, b) => a[1] > b[1] ? a : b)[0] // Get highest value from votes
+                console.log(result); //Print team with highest value
+
+                let resultsPrint = resultsArray.join("\n") + "\nThe winner is team " + result
+
+                const results_Embed = new MessageEmbed()
+                    .setTitle("Results")
+                    .setDescription(resultsPrint)
+                    .setColor("BLURPLE")
+                    .setTimestamp()
+
+                message.reply({ embeds: [results_Embed], });
             });
 
         } else {
