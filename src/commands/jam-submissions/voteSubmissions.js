@@ -11,6 +11,7 @@ module.exports = {
 
         let submissions = read("src/txt/submissions.txt");
         let dict = read("src/txt/submissionsDict.txt");
+        let currentJam = read("src/txt/currentJam.txt");
         let emojiDict = {};
 
         if (submissions.length != 0) {
@@ -88,11 +89,29 @@ module.exports = {
                     }
                 }
 
-                console.log(resultsDict);
-                const result = Object.entries(resultsDict).reduce((a, b) => a[1] > b[1] ? a : b)[0] // Get highest value from votes
-                console.log(result); //Print team with highest value
+                function maxValues(o, n) { // Get all max values from dictionary
+                    // Get object values and sort descending
+                    const values = Object.values(o).sort((a, b) => b - a);
 
-                let resultsPrint = resultsArray.join("\n") + "\nThe winner is team " + result
+                    // Check if more values exist than number required
+                    if (values.length <= n) return o;
+
+                    // Find nth maximum value
+                    const maxN = values[n - 1];
+
+                    // Filter object to return only key/value pairs where value >= maxN
+                    return Object.entries(o)
+                        .reduce((o, [k, v]) => v >= maxN ? { ...o, [k]: v } : o, {});
+                }
+
+                let arr = [];
+                for (const [key, val] of Object.entries(maxValues((resultsDict), 3))) {
+                    arr.push(key);
+                }
+
+                let winner = arr.join(" and ");
+                write(winner, "src/txt/saveVote.txt");
+                let resultsPrint = resultsArray.join("\n") + "\nThe winner is team " + winner;
 
                 const results_Embed = new MessageEmbed()
                     .setTitle("Results")
@@ -100,7 +119,15 @@ module.exports = {
                     .setColor("BLURPLE")
                     .setTimestamp()
 
-                message.reply({ embeds: [results_Embed], });
+                message.reply({ embeds: [results_Embed] });
+
+                const winner_Embed = new MessageEmbed()
+                    .setTitle("✨ Game Jam Winner - " + currentJam + " ✨")
+                    .setDescription("The winner of this game jam is team 🎈 " + winner + "!! 🎈\nCongrats on your win!")
+                    .setColor("BLURPLE")
+                    .setTimestamp()
+
+                message.reply({ embeds: [winner_Embed] })
             });
 
         } else {
