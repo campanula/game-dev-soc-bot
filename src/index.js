@@ -5,12 +5,7 @@ const { Collection, Intents, Client } = require("discord.js");
 
 // Create a new client instance
 const client = new Client({
-    intents: [
-        Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MESSAGES,
-        Intents.FLAGS.GUILD_MEMBERS,
-        Intents.FLAGS.GUILD_PRESENCES,
-    ],
+    intents: 131071
 });
 
 client.commands = new Collection();
@@ -25,7 +20,7 @@ const handlerFiles = fs.readdirSync(__dirname + "/handlers").filter((file) => fi
     }
     client.eventHandler();
     client.commandHandler();
-    client.menuHandler();
+    client.menuHandler(); 
     client.buttonHandler();
     client.login(process.env.TOKEN);
 })();
