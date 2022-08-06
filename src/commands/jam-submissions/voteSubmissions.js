@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed, MessageActivityType } = require("discord.js");
 const { read } = require("../../misc/saveArray.js");
 const { getMaxVotes, toArray } =  require("../../misc/voteFuncs.js");
+const { resultsFunc, winnerFunc } =  require("../../misc/storedEmbed.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -12,13 +13,14 @@ module.exports = {
 
         let submissions = read("src/txt/submissions.txt");
         let dict = read("src/txt/submissionsDict.txt");
-        let currentJam = read("src/txt/currentJam.txt");
         let emojiDict = {};
 
         if (submissions.length != 0) {
 
             let emojis = ["✌", "😂", "😝", "😁", "😱", "👉", "🙌", "🍻", "🔥", "🌈", "☀", "🎈", "🌹", "💄", "🎀", "⚽", "🎾", "🏁", "😡", "👿", "🐻", "🐶", "🐬", "🐟", "🍀", "👀", "🚗", "🍎", "💝", "💙", "👌", "❤", "😍", "😉", "😓", "😳", "💪", "💩", "🍸", "🔑", "💖", "🌟", "🎉", "🌺", "🎶", "👠", "🏈", "⚾", "🏆", "👽", "💀", "🐵", "🐮", "🐩", "🐎", "💣", "👃", "👂", "🍓", "💘", "💜", "👊", "💋", "😘", "😜", "😵", "🙏", "👋", "🚽", "💃", "💎", "🚀", "🌙", "🎁", "⛄", "🌊", "⛵", "🏀", "🎱", "💰", "👶", "👸", "🐰", "🐷", "🐍", "🐫", "🔫", "👄", "🚲", "🍉", "💛", "💚"];
-            let emojiEntries, chosenEmojis = []; // to get arrays of the emojis picked for filter & for users
+            let emojiEntries = [];
+            let chosenEmojis = []; // to get arrays of the emojis picked for filter & for users
+            let resultsArray = [];
 
 
             for (const [key, val] of Object.entries(dict)) { // For each entry in dict
@@ -58,7 +60,7 @@ module.exports = {
                 return chosenEmojis.includes(reaction.emoji.name) && user.id === interaction.user.id;
             };
 
-            const collector = message.createReactionCollector({ filter, time: 100000 });
+            const collector = message.createReactionCollector({ filter, time: 15000 });
 
             let votingDict = {};
             collector.on('collect', (reaction, user) => {
@@ -92,23 +94,11 @@ module.exports = {
 
                 let arr = toArray(getMaxVotes((resultsDict), 1));
                 let winner = arr.join(" and ");
-                write(winner, "src/txt/saveVote.txt");
-                let resultsPrint = resultsArray.join("\n") + "\nThe winner is team " + winner;
+                write(winner, "src/txt/saveWinningTeam.txt");
 
-                const results_Embed = new MessageEmbed()
-                    .setTitle("Results")
-                    .setDescription(resultsPrint)
-                    .setColor("BLURPLE")
-                    .setTimestamp()
-
+                let results_Embed = resultsFunc(resultsArray);
+                let winner_Embed = winnerFunc(winner);
                 message.reply({ embeds: [results_Embed] });
-
-                const winner_Embed = new MessageEmbed()
-                    .setTitle("✨ Game Jam Winner - " + currentJam + " ✨")
-                    .setDescription("The winner of this game jam is team 🎈 " + winner + "!! 🎈\nCongrats on your win!")
-                    .setColor("BLURPLE")
-                    .setTimestamp()
-
                 message.reply({ embeds: [winner_Embed] })
             });
 
