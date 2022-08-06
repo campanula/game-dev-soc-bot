@@ -31,11 +31,21 @@ module.exports = {
                 const jam_helpEmbed = new MessageEmbed()
                     .setTitle("All Jam Commands")
                     .addFields(
+                        { name: "Themes", value: "-----" },
                         { name: "/addtheme", value: "Add a jam theme to the list" },
                         { name: "/choosetheme", value: "Choose a jam theme from the list" },
                         { name: "/clearlist", value: "Clear the list (admin only)" },
                         { name: "/print", value: "Print the jam list" },
-                        { name: "/removetheme", value: "Remove a jam theme from the list (admin only)" }
+                        { name: "/removetheme", value: "Remove a jam theme from the list (admin only)" },
+                        { name: "\u200b", value: "\u200b" },
+                        { name: "Submissions", value: "-----" },
+                        { name: "/submit-entry", value: "Submit your game jam entry to the list. \nPlease make sure your entry is in https:// format and from the sites github.com, itch.io, or gamejolt.com" },
+                        { name: "/submissions", value: "Prints a list of all the current submissions" },
+                        { name: "/remove-submission", value: "Removes a submission from the list (admin only)" },
+                        { name: "/clear-submissions", value: "Clears a submission from the list (admin only)" },
+                        { name: "/vote", value: "Starts voting for all current submissions (admin only)" },
+                        { name: "/winner", value: "Prints the winner of the last game jam vote (admin only)" },
+
                     )
                     .setColor("BLURPLE")
                     .setTimestamp()
@@ -54,7 +64,8 @@ module.exports = {
                     .setTitle("All Fun Commands")
                     .addFields(
                         { name: "/avatar", value: "Get a user's avatar" },
-                        { name: "/congrats", value: "Congratulate a user!" }
+                        { name: "/congrats", value: "Congratulate a user!" },
+                        { name: "/translate", value: "Translate a piece of text. \nTo use, use the command with the text, the lang to be translated from, and the lang to be translated to. \ne.g., /translate text: Game origin: English target: Polish" },
                     )
                     .setColor("BLURPLE")
                     .setTimestamp()
