@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 
-let results_Embed, winner_Embed;
+let results_Embed, winner_Embed, submit_Embed;
 const currentJam = read("src/txt/currentJam.txt");
 
 resultsFunc = (resultsArray) => {
@@ -21,6 +21,17 @@ winnerFunc = (winner) => {
         .setTimestamp()
 }
 
+voteEmbedFunc = (inter, emojiEntries) => {
+    return submit_Embed = new MessageEmbed()
+        .setTitle("All submissions")
+        .setDescription(emojiEntries.join("\n"))
+        .setColor("BLURPLE")
+        .setTimestamp()
+        .setFooter({
+            text: 'Triggered by' + inter
+        })
+
+}
 
 
-module.exports = { resultsFunc, winnerFunc }
+module.exports = { voteEmbedFunc, resultsFunc, winnerFunc }

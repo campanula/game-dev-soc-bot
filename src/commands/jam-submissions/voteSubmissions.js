@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed, MessageActivityType } = require("discord.js");
 const { read } = require("../../misc/saveArray.js");
 const { getMaxVotes, toArray } =  require("../../misc/voteFuncs.js");
-const { resultsFunc, winnerFunc } =  require("../../misc/storedEmbed.js");
+const { voteEmbedFunc, resultsFunc, winnerFunc } =  require("../../misc/storedEmbed.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -31,16 +31,7 @@ module.exports = {
                 emojis.splice(randEmoji, 1); // Remove chosen emoji from emoji array
             }
 
-            let subPrint = emojiEntries.join("\n")
-
-            const submit_Embed = new MessageEmbed()
-                .setTitle("All submissions")
-                .setDescription(subPrint)
-                .setColor("BLURPLE")
-                .setTimestamp()
-                .setFooter({
-                    text: `Triggered by ${interaction.user.tag}`
-                })
+            const submit_Embed = voteEmbedFunc(`${interaction.user.tag}`, emojiEntries)
 
             const message = await interaction.reply({ content: "This vote will last for 15min\nPlease wait 5 seconds before voting to ensure your vote is counted", embeds: [submit_Embed], fetchReply: true });
 
@@ -60,7 +51,7 @@ module.exports = {
                 return chosenEmojis.includes(reaction.emoji.name) && user.id === interaction.user.id;
             };
 
-            const collector = message.createReactionCollector({ filter, time: 15000 });
+            const collector = message.createReactionCollector({ filter, time: 900000 });
 
             let votingDict = {};
             collector.on('collect', (reaction, user) => {
