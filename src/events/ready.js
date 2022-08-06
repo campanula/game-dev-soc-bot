@@ -1,5 +1,3 @@
-const {read, write} = require("../misc/saveArray.js");
-
 module.exports = {
     name: "ready",
     once: true,

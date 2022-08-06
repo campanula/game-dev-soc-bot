@@ -14,4 +14,14 @@ write = (array, path) => {
     fs.writeFileSync(path, JSON.stringify(array));
 }
 
-module.exports = { read, write } 
+readTxt = (path) => {
+    try { // Stopping possible crashing in the case a file is emptied during runtime
+      const fileContent = fs.readFileSync(path);
+      return fileContent;
+    } catch (error) {
+      console.error(error);
+    }
+  
+  }
+
+module.exports = { read, write, readTxt } 

@@ -1,7 +1,8 @@
 const { MessageEmbed } = require("discord.js");
+const { readTxt } = require("./saveArray.js");
 
 let results_Embed, winner_Embed, submit_Embed;
-const currentJam = read("src/txt/currentJam.txt");
+const currentJam = readTxt("src/txt/currentJam.txt");
 
 resultsFunc = (resultsArray) => {
 

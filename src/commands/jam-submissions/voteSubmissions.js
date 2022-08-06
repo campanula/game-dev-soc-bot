@@ -1,5 +1,4 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed, MessageActivityType } = require("discord.js");
 const { read } = require("../../misc/saveArray.js");
 const { getMaxVotes, toArray } =  require("../../misc/voteFuncs.js");
 const { voteEmbedFunc, resultsFunc, winnerFunc } =  require("../../misc/storedEmbed.js");
