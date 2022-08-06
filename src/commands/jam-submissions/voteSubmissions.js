@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed, MessageActivityType } = require("discord.js");
 const { read } = require("../../misc/saveArray.js");
+const { getMaxVotes, toArray } =  require("../../misc/voteFuncs.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -17,8 +18,8 @@ module.exports = {
         if (submissions.length != 0) {
 
             let emojis = ["✌", "😂", "😝", "😁", "😱", "👉", "🙌", "🍻", "🔥", "🌈", "☀", "🎈", "🌹", "💄", "🎀", "⚽", "🎾", "🏁", "😡", "👿", "🐻", "🐶", "🐬", "🐟", "🍀", "👀", "🚗", "🍎", "💝", "💙", "👌", "❤", "😍", "😉", "😓", "😳", "💪", "💩", "🍸", "🔑", "💖", "🌟", "🎉", "🌺", "🎶", "👠", "🏈", "⚾", "🏆", "👽", "💀", "🐵", "🐮", "🐩", "🐎", "💣", "👃", "👂", "🍓", "💘", "💜", "👊", "💋", "😘", "😜", "😵", "🙏", "👋", "🚽", "💃", "💎", "🚀", "🌙", "🎁", "⛄", "🌊", "⛵", "🏀", "🎱", "💰", "👶", "👸", "🐰", "🐷", "🐍", "🐫", "🔫", "👄", "🚲", "🍉", "💛", "💚"];
-            let emojiEntries = [];
-            let chosenEmojis = []; // to get a list of the emojis picked
+            let emojiEntries, chosenEmojis = []; // to get arrays of the emojis picked for filter & for users
+
 
             for (const [key, val] of Object.entries(dict)) { // For each entry in dict
                 const randEmoji = emojis[Math.floor(Math.random() * emojis.length)]; // Get a random emoji
@@ -57,7 +58,7 @@ module.exports = {
                 return chosenEmojis.includes(reaction.emoji.name) && user.id === interaction.user.id;
             };
 
-            const collector = message.createReactionCollector({ filter, time: 900000 });
+            const collector = message.createReactionCollector({ filter, time: 100000 });
 
             let votingDict = {};
             collector.on('collect', (reaction, user) => {
@@ -89,26 +90,7 @@ module.exports = {
                     }
                 }
 
-                function maxValues(o, n) { // Get all max values from dictionary
-                    // Get object values and sort descending
-                    const values = Object.values(o).sort((a, b) => b - a);
-
-                    // Check if more values exist than number required
-                    if (values.length <= n) return o;
-
-                    // Find nth maximum value
-                    const maxN = values[n - 1];
-
-                    // Filter object to return only key/value pairs where value >= maxN
-                    return Object.entries(o)
-                        .reduce((o, [k, v]) => v >= maxN ? { ...o, [k]: v } : o, {});
-                }
-
-                let arr = [];
-                for (const [key, val] of Object.entries(maxValues((resultsDict), 3))) {
-                    arr.push(key);
-                }
-
+                let arr = toArray(getMaxVotes((resultsDict), 1));
                 let winner = arr.join(" and ");
                 write(winner, "src/txt/saveVote.txt");
                 let resultsPrint = resultsArray.join("\n") + "\nThe winner is team " + winner;
