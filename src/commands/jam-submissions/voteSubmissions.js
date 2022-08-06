@@ -22,7 +22,7 @@ module.exports = {
             let chosenEmojis = []; // to get arrays of the emojis picked for filter & for users
             let resultsArray = [];
 
-
+            // Get emojis
             for (const [key, val] of Object.entries(dict)) { // For each entry in dict
                 const randEmoji = emojis[Math.floor(Math.random() * emojis.length)]; // Get a random emoji
                 emojiDict[key] = randEmoji; // Create a new emojiDict to store its team with its voting emoji
@@ -31,7 +31,7 @@ module.exports = {
                 emojis.splice(randEmoji, 1); // Remove chosen emoji from emoji array
             }
 
-            const submit_Embed = voteEmbedFunc(`${interaction.user.tag}`, emojiEntries)
+            const submit_Embed = voteEmbedFunc(`${interaction.user.tag}`, emojiEntries); //Get embed to print
 
             const message = await interaction.reply({ content: "This vote will last for 15min\nPlease wait 5 seconds before voting to ensure your vote is counted", embeds: [submit_Embed], fetchReply: true });
 
@@ -48,7 +48,7 @@ module.exports = {
 
 
             const filter = (reaction, user) => {
-                return chosenEmojis.includes(reaction.emoji.name) && user.id === interaction.user.id;
+                return chosenEmojis.includes(reaction.emoji.name);
             };
 
             const collector = message.createReactionCollector({ filter, time: 900000 });
