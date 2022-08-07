@@ -7,17 +7,16 @@ module.exports = {
         .setName("submissions")
         .setDescription("Prints all jam submissions"),
     async execute(interaction) {
-        console.log("Print sub attempt");
 
-        submissions = read("src/txt/submissions.txt"); // Read submissions from file then print
+        const submissions = read("src/txt/submissions.txt"); // Read submissions from file then print
 
-        if (submissions.length != 0) {
+        if (submissions.length !== 0) {
 
-            let subPrint = submissions.join("\n")
+            const subPrint = submissions.join("\n")
 
             const submit_Embed = new MessageEmbed()
                 .setTitle("All submissions")
-                .setDescription(subPrint.toString())
+                .setDescription(subPrint)
                 .setColor("BLURPLE")
                 .setTimestamp()
                 .setFooter({

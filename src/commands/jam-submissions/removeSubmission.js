@@ -13,10 +13,9 @@ module.exports = {
     defaultPermission: false,
     async execute(interaction) {
 
-        let dict = read("src/txt/submissionsDict.txt");
-        let submissions = read("src/txt/submissions.txt");
+        const dict = read("src/txt/submissionsDict.txt");
+        const submissions = read("src/txt/submissions.txt");
 
-        console.log("Remove submission attempt");
         const value = interaction.options.getString("team");
 
         if (value in dict) {
@@ -26,14 +25,14 @@ module.exports = {
             submissions.length = 0;
 
             for (const [key, val] of Object.entries(dict)) { //Add dict entries to array then save to file
-                let entry = "Team " + key + "'s submission: " + val
+                const entry = `Team ${key}'s submission: ${val}`
                 submissions.push(entry);
             }
 
             write(submissions, "src/txt/submissions.txt");
 
             const delete_Embed = new MessageEmbed()
-                .setDescription("Team " + value + " deleted from list\nThere are now " + submissions.length + " teams in the list.")
+                .setDescription(`Team ${value} deleted from list\nThere are now ${submissions.length} teams in the list.`)
                 .setColor("BLURPLE")
                 .setTimestamp()
                 .setFooter({

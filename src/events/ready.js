@@ -1,8 +1,8 @@
 module.exports = {
     name: "ready",
     once: true,
-    async execute(client) {
-        console.log(client.user.tag + " bot is running!");
+    execute(client) {
+        console.log(`${client.user.tag} is running!`);
         client.user.setPresence({
             status: "online",
             activities: [

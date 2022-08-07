@@ -1,36 +1,35 @@
 const { MessageEmbed } = require("discord.js");
 const { readTxt } = require("./saveArray.js");
 
-let results_Embed, winner_Embed, submit_Embed;
 const currentJam = readTxt("src/txt/currentJam.txt");
 
-resultsFunc = (resultsArray) => {
+const resultsFunc = (resultsArray) => {
 
-    return results_Embed = new MessageEmbed()
+    return new MessageEmbed()
         .setTitle("Results")
         .setDescription(resultsArray.join("\n"))
         .setColor("BLURPLE")
-        .setTimestamp()
+        .setTimestamp();
 }
 
-winnerFunc = (winner) => {
+const winnerFunc = (winner) => {
 
-    return winner_Embed = new MessageEmbed()
-        .setTitle("✨ Game Jam Winner - " + currentJam + " ✨")
-        .setDescription("The winner of this game jam is 🎈 team " + winner + "!! 🎈\nCongrats on your win!")
+    return new MessageEmbed()
+        .setTitle(`✨ Game Jam Winner - ${currentJam} ✨`)
+        .setDescription(`The winner of this game jam is 🎈 team ${winner}!! 🎈\nCongrats on your win!`)
         .setColor("BLURPLE")
-        .setTimestamp()
+        .setTimestamp();
 }
 
-voteEmbedFunc = (inter, emojiEntries) => {
-    return submit_Embed = new MessageEmbed()
+const voteEmbedFunc = (inter, emojiEntries) => {
+    return new MessageEmbed()
         .setTitle("All submissions")
         .setDescription(emojiEntries.join("\n"))
         .setColor("BLURPLE")
         .setTimestamp()
         .setFooter({
-            text: 'Triggered by' + inter
-        })
+            text: `Triggered by ${inter}`
+        });
 
 }
 

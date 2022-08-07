@@ -11,17 +11,15 @@ module.exports = {
                 .setDescription("The theme to add")
                 .setRequired(true)),
     async execute(interaction) {
-        console.log("Add theme attempt");
         const value = interaction.options.getString("input");
 
-        let theme = read("src/txt/themes.txt");
+        const theme = read("src/txt/themes.txt");
         theme.push(value);
-        console.log(theme);
 
         write(theme, "src/txt/themes.txt");
 
         const add_Embed = new MessageEmbed()
-            .setDescription("Theme " + value + " added to list\nThere are now " + theme.length + " themes in the list.")
+            .setDescription(`Theme ${value} added to list\nThere are now ${theme.length} themes in the list.`)
             .setColor("BLURPLE")
             .setTimestamp()
             .setFooter({

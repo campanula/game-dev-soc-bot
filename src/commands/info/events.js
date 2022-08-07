@@ -6,7 +6,6 @@ module.exports = {
         .setName("events")
         .setDescription("Info about current society events"),
     async execute(interaction) {
-        console.log("events command triggered");
 
         const eventEmbed = new MessageEmbed()
             .setTitle("Current Events")

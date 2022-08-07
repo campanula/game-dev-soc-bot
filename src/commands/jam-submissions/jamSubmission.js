@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
-let { read, write } = require("../../misc/saveArray.js");
+const { read, write } = require("../../misc/saveArray.js");
 const { validUrl } = require("../../misc/checkURL.js");
 
 module.exports = {
@@ -16,13 +16,11 @@ module.exports = {
                 .setDescription("Enter your team number")
                 .setRequired(true)),
     async execute(interaction) {
-        console.log("Add sub attempt");
         const sub = interaction.options.getString("submission");
         const team = interaction.options.getString("team");
-        console.log(validUrl(sub));
-        let dict = read("src/txt/submissionsDict.txt");
+        const dict = read("src/txt/submissionsDict.txt");
 
-        if (isNaN(+team) || !validUrl(sub)) { // Add validation for team numbers and submissions
+        if (isNaN(Number(team)) || !validUrl(sub)) { // Add validation for team numbers and submissions
             const invalid_Embed = new MessageEmbed()
                 .setTitle("Invalid Submission")
                 .setDescription("Below are some possible reasons your submission was not accepted.")
@@ -48,7 +46,7 @@ module.exports = {
         } else if (team in dict) {
             write(team, "src/txt/saveTeam.txt");
 
-            let row = new MessageActionRow()
+            const row = new MessageActionRow()
                 .addComponents(
                     new MessageButton()
                         .setLabel("Delete")
@@ -58,7 +56,7 @@ module.exports = {
 
             const overwrite_Embed = new MessageEmbed()
                 .setTitle("Team already exists in database")
-                .setDescription("Team " + team + ", would you like to delete your previous submission?")
+                .setDescription(`Team ${team}, would you like to delete your previous submission?`)
                 .setColor("BLURPLE")
                 .setTimestamp()
                 .setFooter({
@@ -71,13 +69,12 @@ module.exports = {
 
             // Store values in dictionary for validation
             dict[team] = sub.toString(); // Create key value pair for team and their submission
-            console.log(dict);
             write(dict, "src/txt/submissionsDict.txt");
 
             // Store values in array for printing
-            let allEntries = [];
+            const allEntries = [];
             for (const [key, val] of Object.entries(dict)) { //Add dict entries to array then save to file
-                let entry = "Team " + key + "'s submission: " + val
+                const entry = `Team ${key}'s submission: ${val}`
                 allEntries.push(entry);
             }
 
@@ -85,7 +82,7 @@ module.exports = {
 
             const submit_Embed = new MessageEmbed()
                 .setTitle("Submission added")
-                .setDescription("Submission " + sub + " has been added for team " + team)
+                .setDescription(`Submission ${sub} has been added for team ${team}`)
                 .setColor("BLURPLE")
                 .setTimestamp()
                 .setFooter({

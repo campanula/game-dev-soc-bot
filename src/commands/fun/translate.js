@@ -22,22 +22,22 @@ module.exports = {
     async execute(interaction) {
 
 
-        let input;
         const text = interaction.options.getString("text");
         const origin = getCode(interaction.options.getString("origin"));
         const target = getCode(interaction.options.getString("target"));
 
-        if (origin == false || target == false) {
+        if (origin === false || target === false) {
             await interaction.reply({ content: "One or both of the languages you entered are not supported.\n Please see https://github.com/campanula/game-dev-soc-bot/blob/main/src/misc/languages.js for supported languages.", ephemeral: true });
         } else {
             try { // to avoid crashing if the req doesn't return anything
                 const res = await translate(text, { from: origin, to: target, autoCorrect: true });
 
+                let input = null;
                 res.from.text.value.length === 0 ? input = text : input = res.from.text.value; // If autocorrected text exists return it, else return normal text
 
                 const translation_Embed = new MessageEmbed()
                     .setTitle("Translation")
-                    .setDescription("Translating " + input + " from " + res.from.language.iso + "...\n\nResult: " + res.text)
+                    .setDescription(`Translating ${input} from ${res.from.language.iso}...\n\nResult: ${res.text}`)
                     .setColor("BLURPLE")
                     .setTimestamp()
                     .setFooter({

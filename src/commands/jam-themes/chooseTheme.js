@@ -7,13 +7,12 @@ module.exports = {
         .setName("choosetheme")
         .setDescription("Chooses a theme from list"),
     async execute(interaction) {
-        let theme = read("src/txt/themes.txt");
+        const theme = read("src/txt/themes.txt");
 
-        if (theme.length != 0) {
+        if (theme.length !== 0) {
             const random = Math.floor(Math.random() * theme.length);
-            console.log(theme[random]);
 
-            let row = new MessageActionRow()
+            const row = new MessageActionRow()
                 .addComponents(
                     new MessageButton()
                         .setLabel("Refresh")
@@ -22,7 +21,7 @@ module.exports = {
                 )
 
             const choice_Embed = new MessageEmbed()
-                .setDescription("I have chosen the theme: " + theme[random])
+                .setDescription(`I have chosen the theme: ${theme[random]}`)
                 .setColor("BLURPLE")
                 .setTimestamp()
                 .setFooter({

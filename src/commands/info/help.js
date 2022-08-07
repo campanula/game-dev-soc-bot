@@ -6,7 +6,6 @@ module.exports = {
         .setName("help")
         .setDescription("Help with commands"),
     async execute(interaction) {
-        console.log("help command triggered");
 
         const row = new MessageActionRow().addComponents(
             new MessageSelectMenu()

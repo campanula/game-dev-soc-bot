@@ -7,13 +7,10 @@ module.exports = {
         .setName("print")
         .setDescription("Prints jam list"),
     async execute(interaction) {
-        let theme = read("src/txt/themes.txt");
-        console.log(theme);
-        console.log(theme.length);
+        const theme = read("src/txt/themes.txt");
 
-        if (theme.length != 0) {
-            console.log(theme);
-            let themePrint = theme.join(",  ")
+        if (theme.length !== 0) {
+            const themePrint = theme.join(",  ")
 
             const print_Embed = new MessageEmbed()
                 .setTitle("Theme List")

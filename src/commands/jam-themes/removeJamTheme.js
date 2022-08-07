@@ -12,8 +12,7 @@ module.exports = {
                 .setRequired(true)),
     defaultPermission: false,
     async execute(interaction) {
-        let theme = read("src/txt/themes.txt");
-        console.log("Remove theme attempt");
+        const theme = read("src/txt/themes.txt");
         const value = interaction.options.getString("input");
 
         const index = theme.indexOf(value);
@@ -23,7 +22,7 @@ module.exports = {
             write(theme, "src/txt/themes.txt");
 
             const delete_Embed = new MessageEmbed()
-                .setDescription("Theme " + value + " deleted from list\nThere are now " + theme.length + " themes in the list.")
+                .setDescription(`Theme ${value} deleted from list\nThere are now ${theme.length} themes in the list.`)
                 .setColor("BLURPLE")
                 .setTimestamp()
                 .setFooter({
@@ -34,6 +33,5 @@ module.exports = {
             await interaction.reply({ content: "Could not remove theme", ephemeral: true });
         }
 
-        console.log(theme);
     }
 }

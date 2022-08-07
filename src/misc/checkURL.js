@@ -1,5 +1,5 @@
 function validUrl(string) {
-    let url;
+    let url = null;
 
     try {
         url = new URL(string);
@@ -12,6 +12,8 @@ function validUrl(string) {
     if (string.includes("github.com") || string.includes("itch.io") || string.includes("gamejolt.com")) {
         return url.protocol === "http:" || url.protocol === "https:";
     }
+
+    return false;
 }
 
 module.exports = { validUrl }

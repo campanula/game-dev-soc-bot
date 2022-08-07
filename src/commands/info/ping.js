@@ -8,9 +8,8 @@ module.exports = {
         .setName("ping")
         .setDescription("Replies with the bot status"),
     async execute(interaction, client) {
-        console.log("Ping triggered");
 
-        let uptime = moment.duration(client.uptime).format("D [days], H [hrs], m [mins], s [secs]");
+        const uptime = moment.duration(client.uptime).format("D [days], H [hrs], m [mins], s [secs]");
         const ping_Embed = new MessageEmbed()
             .setTitle("✨ Status ✨")
             .addFields(

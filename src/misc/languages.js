@@ -1,4 +1,4 @@
-var langs = {
+const langs = {
     'auto': 'Automatic',
     'auto': 'Detect language',
     'af': 'Afrikaans',
@@ -146,7 +146,7 @@ function getCode(desiredLang) {
         return desiredLang;
     }
 
-    var keys = Object.keys(langs).filter(function (key) {
+    const keys = Object.keys(langs).filter((key) => {
         if (typeof langs[key] !== 'string') {
             return false;
         }

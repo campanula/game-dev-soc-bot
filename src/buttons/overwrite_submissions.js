@@ -7,12 +7,10 @@ module.exports = {
     },
 
     async execute(interaction) {
-        let dict, submissions, team;
-        console.log("Remove submission attempt");
 
-        dict = read("src/txt/submissionsDict.txt");
-        submissions = read("src/txt/submissions.txt");
-        team = read("src/txt/saveTeam.txt");
+        const dict = read("src/txt/submissionsDict.txt");
+        const submissions = read("src/txt/submissions.txt");
+        const team = read("src/txt/saveTeam.txt");
 
         if (team in dict) {
             delete dict[team]
@@ -20,14 +18,14 @@ module.exports = {
 
             submissions.length = 0;
             for (const [key, val] of Object.entries(dict)) { //Add dict entries to array then save to file
-                let entry = "Team " + key + "'s submission: " + val
+                const entry = `Team ${key}'s submission: ${val}`
                 submissions.push(entry);
             }
 
             write(submissions, "src/txt/submissions.txt");
 
             const clear_Embed = new MessageEmbed()
-                .setDescription("Team " + team + "'s submission removed from list\nThere are now " + submissions.length + " submissions in the list.\nYou can now add your new submission.")
+                .setDescription(`Team ${team}'s submission removed from list\nThere are now ${submissions.length} submissions in the list.\nYou can now add your new submission.`)
                 .setColor("BLURPLE")
                 .setTimestamp()
                 .setFooter({

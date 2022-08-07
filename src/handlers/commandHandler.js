@@ -9,7 +9,7 @@ module.exports = (client) => {
 
         const commandFolders = fs.readdirSync("./src/commands");
 
-        for (folder of commandFolders) {
+        for (const folder of commandFolders) {
             const commandFiles = fs.readdirSync(`./src/commands/${folder}`).filter((file) => file.endsWith(".js"));
             
             for (const file of commandFiles) {

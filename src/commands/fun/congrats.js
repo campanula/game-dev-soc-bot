@@ -18,7 +18,7 @@ module.exports = {
                 ephemeral: true
             });
         } else {
-            let userEmbed = new MessageEmbed()
+            const userEmbed = new MessageEmbed()
                 .setTitle("Congrats!")
                 .setImage("https://cdn.discordapp.com/attachments/1000126955024285736/1004531350394634380/clapping-applause.gif")
                 .setColor("BLURPLE")

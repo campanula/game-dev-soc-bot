@@ -11,7 +11,7 @@ module.exports = {
         const target = interaction.options.getUser("target");
 
         if (!target) {
-            let userEmbed = new MessageEmbed()
+            const userEmbed = new MessageEmbed()
                 .setTitle(`${interaction.user.username}'s avatar`)
                 .setImage(interaction.member.user.avatarURL({ size: 1024 }))
                 .setColor("BLURPLE")
@@ -20,21 +20,21 @@ module.exports = {
                     text: `Triggered by ${interaction.user.tag}`
                 })
 
-            let row = new MessageActionRow()
+            const row = new MessageActionRow()
                 .addComponents(
                     new MessageButton()
                         .setLabel("PNG")
-                        .setURL("https://cdn.discordapp.com/avatars/" + interaction.user.id + "/" + interaction.user.avatar + ".png?size=1024")
+                        .setURL(`https://cdn.discordapp.com/avatars/${interaction.user.id}/${interaction.user.avatar}.png?size=1024`)
                         .setStyle("LINK"),
 
                     new MessageButton()
                         .setLabel("WEBP")
-                        .setURL("https://cdn.discordapp.com/avatars/" + interaction.user.id + "/" + interaction.user.avatar + ".webp?size=1024")
+                        .setURL(`https://cdn.discordapp.com/avatars/${interaction.user.id}/${interaction.user.avatar}.webp?size=1024`)
                         .setStyle("LINK"),
 
                     new MessageButton()
                         .setLabel("JPEG")
-                        .setURL("https://cdn.discordapp.com/avatars/" + interaction.user.id + "/" + interaction.user.avatar + ".jpeg?size=1024")
+                        .setURL(`https://cdn.discordapp.com/avatars/${interaction.user.id}/${interaction.user.avatar}.jpeg?size=1024`)
                         .setStyle("LINK")
                 )
 
@@ -44,7 +44,7 @@ module.exports = {
             });
 
         } else {
-            let userEmbed = new MessageEmbed()
+            const userEmbed = new MessageEmbed()
                 .setTitle(`${target.username}'s avatar`)
                 .setImage(target.avatarURL({ size: 1024 }))
                 .setColor("BLURPLE")
@@ -54,21 +54,21 @@ module.exports = {
                 })
 
 
-            let row = new MessageActionRow()
+            const row = new MessageActionRow()
                 .addComponents(
                     new MessageButton()
                         .setLabel("PNG")
-                        .setURL("https://cdn.discordapp.com/avatars/" + target.id + "/" + target.avatar + ".png?size=1024")
+                        .setURL(`https://cdn.discordapp.com/avatars/${target.id}/${target.avatar}.png?size=1024`)
                         .setStyle("LINK"),
 
                     new MessageButton()
                         .setLabel("WEBP")
-                        .setURL("https://cdn.discordapp.com/avatars/" + target.id + "/" + target.avatar + ".webp?size=1024")
+                        .setURL(`https://cdn.discordapp.com/avatars/${target.id}/${target.avatar}.webp?size=1024`)
                         .setStyle("LINK"),
 
                     new MessageButton()
                         .setLabel("JPEG")
-                        .setURL("https://cdn.discordapp.com/avatars/" + target.id + "/" + target.avatar + ".jpeg?size=1024")
+                        .setURL(`https://cdn.discordapp.com/avatars/${target.id}/${target.avatar}.jpeg?size=1024`)
                         .setStyle("LINK")
                 )
 
