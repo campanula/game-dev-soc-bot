@@ -9,6 +9,10 @@ module.exports = {
         .setDescription("Replies with the bot status"),
     async execute(interaction, client) {
 
+        const message = await interaction.deferReply({
+            fetchReply: true
+        });
+
         const uptime = moment.duration(client.uptime).format("D [days], H [hrs], m [mins], s [secs]");
         const ping_Embed = new MessageEmbed()
             .setTitle("✨ Status ✨")
@@ -20,7 +24,7 @@ module.exports = {
                 },
                 {
                     name: "Latency",
-                    value: `${Date.now() - interaction.createdTimestamp}ms`,
+                    value: `${message.createdTimestamp - interaction.createdTimestamp}ms`,
                     inline: true,
                 },
                 {
@@ -36,7 +40,7 @@ module.exports = {
             })
 
 
-        await interaction.reply({ content: "Pong!", embeds: [ping_Embed], ephemeral: true })
+        await interaction.editReply({ content: "Pong!", embeds: [ping_Embed], ephemeral: true })
 
     },
 };
