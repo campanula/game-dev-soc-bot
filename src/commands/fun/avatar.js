@@ -7,7 +7,9 @@ module.exports = {
         .setDescription("Get a users avatar!")
         .addUserOption(option => option.setName("target").setDescription("The user")),
 
-    async execute(interaction) {
+    async execute(interaction, client) {
+        client.log.interinfo(`${interaction.user.tag} used the /avatar command in #${interaction.channel.name}`);
+
         const target = interaction.options.getUser("target");
 
         if (!target) {

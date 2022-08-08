@@ -1,7 +1,9 @@
+const chalk = require("chalk");
+
 module.exports = {
     name: "interactionCreate",
     async execute(interaction, client) {
-        console.log(`${interaction.user.tag} in #${interaction.channel.name} triggered an interaction.`);
+        //client.log.botinfo(`${interaction.user.tag} in #${interaction.channel.name} triggered an interaction.`);
 
         if (interaction.isCommand()) {
             const command = client.commands.get(interaction.commandName);
@@ -11,11 +13,12 @@ module.exports = {
             try {
                 await command.execute(interaction, client);
             } catch (error) {
-                console.error(error);
+                client.log.error(chalk.red.bold(error));
                 await interaction.reply({
                     content: "There was an error executing the command",
                     ephemeral: true
                 });
+                throw error;
             }
 
         } else if (interaction.isSelectMenu()) {
@@ -26,11 +29,12 @@ module.exports = {
             try {
                 await menu.execute(interaction, client);
             } catch (error) {
-                console.error(error);
+                client.log.error(chalk.red.bold(error));
                 await interaction.reply({
                     content: "There was an error executing the menu",
                     ephemeral: true
                 });
+                throw error;
             }
         } else if (interaction.isButton()) {
             const button = client.buttons.get(interaction.customId);
@@ -40,11 +44,12 @@ module.exports = {
             try {
                 await button.execute(interaction, client);
             } catch (error) {
-                console.error(error);
+                client.log.error(chalk.red.bold(error));
                 await interaction.reply({
                     content: "There was an error executing the button",
                     ephemeral: true
                 });
+                throw error;
             }
 
         }

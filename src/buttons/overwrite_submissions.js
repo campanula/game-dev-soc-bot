@@ -6,7 +6,8 @@ module.exports = {
         name: "overwrite_submissions",
     },
 
-    async execute(interaction) {
+    async execute(interaction, client) {
+        client.log.interinfo(`${interaction.user.tag} clicked the overwrite_submissions button in #${interaction.channel.name}`);
 
         const dict = read("src/txt/submissionsDict.txt");
         const submissions = read("src/txt/submissions.txt");

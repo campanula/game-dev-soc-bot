@@ -4,10 +4,12 @@ const { read, write } = require("../../misc/saveArray.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("clearlist")
+        .setName("clear-themes")
         .setDescription("Clears theme list - admin only"), //command perms currently controlled in server settings not here
     defaultPermission: false,
-    async execute(interaction) {
+    async execute(interaction, client) {
+        client.log.interinfo(`${interaction.user.tag} used the /clear-themes command in #${interaction.channel.name}`);
+
         const theme = read("src/txt/themes.txt");
         if (theme.length === 0) {
             await interaction.reply({

@@ -6,7 +6,9 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("winner")
         .setDescription("Prints the last game jam winner - admin only"),
-    async execute(interaction) {
+    async execute(interaction, client) {
+        client.log.interinfo(`${interaction.user.tag} used the /winner command in #${interaction.channel.name}`);
+    
         const winner = readTxt("src/txt/saveWinningTeam.txt");
         const currentJam = readTxt("src/txt/currentJam.txt");
 

@@ -8,6 +8,7 @@ module.exports = {
         .setName("ping")
         .setDescription("Replies with the bot status"),
     async execute(interaction, client) {
+        client.log.interinfo(`${interaction.user.tag} used the /ping command in #${interaction.channel.name}`);
 
         const message = await interaction.deferReply({
             fetchReply: true

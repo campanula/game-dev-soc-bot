@@ -1,6 +1,7 @@
+const chalk = require("chalk");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js");
-const translate = require('google-translate-api-x');
+const translate = require("google-translate-api-x");
 const { getCode } = require("../../misc/languages.js");
 
 module.exports = {
@@ -19,8 +20,8 @@ module.exports = {
             option.setName("target")
                 .setDescription("The language to translate to")
                 .setRequired(true)),
-    async execute(interaction) {
-
+    async execute(interaction, client) {
+        client.log.interinfo(`${interaction.user.tag} used the /translate command in #${interaction.channel.name}`);
 
         const text = interaction.options.getString("text");
         const origin = getCode(interaction.options.getString("origin"));
@@ -46,7 +47,9 @@ module.exports = {
 
                 await interaction.reply({ embeds: [translation_Embed] });
             } catch (error) {
+                client.log.error(chalk.red.bold(error));
                 await interaction.reply({ content: "The API could not process this request", ephemeral: true });
+                throw error;
             }
         }
     }

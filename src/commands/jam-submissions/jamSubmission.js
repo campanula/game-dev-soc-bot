@@ -5,7 +5,7 @@ const { validUrl } = require("../../misc/checkURL.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("submit-entry")
+        .setName("submit")
         .setDescription("Adds a jam submission for a team")
         .addStringOption(option =>
             option.setName("submission")
@@ -15,7 +15,9 @@ module.exports = {
             option.setName("team")
                 .setDescription("Enter your team number")
                 .setRequired(true)),
-    async execute(interaction) {
+    async execute(interaction, client) {
+        client.log.interinfo(`${interaction.user.tag} used the /submit command in #${interaction.channel.name}`);
+
         const sub = interaction.options.getString("submission");
         const team = interaction.options.getString("team");
         const dict = read("src/txt/submissionsDict.txt");

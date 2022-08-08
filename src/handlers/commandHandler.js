@@ -1,6 +1,8 @@
 const { guildId } = require("../config.json");
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
+const chalk = require("chalk");
+
 const fs = require("fs");
 
 module.exports = (client) => {
@@ -23,7 +25,7 @@ module.exports = (client) => {
 
         (async () => {
             try {
-                console.log("Started refreshing application (/) commands.");
+                client.log.botinfo(chalk.hex("#DEADED")("Started refreshing application (/) commands."));
 
                 await rest.put(
                     Routes.applicationCommands(process.env.APP_ID, guildId),
@@ -32,9 +34,10 @@ module.exports = (client) => {
                     }
                 );
 
-                console.log("Successfully reloaded application (/) commands.");
+                client.log.botinfo(chalk.hex("#DEADED")("Successfully reloaded application (/) commands."));
             } catch (error) {
-                console.error(error);
+                client.log.error(chalk.red.bold(error));
+                throw error;
             }
         })();
     };

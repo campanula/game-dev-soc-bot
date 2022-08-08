@@ -6,8 +6,9 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("submissions")
         .setDescription("Prints all jam submissions"),
-    async execute(interaction) {
-
+    async execute(interaction, client) {
+        client.log.interinfo(`${interaction.user.tag} used the /submissions command in #${interaction.channel.name}`);
+        
         const submissions = read("src/txt/submissions.txt"); // Read submissions from file then print
 
         if (submissions.length !== 0) {

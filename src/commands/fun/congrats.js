@@ -9,7 +9,9 @@ module.exports = {
             option.setName("target")
                 .setDescription("The user")),
 
-    async execute(interaction) {
+    async execute(interaction, client) {
+        client.log.interinfo(`${interaction.user.tag} used the /congrats command in #${interaction.channel.name}`);
+
         const target = interaction.options.getUser("target");
 
         if (!target) {

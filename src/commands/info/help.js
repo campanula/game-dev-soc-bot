@@ -5,8 +5,9 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("help")
         .setDescription("Help with commands"),
-    async execute(interaction) {
-
+    async execute(interaction, client) {
+        client.log.interinfo(`${interaction.user.tag} used the /help command in #${interaction.channel.name}`);
+        
         const row = new MessageActionRow().addComponents(
             new MessageSelectMenu()
                 .setCustomId("select_help")

@@ -5,7 +5,8 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("events")
         .setDescription("Info about current society events"),
-    async execute(interaction) {
+    async execute(interaction, client) {
+        client.log.interinfo(`${interaction.user.tag} used the /events command in #${interaction.channel.name}`);
 
         const eventEmbed = new MessageEmbed()
             .setTitle("Current Events")

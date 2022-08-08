@@ -3,8 +3,9 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports = {
     name: "guildMemberAdd",
-    execute(member) {
-        console.log(member.user);
+    execute(member, client) {
+        client.log.interinfo(`${member.user} joined the server`);
+        
         const welcomeChannel = member.guild.channels.cache.get(channelId);
         welcomeChannel.send(`${member.user} has joined the server!`);
 

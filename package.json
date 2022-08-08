@@ -11,11 +11,13 @@
   "dependencies": {
     "@discordjs/builders": "^0.15.0",
     "@discordjs/rest": "^0.5.0",
+    "chalk": "^4.1.0",
     "discord-api-types": "^0.36.0",
     "discord.js": "^13.9.2",
     "dotenv": "^16.0.1",
     "google-translate-api-x": "^10.3.5",
     "moment": "^2.29.4",
-    "moment-duration-format": "^2.3.2"
+    "moment-duration-format": "^2.3.2",
+    "winston": "^3.8.1"
   }
 }

@@ -4,9 +4,12 @@ const { read } = require("../../misc/saveArray.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("print")
+        .setName("themes")
         .setDescription("Prints jam list"),
-    async execute(interaction) {
+    async execute(interaction, client) {
+        client.log.interinfo(`${interaction.user.tag} used the /themes command in #${interaction.channel.name}`);
+        
+
         const theme = read("src/txt/themes.txt");
 
         if (theme.length !== 0) {

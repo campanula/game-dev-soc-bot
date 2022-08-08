@@ -2,12 +2,14 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const { read, write } = require("../../misc/saveArray.js");
 const { getMaxVotes, toArray } =  require("../../misc/voteFuncs.js");
 const { voteEmbedFunc, resultsFunc, winnerFunc } =  require("../../misc/storedEmbed.js");
+const chalk = require("chalk");
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("vote")
         .setDescription("Starts the game jam voting process with all uploaded submissions - admin only"),
-    async execute(interaction) {
+    async execute(interaction, client) {
+        client.log.interinfo(`${interaction.user.tag} used the /vote command in #${interaction.channel.name}`);
 
         const submissions = read("src/txt/submissions.txt");
         const dict = read("src/txt/submissionsDict.txt");
@@ -40,7 +42,8 @@ module.exports = {
                 }
 
             } catch (error) {
-                console.error('One of the emojis failed to react:', error);
+                client.log.error(chalk.red.bold("One of the emojis failed to react:", error));
+                throw error;
             }
 
 
@@ -51,8 +54,8 @@ module.exports = {
             const collector = message.createReactionCollector({ filter, time: 900000 });
 
             const votingDict = {};
-            collector.on('collect', (reaction, user) => {
-                console.log(`Collected ${reaction.emoji.name} from ${user.tag}`);
+            collector.on("collect", (reaction, user) => {
+                client.log.interinfo(`Collected ${reaction.emoji.name} from ${user.tag}`);
 
                 chosenEmojis.forEach(element => { // Find the element in chosenEmojis
                     if (element === reaction.emoji.name) { //If the emoji matches the emojis added by the bot
@@ -63,9 +66,9 @@ module.exports = {
             });
 
 
-            collector.on('end', collected => {
+            collector.on("end", collected => {
                 message.reply("Voting concluded")
-                console.log(`Collected ${collected.size} items`);
+                client.log.interinfo(`Vote ended. Collected ${collected.size} items and votes: ${votingDict}`);
 
                 const resultsDict = {};
 

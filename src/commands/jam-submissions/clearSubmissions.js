@@ -7,7 +7,9 @@ module.exports = {
         .setName("clear-submissions")
         .setDescription("Clears submission list - admin only"), //command perms currently controlled in server settings not here
     defaultPermission: false,
-    async execute(interaction) {
+    async execute(interaction, client) {
+        client.log.interinfo(`${interaction.user.tag} used the /clear-submissions command in #${interaction.channel.name}`);
+        
         const submissions = read("src/txt/submissions.txt");
 
         if (submissions.length === 0) {

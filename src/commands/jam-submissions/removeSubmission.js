@@ -11,7 +11,8 @@ module.exports = {
                 .setDescription("The team to remove")
                 .setRequired(true)),
     defaultPermission: false,
-    async execute(interaction) {
+    async execute(interaction, client) {
+        client.log.interinfo(`${interaction.user.tag} used the /remove-submission command in #${interaction.channel.name}`);
 
         const dict = read("src/txt/submissionsDict.txt");
         const submissions = read("src/txt/submissions.txt");

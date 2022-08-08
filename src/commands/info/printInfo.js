@@ -20,7 +20,8 @@ module.exports = {
                 .setDescription("Info about a user")
                 .addUserOption(option => option.setName("target").setDescription("The user"))),
 
-    async execute(interaction) {
+    async execute(interaction, client) {
+        client.log.interinfo(`${interaction.user.tag} used the /info command in #${interaction.channel.name}`);
 
         switch (interaction.options.getSubcommand()) {
             case "society": {
@@ -117,7 +118,7 @@ module.exports = {
                             {name: "Status", value: `${target.presence?.status ?? "offline"}`, inline: true},
                             {
                                 name: "Game",
-                                value: `${target.presence?.game ? target.presence?.game.name : 'None'}`,
+                                value: `${target.presence?.game ? target.presence?.game.name : "None"}`,
                                 inline: true
                             },
                             {name: "Bot?", value: `${target.bot}`, inline: true},

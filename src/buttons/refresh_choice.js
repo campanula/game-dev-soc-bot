@@ -5,7 +5,9 @@ module.exports = {
     data: {
         name: "refresh_choice",
     },
-    async execute(interaction) {
+    async execute(interaction, client) {
+        client.log.interinfo(`${interaction.user.tag} clicked the refresh_choice button in #${interaction.channel.name}`);
+
         const theme = read("src/txt/themes.txt");
 
         if (theme.length !== 0) {

@@ -4,14 +4,16 @@ const { read, write } = require("../../misc/saveArray.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("removetheme")
+        .setName("remove-theme")
         .setDescription("Remove a theme from the list - admin only")
         .addStringOption(option =>
             option.setName("input")
                 .setDescription("The theme to remove")
                 .setRequired(true)),
     defaultPermission: false,
-    async execute(interaction) {
+    async execute(interaction, client) {
+        client.log.interinfo(`${interaction.user.tag} used the /remove-theme command in #${interaction.channel.name}`);
+        
         const theme = read("src/txt/themes.txt");
         const value = interaction.options.getString("input");
 
