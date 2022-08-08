@@ -35,7 +35,7 @@ module.exports = {
 
             try {
                 for (const [key, val] of Object.entries(emojiDict)) {
-                    await message.react(val); // For every emoji in emojiDict, set emoji as reaction
+                    message.react(val); // For every emoji in emojiDict, set emoji as reaction
                     chosenEmojis.push(val); // and add emoji to array to be used in filter
                 }
 
