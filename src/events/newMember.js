@@ -5,7 +5,7 @@ module.exports = {
     name: "guildMemberAdd",
     execute(member) {
         console.log(member.user);
-        const welcomeChannel = member.guild.channels.cache.get(channelId)
+        const welcomeChannel = member.guild.channels.cache.get(channelId);
         welcomeChannel.send(`${member.user} has joined the server!`);
 
         const dmWelEmbed = new MessageEmbed()
