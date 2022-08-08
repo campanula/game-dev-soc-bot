@@ -2,7 +2,6 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const { read, write } = require("../../misc/saveArray.js");
 const { getMaxVotes, toArray } =  require("../../misc/voteFuncs.js");
 const { voteEmbedFunc, resultsFunc, winnerFunc } =  require("../../misc/storedEmbed.js");
-const chalk = require("chalk");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -42,7 +41,7 @@ module.exports = {
                 }
 
             } catch (error) {
-                client.log.error(chalk.red.bold("One of the emojis failed to react:", error));
+                client.log.error("One of the emojis failed to react:", error);
                 throw error;
             }
 

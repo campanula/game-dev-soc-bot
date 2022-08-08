@@ -5,6 +5,9 @@ const { Collection, Client } = require("discord.js");
 
 dotenv.config();
 
+const { addColors, createLogger, transports, format } = winston;
+const { combine, colorize, padLevels, timestamp, printf, json, label } = format;
+
 const levels = {
     botinfo: 0,
     interinfo: 1,
@@ -12,24 +15,35 @@ const levels = {
     error: 3,
 }
 
-winston.addColors({
-    botinfo: "magenta",
+addColors({
+    botinfo: "blue",
     interinfo: "magenta",
-    debug: "green",
-    error: "rainbow",
+    debug: "bold green",
+    error: "bold rainbow",
 })
 
-const logger = winston.createLogger({
+const logger = createLogger({
     levels: levels,
-    transports: [new winston.transports.Console({ colorize: true, timestamp: true })],
-    format: winston.format.combine(
-        winston.format.colorize(),
-        winston.format.padLevels({ levels: levels }),
-        winston.format.timestamp(({ format: "YYYY-MM-DD HH:mm:ss" })),
-        winston.format.prettyPrint(),
-        winston.format.printf(info => `${info.timestamp} ${info.level}:${info.message}`),
-    ),
     level: "debug",
+    transports: [new transports.Console({
+        colorize: process.stdout.isTTY, // Only colourise in terminals
+        timestamp: true,
+        format: combine(
+            padLevels({ levels: levels }),
+            timestamp(({ format: "YYYY-MM-DD HH:mm:ss" })),
+            label({ label: '[LOGGER]' }),
+            printf(info => `${info.label} ${info.timestamp} ${info.level}:${info.message}`),
+            colorize({ all: true }))
+    }),
+    new transports.File({
+        filename: `${__dirname}/txt/logs.log`, 
+        level: levels.error,
+        timestamp: true,
+        format: combine(
+            json(),
+            timestamp(({ format: "YYYY-MM-DD HH:mm:ss" })),
+            printf(info => `${info.timestamp} ${info.level}:${info.message}`))
+    })],
 })
 
 // Create a new client instance
