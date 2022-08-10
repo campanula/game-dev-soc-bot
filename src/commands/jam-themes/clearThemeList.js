@@ -1,5 +1,4 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
 const { read, write } = require("../../misc/saveArray.js");
 
 module.exports = {
@@ -20,9 +19,9 @@ module.exports = {
             theme.length = 0;
             write(theme, "src/txt/themes.txt");
 
-            const clear_Embed = new MessageEmbed()
+            const clear_Embed = new EmbedBuilder()
                 .setDescription(`List cleared\nThere are now ${theme.length} themes in the list.`)
-                .setColor("BLURPLE")
+                .setColor("#5865F2")
                 .setTimestamp()
                 .setFooter({
                     text: `Triggered by ${interaction.user.tag}`

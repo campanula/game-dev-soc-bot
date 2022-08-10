@@ -2,7 +2,7 @@ const fs = require("fs");
 
 const read = (path) => {
   let array = null;
-  
+
   try { // Stopping possible crashing in the case a file is emptied during runtime
     const fileContent = fs.readFileSync(path);
     array = JSON.parse(fileContent);
@@ -17,6 +17,11 @@ const write = (array, path) => {
   fs.writeFileSync(path, JSON.stringify(array));
 }
 
+const writeNum = (num, path) => {
+  fs.writeFileSync(path, num);
+}
+
+
 const readTxt = (path) => {
   let fileContent = null;
 
@@ -29,4 +34,4 @@ const readTxt = (path) => {
   return fileContent;
 }
 
-module.exports = { read, write, readTxt } 
+module.exports = { read, write, readTxt, writeNum } 

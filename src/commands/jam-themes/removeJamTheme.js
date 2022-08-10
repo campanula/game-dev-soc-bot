@@ -1,5 +1,4 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
 const { read, write } = require("../../misc/saveArray.js");
 
 module.exports = {
@@ -13,7 +12,7 @@ module.exports = {
     defaultPermission: false,
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /remove-theme command in #${interaction.channel.name}`);
-        
+
         const theme = read("src/txt/themes.txt");
         const value = interaction.options.getString("input");
 
@@ -23,9 +22,9 @@ module.exports = {
 
             write(theme, "src/txt/themes.txt");
 
-            const delete_Embed = new MessageEmbed()
+            const delete_Embed = new EmbedBuilder()
                 .setDescription(`Theme ${value} deleted from list\nThere are now ${theme.length} themes in the list.`)
-                .setColor("BLURPLE")
+                .setColor("#5865F2")
                 .setTimestamp()
                 .setFooter({
                     text: `Triggered by ${interaction.user.tag}`

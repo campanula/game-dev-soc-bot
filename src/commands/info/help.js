@@ -1,5 +1,4 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageSelectMenu, MessageActionRow, MessageEmbed, } = require("discord.js");
+const { SelectMenuBuilder, ActionRowBuilder, EmbedBuilder, SlashCommandBuilder } = require("discord.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -7,9 +6,9 @@ module.exports = {
         .setDescription("Help with commands"),
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /help command in #${interaction.channel.name}`);
-        
-        const row = new MessageActionRow().addComponents(
-            new MessageSelectMenu()
+
+        const row = new ActionRowBuilder().addComponents(
+            new SelectMenuBuilder()
                 .setCustomId("select_help")
                 .setPlaceholder("Nothing selected")
                 .addOptions(
@@ -31,8 +30,8 @@ module.exports = {
                 )
         );
 
-        const embed = new MessageEmbed()
-            .setColor("BLURPLE")
+        const embed = new EmbedBuilder()
+            .setColor("#5865F2")
             .setTitle("Command Help")
             .setDescription("Choose a topic to see related commands");
 

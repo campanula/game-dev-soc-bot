@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const { read, write } = require("../misc/saveArray.js");
 
 module.exports = {
@@ -25,9 +25,9 @@ module.exports = {
 
             write(submissions, "src/txt/submissions.txt");
 
-            const clear_Embed = new MessageEmbed()
+            const clear_Embed = new EmbedBuilder()
                 .setDescription(`Team ${team}'s submission removed from list\nThere are now ${submissions.length} submissions in the list.\nYou can now add your new submission.`)
-                .setColor("BLURPLE")
+                .setColor("#5865F2")
                 .setTimestamp()
                 .setFooter({
                     text: `Triggered by ${interaction.user.tag}`

@@ -3,7 +3,7 @@ module.exports = {
     async execute(interaction, client) {
         //client.log.botinfo(`${interaction.user.tag} in #${interaction.channel.name} triggered an interaction.`);
 
-        if (interaction.isCommand()) {
+        if (interaction.isChatInputCommand()) {
             const command = client.commands.get(interaction.commandName);
 
             if (!command) return;

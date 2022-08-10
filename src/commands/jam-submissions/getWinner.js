@@ -1,5 +1,4 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
 const { readTxt } = require("../../misc/saveArray.js");
 
 module.exports = {
@@ -8,7 +7,7 @@ module.exports = {
         .setDescription("Prints the last game jam winner - admin only"),
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /winner command in #${interaction.channel.name}`);
-    
+
         const winner = readTxt("src/txt/saveWinningTeam.txt");
         const currentJam = readTxt("src/txt/currentJam.txt");
 
@@ -17,10 +16,10 @@ module.exports = {
         } else {
             const resultsPrint = `The winner of the last game jam was 🎈 team ${winner}!! 🎈`;
 
-            const results_Embed = new MessageEmbed()
+            const results_Embed = new EmbedBuilder()
                 .setTitle(`✨ Game Jam Winner - ${currentJam} ✨`)
                 .setDescription(resultsPrint)
-                .setColor("BLURPLE")
+                .setColor("#5865F2")
                 .setTimestamp()
 
             await interaction.reply({ embeds: [results_Embed] });

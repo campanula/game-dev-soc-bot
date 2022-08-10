@@ -1,5 +1,4 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
 const translate = require("google-translate-api-x");
 const { getCode } = require("../../misc/languages.js");
 
@@ -35,10 +34,10 @@ module.exports = {
                 let input = null;
                 res.from.text.value.length === 0 ? input = text : input = res.from.text.value; // If autocorrected text exists return it, else return normal text
 
-                const translation_Embed = new MessageEmbed()
+                const translation_Embed = new EmbedBuilder()
                     .setTitle("Translation")
                     .setDescription(`Translating ${input} from ${res.from.language.iso}...\n\nResult: ${res.text}`)
-                    .setColor("BLURPLE")
+                    .setColor("#5865F2")
                     .setTimestamp()
                     .setFooter({
                         text: `Triggered by ${interaction.user.tag}`

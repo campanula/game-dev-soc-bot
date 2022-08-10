@@ -36,7 +36,7 @@ const logger = createLogger({
             colorize({ all: true }))
     }),
     new transports.File({
-        filename: `${__dirname}/txt/logs.log`, 
+        filename: `${__dirname}/txt/logs.log`,
         level: levels.error,
         timestamp: true,
         format: combine(

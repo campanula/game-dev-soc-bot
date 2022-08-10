@@ -1,5 +1,4 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, SlashCommandBuilder, ButtonStyle } = require("discord.js");
 const { read, write } = require("../../misc/saveArray.js");
 const { validUrl } = require("../../misc/checkURL.js");
 
@@ -23,7 +22,7 @@ module.exports = {
         const dict = read("src/txt/submissionsDict.txt");
 
         if (isNaN(Number(team)) || !validUrl(sub)) { // Add validation for team numbers and submissions
-            const invalid_Embed = new MessageEmbed()
+            const invalid_Embed = new EmbedBuilder()
                 .setTitle("Invalid Submission")
                 .setDescription("Below are some possible reasons your submission was not accepted.")
                 .addFields(
@@ -37,7 +36,7 @@ module.exports = {
                         value: "Your submission must be from the websites https://github.com, https://itch.io, and https://gamejolt.com\nYour submission must also be a valid url starting with http:// or https://\nAn example of a valid submission could be https://ninja-muffin24.itch.io/funkin",
                         inline: true,
                     })
-                .setColor("BLURPLE")
+                .setColor("#5865F2")
                 .setTimestamp()
                 .setFooter({
                     text: `Triggered by ${interaction.user.tag}`
@@ -48,18 +47,18 @@ module.exports = {
         } else if (team in dict) {
             write(team, "src/txt/saveTeam.txt");
 
-            const row = new MessageActionRow()
+            const row = new ActionRowBuilder()
                 .addComponents(
-                    new MessageButton()
+                    new ButtonBuilder()
                         .setLabel("Delete")
                         .setCustomId("overwrite_submissions")
-                        .setStyle("PRIMARY")
+                        .setStyle(ButtonStyle.Primary)
                 )
 
-            const overwrite_Embed = new MessageEmbed()
+            const overwrite_Embed = new EmbedBuilder()
                 .setTitle("Team already exists in database")
                 .setDescription(`Team ${team}, would you like to delete your previous submission?`)
-                .setColor("BLURPLE")
+                .setColor("#5865F2")
                 .setTimestamp()
                 .setFooter({
                     text: `Triggered by ${interaction.user.tag}`
@@ -82,10 +81,10 @@ module.exports = {
 
             write(allEntries, "src/txt/submissions.txt");
 
-            const submit_Embed = new MessageEmbed()
+            const submit_Embed = new EmbedBuilder()
                 .setTitle("Submission added")
                 .setDescription(`Submission ${sub} has been added for team ${team}`)
-                .setColor("BLURPLE")
+                .setColor("#5865F2")
                 .setTimestamp()
                 .setFooter({
                     text: `Triggered by ${interaction.user.tag}`

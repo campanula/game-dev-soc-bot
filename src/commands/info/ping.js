@@ -1,5 +1,4 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
 const moment = require("moment");
 require("moment-duration-format");
 
@@ -15,7 +14,7 @@ module.exports = {
         });
 
         const uptime = moment.duration(client.uptime).format("D [days], H [hrs], m [mins], s [secs]");
-        const ping_Embed = new MessageEmbed()
+        const ping_Embed = new EmbedBuilder()
             .setTitle("✨ Status ✨")
             .addFields(
                 {
@@ -34,7 +33,7 @@ module.exports = {
                     inline: true,
                 }
             )
-            .setColor("BLURPLE")
+            .setColor("#5865F2")
             .setTimestamp()
             .setFooter({
                 text: `Triggered by ${interaction.user.tag}`

@@ -1,5 +1,4 @@
-const {SlashCommandBuilder} = require("@discordjs/builders");
-const {MessageEmbed} = require("discord.js");
+const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
 const moment = require("moment");
 
 module.exports = {
@@ -25,7 +24,7 @@ module.exports = {
 
         switch (interaction.options.getSubcommand()) {
             case "society": {
-                const societyEmbed = new MessageEmbed()
+                const societyEmbed = new EmbedBuilder()
                     .setTitle("Essex Game Dev Society")
                     .setDescription("All the info and links you need :)")
                     .setThumbnail("https://cdn.discordapp.com/attachments/1000126955024285736/1004446804873588867/Essex2.png")
@@ -42,52 +41,52 @@ module.exports = {
                         }
                     )
                     .setURL("https://github.com/campanula/game-dev-soc-bot")
-                    .setColor("BLURPLE")
+                    .setColor("#5865F2")
                     .setTimestamp()
                     .setFooter({
                         text: `Triggered by ${interaction.user.tag}`
                     })
 
-                await interaction.reply({embeds: [societyEmbed]});
+                await interaction.reply({ embeds: [societyEmbed] });
                 break;
             }
             case "bot": {
-                const botEmbed = new MessageEmbed()
+                const botEmbed = new EmbedBuilder()
                     .setTitle("GDS Bot")
                     .addFields(
-                        {name: "Link to repo", value: "https://github.com/campanula/game-dev-soc-bot"}
+                        { name: "Link to repo", value: "https://github.com/campanula/game-dev-soc-bot" }
                     )
-                    .setColor("BLURPLE")
+                    .setColor("#5865F2")
                     .setTimestamp()
                     .setFooter({
                         text: `Triggered by ${interaction.user.tag}`
                     })
 
-                await interaction.reply({embeds: [botEmbed]});
+                await interaction.reply({ embeds: [botEmbed] });
                 break;
             }
             case "user": {
                 const target = interaction.options.getUser("target");
 
                 if (!target) {
-                    const userEmbed = new MessageEmbed()
+                    const userEmbed = new EmbedBuilder()
                         .setTitle("User Info")
-                        .setThumbnail(interaction.member.user.avatarURL({size: 256}))
+                        .setThumbnail(interaction.member.user.avatarURL({ size: 256 }))
                         .addFields(
-                            {name: "Name", value: `${interaction.user.tag}`, inline: true},
-                            {name: "ID", value: `${interaction.user.id}`, inline: true},
+                            { name: "Name", value: `${interaction.user.tag}`, inline: true },
+                            { name: "ID", value: `${interaction.user.id}`, inline: true },
                             {
                                 name: "Nickname",
                                 value: `${interaction.user.id.displayName ?? interaction.user.username}`,
                                 inline: true
                             },
-                            {name: "Status", value: `${interaction.user.presence?.status ?? "offline"}`, inline: true},
+                            { name: "Status", value: `${interaction.user.presence?.status ?? "offline"}`, inline: true },
                             {
                                 name: "Game",
                                 value: `${interaction.user.presence?.game ? interaction.user.presence?.game.name : "None"}`,
                                 inline: true
                             },
-                            {name: "Bot?", value: `${interaction.user.bot}`, inline: true},
+                            { name: "Bot?", value: `${interaction.user.bot}`, inline: true },
                             {
                                 name: "Server Join Date",
                                 value: `${moment.utc(interaction.user.joinedAt).format("dddd, MMMM Do YYYY")}`,
@@ -99,29 +98,29 @@ module.exports = {
                                 inline: true
                             }
                         )
-                        .setColor("BLURPLE")
+                        .setColor("#5865F2")
                         .setTimestamp()
                         .setFooter({
                             text: `Triggered by ${interaction.user.tag}`
                         })
 
-                    await interaction.reply({embeds: [userEmbed]});
+                    await interaction.reply({ embeds: [userEmbed] });
 
                 } else {
-                    const userEmbed = new MessageEmbed()
+                    const userEmbed = new EmbedBuilder()
                         .setTitle("User Info")
-                        .setThumbnail(target.avatarURL({size: 256}))
+                        .setThumbnail(target.avatarURL({ size: 256 }))
                         .addFields(
-                            {name: "Name", value: `${target.tag}`, inline: true},
-                            {name: "Nickname", value: `${target.id.displayName ?? target.username}`, inline: true},
-                            {name: "ID", value: `${target.id}`, inline: true},
-                            {name: "Status", value: `${target.presence?.status ?? "offline"}`, inline: true},
+                            { name: "Name", value: `${target.tag}`, inline: true },
+                            { name: "Nickname", value: `${target.id.displayName ?? target.username}`, inline: true },
+                            { name: "ID", value: `${target.id}`, inline: true },
+                            { name: "Status", value: `${target.presence?.status ?? "offline"}`, inline: true },
                             {
                                 name: "Game",
                                 value: `${target.presence?.game ? target.presence?.game.name : "None"}`,
                                 inline: true
                             },
-                            {name: "Bot?", value: `${target.bot}`, inline: true},
+                            { name: "Bot?", value: `${target.bot}`, inline: true },
                             {
                                 name: "Server Join Date",
                                 value: `${moment.utc(target.joinedAt).format("dddd, MMMM Do YYYY")}`,
@@ -133,13 +132,13 @@ module.exports = {
                                 inline: true
                             }
                         )
-                        .setColor("BLURPLE")
+                        .setColor("#5865F2")
                         .setTimestamp()
                         .setFooter({
                             text: `Triggered by ${interaction.user.tag}`
                         })
 
-                    await interaction.reply({embeds: [userEmbed]});
+                    await interaction.reply({ embeds: [userEmbed] });
                 }
 
                 break;

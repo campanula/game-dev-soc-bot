@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const { read } = require("../misc/saveArray.js");
 
 module.exports = {
@@ -13,9 +13,9 @@ module.exports = {
         if (theme.length !== 0) {
             const random = Math.floor(Math.random() * theme.length);
 
-            const choice_Embed = new MessageEmbed()
+            const choice_Embed = new EmbedBuilder()
                 .setDescription(`I have chosen the theme: ${theme[random]}`)
-                .setColor("BLURPLE")
+                .setColor("#5865F2")
                 .setTimestamp()
                 .setFooter({
                     text: `Triggered by ${interaction.user.tag}`,

@@ -1,7 +1,7 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { read, write } = require("../../misc/saveArray.js");
-const { getMaxVotes, toArray } =  require("../../misc/voteFuncs.js");
-const { voteEmbedFunc, resultsFunc, winnerFunc } =  require("../../misc/storedEmbed.js");
+const { SlashCommandBuilder } = require("discord.js");
+const { read, writeNum } = require("../../misc/saveArray.js");
+const { getMaxVotes, toArray } = require("../../misc/voteFuncs.js");
+const { voteEmbedFunc, resultsFunc, winnerFunc } = require("../../misc/storedEmbed.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -82,7 +82,7 @@ module.exports = {
 
                 const arr = toArray(getMaxVotes((resultsDict), 1));
                 const winner = arr.join(" and ");
-                write(winner, "src/txt/saveWinningTeam.txt");
+                writeNum(winner, "src/txt/saveWinningTeam.txt");
 
                 const results_Embed = resultsFunc(resultsArray);
                 const winner_Embed = winnerFunc(winner);

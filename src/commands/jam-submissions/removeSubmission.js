@@ -1,5 +1,4 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
 const { read, write } = require("../../misc/saveArray.js");
 
 module.exports = {
@@ -32,9 +31,9 @@ module.exports = {
 
             write(submissions, "src/txt/submissions.txt");
 
-            const delete_Embed = new MessageEmbed()
+            const delete_Embed = new EmbedBuilder()
                 .setDescription(`Team ${value} deleted from list\nThere are now ${submissions.length} teams in the list.`)
-                .setColor("BLURPLE")
+                .setColor("#5865F2")
                 .setTimestamp()
                 .setFooter({
                     text: `Triggered by ${interaction.user.tag}`

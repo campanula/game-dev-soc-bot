@@ -21,4 +21,4 @@ function toArray(dict) {
     return arr;
 }
 
-module.exports = { toArray, getMaxVotes}
+module.exports = { toArray, getMaxVotes }

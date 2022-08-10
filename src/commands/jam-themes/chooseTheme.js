@@ -1,5 +1,4 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageActionRow, MessageButton, MessageEmbed } = require("discord.js");
+const { ActionRowBuilder, ButtonBuilder, EmbedBuilder, SlashCommandBuilder, ButtonStyle } = require("discord.js");
 const { read } = require("../../misc/saveArray.js");
 
 module.exports = {
@@ -14,17 +13,17 @@ module.exports = {
         if (theme.length !== 0) {
             const random = Math.floor(Math.random() * theme.length);
 
-            const row = new MessageActionRow()
+            const row = new ActionRowBuilder()
                 .addComponents(
-                    new MessageButton()
+                    new ButtonBuilder()
                         .setLabel("Refresh")
                         .setCustomId("refresh_choice")
-                        .setStyle("PRIMARY")
+                        .setStyle(ButtonStyle.Primary)
                 )
 
-            const choice_Embed = new MessageEmbed()
+            const choice_Embed = new EmbedBuilder()
                 .setDescription(`I have chosen the theme: ${theme[random]}`)
-                .setColor("BLURPLE")
+                .setColor("#5865F2")
                 .setTimestamp()
                 .setFooter({
                     text: `Triggered by ${interaction.user.tag}`

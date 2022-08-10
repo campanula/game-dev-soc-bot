@@ -1,5 +1,4 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -8,7 +7,7 @@ module.exports = {
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /events command in #${interaction.channel.name}`);
 
-        const eventEmbed = new MessageEmbed()
+        const eventEmbed = new EmbedBuilder()
             .setTitle("Current Events")
             .setDescription("Links to all our current events")
             .setThumbnail(
@@ -26,7 +25,7 @@ module.exports = {
                     inline: true,
                 }
             )
-            .setColor("BLURPLE")
+            .setColor("#5865F2")
             .setTimestamp()
             .setFooter({
                 text: `Triggered by ${interaction.user.tag}`,

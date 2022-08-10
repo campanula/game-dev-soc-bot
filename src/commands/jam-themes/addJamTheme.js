@@ -1,5 +1,4 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
 const { read, write } = require("../../misc/saveArray.js");
 
 module.exports = {
@@ -12,7 +11,7 @@ module.exports = {
                 .setRequired(true)),
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /add-theme command in #${interaction.channel.name}`);
-        
+
         const value = interaction.options.getString("input");
 
         const theme = read("src/txt/themes.txt");
@@ -20,9 +19,9 @@ module.exports = {
 
         write(theme, "src/txt/themes.txt");
 
-        const add_Embed = new MessageEmbed()
+        const add_Embed = new EmbedBuilder()
             .setDescription(`Theme ${value} added to list\nThere are now ${theme.length} themes in the list.`)
-            .setColor("BLURPLE")
+            .setColor("#5865F2")
             .setTimestamp()
             .setFooter({
                 text: `Triggered by ${interaction.user.tag}`

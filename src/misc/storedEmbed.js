@@ -1,31 +1,31 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const { readTxt } = require("./saveArray.js");
 
 const currentJam = readTxt("src/txt/currentJam.txt");
 
 const resultsFunc = (resultsArray) => {
 
-    return new MessageEmbed()
+    return new EmbedBuilder()
         .setTitle("Results")
         .setDescription(resultsArray.join("\n"))
-        .setColor("BLURPLE")
+        .setColor("#5865F2")
         .setTimestamp();
 }
 
 const winnerFunc = (winner) => {
 
-    return new MessageEmbed()
+    return new EmbedBuilder()
         .setTitle(`✨ Game Jam Winner - ${currentJam} ✨`)
         .setDescription(`The winner of this game jam is 🎈 team ${winner}!! 🎈\nCongrats on your win!`)
-        .setColor("BLURPLE")
+        .setColor("#5865F2")
         .setTimestamp();
 }
 
 const voteEmbedFunc = (inter, emojiEntries) => {
-    return new MessageEmbed()
+    return new EmbedBuilder()
         .setTitle("All submissions")
         .setDescription(emojiEntries.join("\n"))
-        .setColor("BLURPLE")
+        .setColor("#5865F2")
         .setTimestamp()
         .setFooter({
             text: `Triggered by ${inter}`

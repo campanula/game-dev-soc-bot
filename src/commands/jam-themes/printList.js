@@ -1,5 +1,4 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
 const { read } = require("../../misc/saveArray.js");
 
 module.exports = {
@@ -8,17 +7,17 @@ module.exports = {
         .setDescription("Prints jam list"),
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /themes command in #${interaction.channel.name}`);
-        
+
 
         const theme = read("src/txt/themes.txt");
 
         if (theme.length !== 0) {
             const themePrint = theme.join(",  ")
 
-            const print_Embed = new MessageEmbed()
+            const print_Embed = new EmbedBuilder()
                 .setTitle("Theme List")
                 .setDescription(themePrint.toString())
-                .setColor("BLURPLE")
+                .setColor("#5865F2")
                 .setTimestamp()
                 .setFooter({
                     text: `Triggered by ${interaction.user.tag}`
