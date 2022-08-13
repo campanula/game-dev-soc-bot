@@ -1,5 +1,6 @@
 const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
 
+// Command to print current society events
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("events")
@@ -7,6 +8,7 @@ module.exports = {
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /events command in #${interaction.channel.name}`);
 
+        // Create embed with current info to add to message
         const eventEmbed = new EmbedBuilder()
             .setTitle("Current Events")
             .setDescription("Links to all our current events")
@@ -31,6 +33,7 @@ module.exports = {
                 text: `Triggered by ${interaction.user.tag}`,
             });
 
+        // Send reply to interaction with embed
         await interaction.reply({ embeds: [eventEmbed] });
     },
 };

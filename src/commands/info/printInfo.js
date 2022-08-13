@@ -1,10 +1,12 @@
 const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
 const moment = require("moment");
 
+// Command to print various info according to its subcommands
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("info")
         .setDescription("All the links and info for Essex GDS!")
+        // Create subcommands
         .addSubcommand(subcommand =>
             subcommand
                 .setName("society")
@@ -17,13 +19,15 @@ module.exports = {
             subcommand
                 .setName("user")
                 .setDescription("Info about a user")
-                .addUserOption(option => option.setName("target").setDescription("The user"))),
+                .addUserOption(option => option.setName("target").setDescription("The user"))), // Add targeting a user as subcommand option
 
     async execute(interaction, client) {
-        client.log.interinfo(`${interaction.user.tag} used the /info command in #${interaction.channel.name}`);
+        client.log.interinfo(`${interaction.user.tag} used the /info command in #${interaction.channel.name}`); // Logging interaction with Winston
 
         switch (interaction.options.getSubcommand()) {
-            case "society": {
+            case "society": { // If the user has used the society subcommand
+
+                // Create embed to add to message
                 const societyEmbed = new EmbedBuilder()
                     .setTitle("Essex Game Dev Society")
                     .setDescription("All the info and links you need :)")
@@ -47,10 +51,13 @@ module.exports = {
                         text: `Triggered by ${interaction.user.tag}`
                     })
 
+                // Send reply to interaction with embed
                 await interaction.reply({ embeds: [societyEmbed] });
                 break;
             }
-            case "bot": {
+            case "bot": { // If the user has used the bot subcommand
+
+                // Create embed to add to message
                 const botEmbed = new EmbedBuilder()
                     .setTitle("GDS Bot")
                     .addFields(
@@ -62,13 +69,16 @@ module.exports = {
                         text: `Triggered by ${interaction.user.tag}`
                     })
 
+                // Send reply to interaction with embed
                 await interaction.reply({ embeds: [botEmbed] });
                 break;
             }
-            case "user": {
+            case "user": { // If the user has used the user subcommand
                 const target = interaction.options.getUser("target");
 
-                if (!target) {
+                if (!target) { // if command user has not specified a target user, get info of command user
+
+                    // Create embed to add to message
                     const userEmbed = new EmbedBuilder()
                         .setTitle("User Info")
                         .setThumbnail(interaction.member.user.avatarURL({ size: 256 }))
@@ -104,9 +114,12 @@ module.exports = {
                             text: `Triggered by ${interaction.user.tag}`
                         })
 
+                    // Send reply to interaction with embed
                     await interaction.reply({ embeds: [userEmbed] });
 
-                } else {
+                } else { // if command user has specified a target user, get info of target user
+
+                    // Create embed to add to message
                     const userEmbed = new EmbedBuilder()
                         .setTitle("User Info")
                         .setThumbnail(target.avatarURL({ size: 256 }))
@@ -138,12 +151,14 @@ module.exports = {
                             text: `Triggered by ${interaction.user.tag}`
                         })
 
+                    // Send reply to interaction with embed
                     await interaction.reply({ embeds: [userEmbed] });
                 }
 
                 break;
             }
             default: {
+                // If no case is specified, reply to interaction with ephemeral error message
                 await interaction.reply({
                     content: "Invalid Command",
                     ephemeral: true
