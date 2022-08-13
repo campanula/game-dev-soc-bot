@@ -1,5 +1,6 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, SlashCommandBuilder, ButtonStyle } = require("discord.js");
 
+// Command to send a users avatar as a message
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("avatar")
@@ -7,11 +8,13 @@ module.exports = {
         .addUserOption(option => option.setName("target").setDescription("The user")),
 
     async execute(interaction, client) {
-        client.log.interinfo(`${interaction.user.tag} used the /avatar command in #${interaction.channel.name}`);
+        client.log.interinfo(`${interaction.user.tag} used the /avatar command in #${interaction.channel.name}`); // Logging interaction with Winston
 
-        const target = interaction.options.getUser("target");
+        const target = interaction.options.getUser("target"); // Get the user input as the target
 
-        if (!target) {
+        if (!target) { // If no user was added as target, get the avatar of the user using the command
+
+            // Create embed with info and avatar
             const userEmbed = new EmbedBuilder()
                 .setTitle(`${interaction.user.username}'s avatar`)
                 .setImage(interaction.member.user.avatarURL({ size: 1024 }))
@@ -21,6 +24,8 @@ module.exports = {
                     text: `Triggered by ${interaction.user.tag}`
                 })
 
+            // Create row of buttons to add to embed
+            // Each button will link to the image in a different file format
             const row = new ActionRowBuilder()
                 .addComponents(
                     new ButtonBuilder()
@@ -39,12 +44,14 @@ module.exports = {
                         .setStyle(ButtonStyle.Link)
                 )
 
+            // Send reply to interaction with embed and buttons
             await interaction.reply({
                 embeds: [userEmbed],
                 components: [row]
             });
 
-        } else {
+        } else { // If a user was added as target, get the avatar of the target
+            // Create embed with info and avatar
             const userEmbed = new EmbedBuilder()
                 .setTitle(`${target.username}'s avatar`)
                 .setImage(target.avatarURL({ size: 1024 }))
@@ -54,7 +61,8 @@ module.exports = {
                     text: `Triggered by ${interaction.user.tag}`
                 })
 
-
+            // Create row of buttons to add to embed
+            // Each button will link to the image in a different file format
             const row = new ActionRowBuilder()
                 .addComponents(
                     new ButtonBuilder()
@@ -73,6 +81,7 @@ module.exports = {
                         .setStyle(ButtonStyle.Link)
                 )
 
+            // Send reply to interaction with embed and buttons
             await interaction.reply({
                 embeds: [userEmbed],
                 components: [row]

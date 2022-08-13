@@ -2,6 +2,7 @@ const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
 const translate = require("google-translate-api-x");
 const { getCode } = require("../../misc/languages.js");
 
+// Command to translate a users input
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("translate")
@@ -19,21 +20,29 @@ module.exports = {
                 .setDescription("The language to translate to")
                 .setRequired(true)),
     async execute(interaction, client) {
-        client.log.interinfo(`${interaction.user.tag} used the /translate command in #${interaction.channel.name}`);
+        client.log.interinfo(`${interaction.user.tag} used the /translate command in #${interaction.channel.name}`); // Logging interaction with Winston
 
-        const text = interaction.options.getString("text");
+        const text = interaction.options.getString("text"); // Get the text to be translated from user input
+
+        // Get the languages to be used from user input
+        // Use getCode to convert the input languages into their ISO 639-1 codes
         const origin = getCode(interaction.options.getString("origin"));
         const target = getCode(interaction.options.getString("target"));
 
-        if (origin === false || target === false) {
+        if (origin === false || target === false) { // If either the origin or target language doesn't return an ISO 639-1 code
+            // send ephemeral reply with error message
             await interaction.reply({ content: "One or both of the languages you entered are not supported.\n Please see https://github.com/campanula/game-dev-soc-bot/blob/main/src/misc/languages.js for supported languages.", ephemeral: true });
         } else {
             try { // to avoid crashing if the req doesn't return anything
+
+                // Translate the text from origin to target language using autocorrect
                 const res = await translate(text, { from: origin, to: target, autoCorrect: true });
 
+                // If autocorrected text exists return it, else return normal text
                 let input = null;
-                res.from.text.value.length === 0 ? input = text : input = res.from.text.value; // If autocorrected text exists return it, else return normal text
+                res.from.text.value.length === 0 ? input = text : input = res.from.text.value;
 
+                // Create embed to add to message
                 const translation_Embed = new EmbedBuilder()
                     .setTitle("Translation")
                     .setDescription(`Translating ${input} from ${res.from.language.iso}...\n\nResult: ${res.text}`)
@@ -43,8 +52,11 @@ module.exports = {
                         text: `Triggered by ${interaction.user.tag}`
                     })
 
+                // Send reply to interaction with embed and buttons
                 await interaction.reply({ embeds: [translation_Embed] });
             } catch (error) {
+
+                // If error occurs, log error to Winston and reply to interaction with ephemeral error message
                 client.log.error(error);
                 await interaction.reply({ content: "The API could not process this request", ephemeral: true });
                 throw error;
