@@ -5,7 +5,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("avatar")
         .setDescription("Get a users avatar!")
-        .addUserOption(option => option.setName("target").setDescription("The user")),
+        .addUserOption(option => option.setName("target").setDescription("The user")), // Add targeting a user as command option
 
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /avatar command in #${interaction.channel.name}`); // Logging interaction with Winston
