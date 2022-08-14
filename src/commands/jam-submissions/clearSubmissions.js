@@ -1,25 +1,29 @@
 const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
 const { read, write } = require("../../misc/saveArray.js");
 
+// Command to clear the submissions.txt and submissionsDict.txt files
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("clear-submissions")
-        .setDescription("Clears submission list - admin only"), //command perms currently controlled in server settings not here
+        .setDescription("Clears submission list - admin only"), // Command perms currently controlled in server settings not here
     defaultPermission: false,
     async execute(interaction, client) {
-        client.log.interinfo(`${interaction.user.tag} used the /clear-submissions command in #${interaction.channel.name}`);
+        client.log.interinfo(`${interaction.user.tag} used the /clear-submissions command in #${interaction.channel.name}`); // Logging interaction with Winston
 
-        const submissions = read("src/txt/submissions.txt");
+        const submissions = read("src/txt/submissions.txt"); // Open submissions.txt and put its contents into an array (submissions)
 
-        if (submissions.length === 0) {
+        if (submissions.length === 0) { // If no submissions exist
             await interaction.reply({
                 content: "The list is already empty!",
                 ephemeral: true
             });
-        } else {
+        } else { // If submissions exist in the array
 
-            submissions.length = 0;
-            const dict = {}
+            submissions.length = 0; 
+            const dict = {};
+
+            // Write the empty dict and array to the files to overwrite the current contents
             write(dict, "src/txt/submissionsDict.txt");
             write(submissions, "src/txt/submissions.txt");
 
@@ -30,7 +34,6 @@ module.exports = {
                 .setFooter({
                     text: `Triggered by ${interaction.user.tag}`
                 })
-
 
             await interaction.reply({ embeds: [clear_Embed] });
         }

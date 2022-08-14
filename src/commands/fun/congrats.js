@@ -14,14 +14,13 @@ module.exports = {
 
         const target = interaction.options.getUser("target"); // Get the user input as the target
 
-        if (!target) { // If no user was input as target, send an ephemeral reply telling command user that they must add a target
+        if (!target) { // If no user was input as target
             await interaction.reply({
                 content: "You need to choose a target!",
                 ephemeral: true
             });
         } else { // if a user was input as target
 
-            // Create embed to add to message
             const userEmbed = new EmbedBuilder()
                 .setTitle("Congrats!")
                 .setImage("https://cdn.discordapp.com/attachments/1000126955024285736/1004531350394634380/clapping-applause.gif")
@@ -31,7 +30,6 @@ module.exports = {
                     text: `Triggered by ${interaction.user.tag}`
                 })
 
-            // Send reply to interaction with embed, tagging both the target user and command user
             await interaction.reply({
                 content: `<@${interaction.user.id}> says well done to <@${target.id}>!`,
                 embeds: [userEmbed]

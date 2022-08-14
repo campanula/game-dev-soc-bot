@@ -7,8 +7,7 @@ module.exports = {
         .setDescription("Help with commands"),
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /help command in #${interaction.channel.name}`); // Logging interaction with Winston
-
-        // Create select menu to add to message
+        
         const row = new ActionRowBuilder().addComponents(
             new SelectMenuBuilder()
                 .setCustomId("select_help")
@@ -31,14 +30,12 @@ module.exports = {
                     }
                 )
         );
-
-        // Create embed to add to message            
+          
         const embed = new EmbedBuilder()
             .setColor("#5865F2")
             .setTitle("Command Help")
             .setDescription("Choose a topic to see related commands");
 
-        // Send reply to interaction with embed and select menu
         await interaction.reply({
             embeds: [embed],
             components: [row]

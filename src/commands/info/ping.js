@@ -17,7 +17,6 @@ module.exports = {
 
         const uptime = moment.duration(client.uptime).format("D [days], H [hrs], m [mins], s [secs]"); // Format current uptime from ms
 
-        // Create embed with uptime and latency
         const ping_Embed = new EmbedBuilder()
             .setTitle("✨ Status ✨")
             .addFields(
@@ -43,7 +42,6 @@ module.exports = {
                 text: `Triggered by ${interaction.user.tag}`
             })
 
-        // Send ephemeral reply to interaction with embed
         await interaction.editReply({ content: "Pong!", embeds: [ping_Embed], ephemeral: true })
 
     },

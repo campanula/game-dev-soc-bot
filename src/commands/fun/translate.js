@@ -30,10 +30,9 @@ module.exports = {
         const target = getCode(interaction.options.getString("target"));
 
         if (origin === false || target === false) { // If either the origin or target language doesn't return an ISO 639-1 code
-            // send ephemeral reply with error message
             await interaction.reply({ content: "One or both of the languages you entered are not supported.\n Please see https://github.com/campanula/game-dev-soc-bot/blob/main/src/misc/languages.js for supported languages.", ephemeral: true });
         } else {
-            try { // to avoid crashing if the req doesn't return anything
+            try { 
 
                 // Translate the text from origin to target language using autocorrect
                 const res = await translate(text, { from: origin, to: target, autoCorrect: true });
@@ -42,7 +41,6 @@ module.exports = {
                 let input = null;
                 res.from.text.value.length === 0 ? input = text : input = res.from.text.value;
 
-                // Create embed to add to message
                 const translation_Embed = new EmbedBuilder()
                     .setTitle("Translation")
                     .setDescription(`Translating ${input} from ${res.from.language.iso}...\n\nResult: ${res.text}`)
@@ -52,11 +50,9 @@ module.exports = {
                         text: `Triggered by ${interaction.user.tag}`
                     })
 
-                // Send reply to interaction with embed and buttons
                 await interaction.reply({ embeds: [translation_Embed] });
             } catch (error) {
-
-                // If error occurs, log error to Winston and reply to interaction with ephemeral error message
+                // If error occurs, log error to Winston 
                 client.log.error(error);
                 await interaction.reply({ content: "The API could not process this request", ephemeral: true });
                 throw error;

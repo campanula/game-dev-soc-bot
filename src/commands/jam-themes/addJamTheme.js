@@ -10,7 +10,7 @@ module.exports = {
                 .setDescription("The theme to add")
                 .setRequired(true)),
     async execute(interaction, client) {
-        client.log.interinfo(`${interaction.user.tag} used the /add-theme command in #${interaction.channel.name}`);
+        client.log.interinfo(`${interaction.user.tag} used the /add-theme command in #${interaction.channel.name}`); // Logging interaction with Winston
 
         const value = interaction.options.getString("input").toLowerCase(); // convert to lower case for comparison
 
