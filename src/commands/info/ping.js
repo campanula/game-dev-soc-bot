@@ -8,14 +8,14 @@ module.exports = {
         .setName("ping")
         .setDescription("Replies with the bot status"),
     async execute(interaction, client) {
-        client.log.interinfo(`${interaction.user.tag} used the /ping command in #${interaction.channel.name}`); // Logging interaction with Winston
+        client.log.interinfo(`${interaction.user.tag} used the /ping command in #${interaction.channel.name}`); 
 
         // Send message to calculate latency from
         const message = await interaction.deferReply({
             fetchReply: true
         });
 
-        const uptime = moment.duration(client.uptime).format("D [days], H [hrs], m [mins], s [secs]"); // Format current uptime from ms
+        const uptime = moment.duration(client.uptime).format("D [days], H [hrs], m [mins], s [secs]"); 
 
         const ping_Embed = new EmbedBuilder()
             .setTitle("✨ Status ✨")

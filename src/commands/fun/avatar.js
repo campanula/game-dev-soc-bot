@@ -8,7 +8,7 @@ module.exports = {
         .addUserOption(option => option.setName("target").setDescription("The user")), 
 
     async execute(interaction, client) {
-        client.log.interinfo(`${interaction.user.tag} used the /avatar command in #${interaction.channel.name}`); // Logging interaction with Winston
+        client.log.interinfo(`${interaction.user.tag} used the /avatar command in #${interaction.channel.name}`); 
 
         const target = interaction.options.getUser("target"); // Get the user input as the target
 

@@ -2,6 +2,7 @@ const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, SlashCommandBuilder, Butt
 const { read, write } = require("../../misc/saveArray.js");
 const { validUrl } = require("../../misc/checkURL.js");
 
+// Command for teams to add their jam submissions to a list so that they can be voted upon
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("submit")
@@ -74,7 +75,7 @@ module.exports = {
 
             // Store values in array for printing
             const allEntries = [];
-            for (const [key, val] of Object.entries(dict)) { //Add dict entries to array then save to file
+            for (const [key, val] of Object.entries(dict)) { // Add dict entries to array then save to file
                 const entry = `Team ${key}'s submission: ${val}`
                 allEntries.push(entry);
             }

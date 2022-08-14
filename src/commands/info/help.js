@@ -6,8 +6,8 @@ module.exports = {
         .setName("help")
         .setDescription("Help with commands"),
     async execute(interaction, client) {
-        client.log.interinfo(`${interaction.user.tag} used the /help command in #${interaction.channel.name}`); // Logging interaction with Winston
-        
+        client.log.interinfo(`${interaction.user.tag} used the /help command in #${interaction.channel.name}`); 
+
         const row = new ActionRowBuilder().addComponents(
             new SelectMenuBuilder()
                 .setCustomId("select_help")

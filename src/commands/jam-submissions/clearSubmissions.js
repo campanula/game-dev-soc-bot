@@ -9,16 +9,16 @@ module.exports = {
         .setDescription("Clears submission list - admin only"), // Command perms currently controlled in server settings not here
     defaultPermission: false,
     async execute(interaction, client) {
-        client.log.interinfo(`${interaction.user.tag} used the /clear-submissions command in #${interaction.channel.name}`); // Logging interaction with Winston
+        client.log.interinfo(`${interaction.user.tag} used the /clear-submissions command in #${interaction.channel.name}`);
 
-        const submissions = read("src/txt/submissions.txt"); // Open submissions.txt and put its contents into an array (submissions)
+        const submissions = read("src/txt/submissions.txt"); // Open submissions.txt and put its contents into an array
 
-        if (submissions.length === 0) { // If no submissions exist
+        if (submissions.length === 0) { 
             await interaction.reply({
                 content: "The list is already empty!",
                 ephemeral: true
             });
-        } else { // If submissions exist in the array
+        } else { 
 
             submissions.length = 0; 
             const dict = {};

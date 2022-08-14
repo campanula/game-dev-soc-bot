@@ -13,10 +13,9 @@ module.exports = {
         const winner = readTxt("src/txt/saveWinningTeam.txt"); 
         const currentJam = readTxt("src/txt/currentJam.txt"); 
 
-        if (winner.length === 0) { // If the length of the winner variable is 0 (the file was empty)
+        if (winner.length === 0) { 
             await interaction.reply({ content: "There is no winner", ephemeral: true });
         } else {
-            // If a winner exists in the file
             const results_Embed = new EmbedBuilder()
                 .setTitle(`✨ Game Jam Winner - ${currentJam} ✨`)
                 .setDescription(`The winner of the last game jam was 🎈 team ${winner}!! 🎈`)

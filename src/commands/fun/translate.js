@@ -20,7 +20,7 @@ module.exports = {
                 .setDescription("The language to translate to")
                 .setRequired(true)),
     async execute(interaction, client) {
-        client.log.interinfo(`${interaction.user.tag} used the /translate command in #${interaction.channel.name}`); // Logging interaction with Winston
+        client.log.interinfo(`${interaction.user.tag} used the /translate command in #${interaction.channel.name}`);
 
         const text = interaction.options.getString("text"); // Get the text to be translated from user input
 
@@ -33,7 +33,6 @@ module.exports = {
             await interaction.reply({ content: "One or both of the languages you entered are not supported.\n Please see https://github.com/campanula/game-dev-soc-bot/blob/main/src/misc/languages.js for supported languages.", ephemeral: true });
         } else {
             try { 
-
                 // Translate the text from origin to target language using autocorrect
                 const res = await translate(text, { from: origin, to: target, autoCorrect: true });
 
@@ -52,7 +51,6 @@ module.exports = {
 
                 await interaction.reply({ embeds: [translation_Embed] });
             } catch (error) {
-                // If error occurs, log error to Winston 
                 client.log.error(error);
                 await interaction.reply({ content: "The API could not process this request", ephemeral: true });
                 throw error;
