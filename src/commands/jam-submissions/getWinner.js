@@ -10,10 +10,10 @@ module.exports = {
         client.log.interinfo(`${interaction.user.tag} used the /winner command in #${interaction.channel.name}`);
 
         // Using files so that its easier to change and save the variables without hardcoding them in each time
-        const winner = readTxt("src/txt/saveWinningTeam.txt"); 
-        const currentJam = readTxt("src/txt/currentJam.txt"); 
+        const winner = readTxt("src/txt/saveWinningTeam.txt");
+        const currentJam = readTxt("src/txt/currentJam.txt");
 
-        if (winner.length === 0) { 
+        if (winner.length === 0) {
             await interaction.reply({ content: "There is no winner", ephemeral: true });
         } else {
             const results_Embed = new EmbedBuilder()

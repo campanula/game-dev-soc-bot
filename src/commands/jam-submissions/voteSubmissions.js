@@ -3,6 +3,7 @@ const { read, writeNum } = require("../../misc/saveArray.js");
 const { getMaxVotes, toArray } = require("../../misc/voteFuncs.js");
 const { voteEmbedFunc, resultsFunc, winnerFunc } = require("../../misc/storedEmbed.js");
 
+// Command for reaction-based voting on submissions
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("vote")
@@ -12,28 +13,29 @@ module.exports = {
 
         const submissions = read("src/txt/submissions.txt");
         const dict = read("src/txt/submissionsDict.txt");
-        const emojiDict = {};
-        const resultsArray = [];
 
         if (submissions.length !== 0) {
 
             const emojis = ["✌", "😂", "😝", "😁", "😱", "👉", "🙌", "🍻", "🔥", "🌈", "☀", "🎈", "🌹", "💄", "🎀", "⚽", "🎾", "🏁", "😡", "👿", "🐻", "🐶", "🐬", "🐟", "🍀", "👀", "🚗", "🍎", "💝", "💙", "👌", "❤", "😍", "😉", "😓", "😳", "💪", "💩", "🍸", "🔑", "💖", "🌟", "🎉", "🌺", "🎶", "👠", "🏈", "⚾", "🏆", "👽", "💀", "🐵", "🐮", "🐩", "🐎", "💣", "👃", "👂", "🍓", "💘", "💜", "👊", "💋", "😘", "😜", "😵", "🙏", "👋", "🚽", "💃", "💎", "🚀", "🌙", "🎁", "⛄", "🌊", "⛵", "🏀", "🎱", "💰", "👶", "👸", "🐰", "🐷", "🐍", "🐫", "🔫", "👄", "🚲", "🍉", "💛", "💚"];
             const emojiEntries = [];
-            const chosenEmojis = []; // to get arrays of the emojis picked for filter & for users
+            const emojiDict = {};
 
             // Get emojis
-            for (const [key, val] of Object.entries(dict)) { // For each entry in dict
-                const randEmoji = emojis[Math.floor(Math.random() * emojis.length)]; // Get a random emoji
-                emojiDict[key] = randEmoji; // Create a new emojiDict to store its team with its voting emoji
+            for (const [key, val] of Object.entries(dict)) {
+                const randEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+                emojiDict[key] = randEmoji; // Store each team and its emoji together in emojiDict
+
                 const entry = `${randEmoji} Team ${key}'s submission: ${val}`
-                emojiEntries.push(entry); // Add the emoji to an array to inform users in message
+                emojiEntries.push(entry); // Update array to add to message
+
                 emojis.splice(randEmoji, 1); // Remove chosen emoji from emoji array
             }
 
-            const submit_Embed = voteEmbedFunc(`${interaction.user.tag}`, emojiEntries); //Get embed to print
+            const submit_Embed = voteEmbedFunc(`${interaction.user.tag}`, emojiEntries);
 
             const message = await interaction.reply({ content: "This vote will last for 15min\nPlease wait 5 seconds before voting to ensure your vote is counted", embeds: [submit_Embed], fetchReply: true });
 
+            const chosenEmojis = []; // array of the emojis picked for filter & for users
             try {
                 for (const [key, val] of Object.entries(emojiDict)) {
                     message.react(val); // For every emoji in emojiDict, set emoji as reaction
@@ -45,7 +47,7 @@ module.exports = {
                 throw error;
             }
 
-
+            // Collector to get reactions
             const filter = (reaction) => {
                 return chosenEmojis.includes(reaction.emoji.name);
             };
@@ -56,23 +58,24 @@ module.exports = {
             collector.on("collect", (reaction, user) => {
                 client.log.interinfo(`Collected ${reaction.emoji.name} from ${user.tag}`);
 
-                chosenEmojis.forEach(element => { // Find the element in chosenEmojis
-                    if (element === reaction.emoji.name) { //If the emoji matches the emojis added by the bot
+                chosenEmojis.forEach(element => {
+                    if (element === reaction.emoji.name) { // If the emoji matches the emojis added by the bot
                         votingDict[element] = (votingDict[element] || 0) + 1; // if it exists in the dict already add 1 - if not, add it 
                     }
                 });
 
             });
 
-
             collector.on("end", collected => {
                 message.reply("Voting concluded")
                 client.log.interinfo(`Vote ended. Collected ${collected.size} items and votes: ${votingDict}`);
 
                 const resultsDict = {};
+                const resultsArray = [];
 
-                for (const [key, val] of Object.entries(emojiDict)) { // ewww ugly
-                    for (const [key2, val2] of Object.entries(votingDict)) { // it works though? /shrug
+                // Compare dict containing teams and their matching emojis to dict containing voting results and their matching emojis
+                for (const [key, val] of Object.entries(emojiDict)) {
+                    for (const [key2, val2] of Object.entries(votingDict)) {
                         if (val === key2) { // If the emojis match, add to results array
                             resultsArray.push(`Team ${key}'s results: ${val2}`);
                             resultsDict[key] = val2;
@@ -80,7 +83,7 @@ module.exports = {
                     }
                 }
 
-                const arr = toArray(getMaxVotes((resultsDict), 1));
+                const arr = toArray(getMaxVotes((resultsDict), 1)); // Get team(s) with the max amount of votes and save as winner
                 const winner = arr.join(" and ");
                 writeNum(winner, "src/txt/saveWinningTeam.txt");
 

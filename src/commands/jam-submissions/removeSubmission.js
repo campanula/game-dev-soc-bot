@@ -1,6 +1,7 @@
 const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
 const { read, write } = require("../../misc/saveArray.js");
 
+// Command to remove a submission
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("remove-submission")
@@ -13,22 +14,18 @@ module.exports = {
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /remove-submission command in #${interaction.channel.name}`);
 
-        const dict = read("src/txt/submissionsDict.txt");
-        const submissions = read("src/txt/submissions.txt");
-
+        const dict = read("src/txt/submissionsDict.txt"); // Get dict from file
         const value = interaction.options.getString("team");
 
         if (value in dict) {
-            delete dict[value]
+            delete dict[value] // Overwrite file with new dict
             write(dict, "src/txt/submissionsDict.txt");
 
-            submissions.length = 0;
-
-            for (const [key, val] of Object.entries(dict)) { //Add dict entries to array then save to file
+            const submissions = [];
+            for (const [key, val] of Object.entries(dict)) { // Add dict entries to array then save to file
                 const entry = `Team ${key}'s submission: ${val}`
                 submissions.push(entry);
             }
-
             write(submissions, "src/txt/submissions.txt");
 
             const delete_Embed = new EmbedBuilder()

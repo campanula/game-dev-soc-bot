@@ -5,10 +5,10 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("avatar")
         .setDescription("Get a users avatar!")
-        .addUserOption(option => option.setName("target").setDescription("The user")), 
+        .addUserOption(option => option.setName("target").setDescription("The user")),
 
     async execute(interaction, client) {
-        client.log.interinfo(`${interaction.user.tag} used the /avatar command in #${interaction.channel.name}`); 
+        client.log.interinfo(`${interaction.user.tag} used the /avatar command in #${interaction.channel.name}`);
 
         const target = interaction.options.getUser("target"); // Get the user input as the target
 

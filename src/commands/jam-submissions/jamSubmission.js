@@ -46,7 +46,8 @@ module.exports = {
             await interaction.reply({ embeds: [invalid_Embed], ephemeral: true });
 
         } else if (team in dict) {
-            write(team, "src/txt/saveTeam.txt");
+            write(team, "src/txt/saveTeam.txt"); // Save team name to file to be used in overwrite_submission.js
+            // Using file in case the bot goes down halfway through the process
 
             const row = new ActionRowBuilder()
                 .addComponents(
@@ -70,7 +71,7 @@ module.exports = {
         } else {
 
             // Store values in dictionary for validation
-            dict[team] = sub.toString(); // Create key value pair for team and their submission
+            dict[team] = sub.toString(); // Create key value pair for team and their submission and save to file
             write(dict, "src/txt/submissionsDict.txt");
 
             // Store values in array for printing
@@ -79,7 +80,6 @@ module.exports = {
                 const entry = `Team ${key}'s submission: ${val}`
                 allEntries.push(entry);
             }
-
             write(allEntries, "src/txt/submissions.txt");
 
             const submit_Embed = new EmbedBuilder()

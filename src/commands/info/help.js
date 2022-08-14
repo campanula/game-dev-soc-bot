@@ -1,12 +1,13 @@
 const { SelectMenuBuilder, ActionRowBuilder, EmbedBuilder, SlashCommandBuilder } = require("discord.js");
 
 // Command to send a select menu to print lists of all other commands
+// Links to select_help.js
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("help")
         .setDescription("Help with commands"),
     async execute(interaction, client) {
-        client.log.interinfo(`${interaction.user.tag} used the /help command in #${interaction.channel.name}`); 
+        client.log.interinfo(`${interaction.user.tag} used the /help command in #${interaction.channel.name}`);
 
         const row = new ActionRowBuilder().addComponents(
             new SelectMenuBuilder()
@@ -30,7 +31,7 @@ module.exports = {
                     }
                 )
         );
-          
+
         const embed = new EmbedBuilder()
             .setColor("#5865F2")
             .setTitle("Command Help")

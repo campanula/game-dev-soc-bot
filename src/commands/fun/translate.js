@@ -32,7 +32,7 @@ module.exports = {
         if (origin === false || target === false) { // If either the origin or target language doesn't return an ISO 639-1 code
             await interaction.reply({ content: "One or both of the languages you entered are not supported.\n Please see https://github.com/campanula/game-dev-soc-bot/blob/main/src/misc/languages.js for supported languages.", ephemeral: true });
         } else {
-            try { 
+            try {
                 // Translate the text from origin to target language using autocorrect
                 const res = await translate(text, { from: origin, to: target, autoCorrect: true });
 

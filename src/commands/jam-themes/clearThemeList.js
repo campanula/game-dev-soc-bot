@@ -1,15 +1,17 @@
 const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
 const { read, write } = require("../../misc/saveArray.js");
 
+// Command to clear theme array
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("clear-themes")
-        .setDescription("Clears theme list - admin only"), //command perms currently controlled in server settings not here
+        .setDescription("Clears theme list - admin only"), // command perms currently controlled in server settings not here
     defaultPermission: false,
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /clear-themes command in #${interaction.channel.name}`);
 
-        const theme = read("src/txt/themes.txt");
+        const theme = read("src/txt/themes.txt"); // Get current themelist as array
+
         if (theme.length === 0) {
             await interaction.reply({
                 content: "The list is already empty!",

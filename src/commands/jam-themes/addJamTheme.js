@@ -1,6 +1,7 @@
 const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
 const { read, write } = require("../../misc/saveArray.js");
 
+// Command to add themes to array
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("add-theme")
@@ -10,11 +11,12 @@ module.exports = {
                 .setDescription("The theme to add")
                 .setRequired(true)),
     async execute(interaction, client) {
-        client.log.interinfo(`${interaction.user.tag} used the /add-theme command in #${interaction.channel.name}`); // Logging interaction with Winston
+        client.log.interinfo(`${interaction.user.tag} used the /add-theme command in #${interaction.channel.name}`);
 
         const value = interaction.options.getString("input").toLowerCase(); // convert to lower case for comparison
 
-        const theme = read("src/txt/themes.txt");
+        const theme = read("src/txt/themes.txt"); // Get current themelist as array
+
         if (!theme.includes(value)) {
             theme.push(value);
 

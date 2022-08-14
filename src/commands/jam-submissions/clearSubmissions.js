@@ -13,14 +13,14 @@ module.exports = {
 
         const submissions = read("src/txt/submissions.txt"); // Open submissions.txt and put its contents into an array
 
-        if (submissions.length === 0) { 
+        if (submissions.length === 0) {
             await interaction.reply({
                 content: "The list is already empty!",
                 ephemeral: true
             });
-        } else { 
+        } else {
 
-            submissions.length = 0; 
+            submissions.length = 0;
             const dict = {};
 
             // Write the empty dict and array to the files to overwrite the current contents

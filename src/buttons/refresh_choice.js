@@ -1,6 +1,7 @@
 const { EmbedBuilder } = require("discord.js");
 const { read } = require("../misc/saveArray.js");
 
+// Button to choose a theme
 module.exports = {
     data: {
         name: "refresh_choice",

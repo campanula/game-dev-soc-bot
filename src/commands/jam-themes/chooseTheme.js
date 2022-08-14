@@ -1,6 +1,8 @@
 const { ActionRowBuilder, ButtonBuilder, EmbedBuilder, SlashCommandBuilder, ButtonStyle } = require("discord.js");
 const { read } = require("../../misc/saveArray.js");
 
+// Command to choose themes from array
+// Links to refresh_choice.js
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("choose-theme")
@@ -8,7 +10,7 @@ module.exports = {
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /choose-theme command in #${interaction.channel.name}`);
 
-        const theme = read("src/txt/themes.txt");
+        const theme = read("src/txt/themes.txt"); // Get current themelist as array
 
         if (theme.length !== 0) {
             const random = Math.floor(Math.random() * theme.length);

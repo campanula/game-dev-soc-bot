@@ -1,6 +1,7 @@
 const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
 const { read, write } = require("../../misc/saveArray.js");
 
+// Command to remove theme from array
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("remove-theme")
@@ -13,12 +14,12 @@ module.exports = {
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /remove-theme command in #${interaction.channel.name}`);
 
-        const theme = read("src/txt/themes.txt");
-        const value = interaction.options.getString("input");
+        const theme = read("src/txt/themes.txt"); // Get current themelist as array
+        const value = interaction.options.getString("input").toLowerCase();
 
         const index = theme.indexOf(value);
-        if (index > -1) { // splice array when item is found
-            theme.splice(index, 1); // Splice on input, remove 1 item only
+        if (index > -1) { // splice array when theme is found
+            theme.splice(index, 1); // Remove theme from array
 
             write(theme, "src/txt/themes.txt");
 
