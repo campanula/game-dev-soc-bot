@@ -1,7 +1,8 @@
 const { SlashCommandBuilder } = require("discord.js");
-const { read, writeNum } = require("../../functions/misc-functions/saveToFile.js");
+const { read } = require("../../functions/misc-functions/saveToFile.js");
 const { getMaxVotes, toArray } = require("../../functions/misc-functions/voteFuncs.js");
 const { voteEmbedFunc, resultsFunc, winnerFunc } = require("../../functions/misc-functions/storedEmbed.js");
+const fs = require("fs");
 
 // Command for reaction-based voting on submissions
 module.exports = {
@@ -85,7 +86,7 @@ module.exports = {
 
                 const arr = toArray(getMaxVotes((resultsDict), 1)); // Get team(s) with the max amount of votes and save as winner
                 const winner = arr.join(" and ");
-                writeNum(winner, "src/txt/jam-submissions/saveWinningTeam.txt");
+                fs.writeFileSync("src/txt/jam-submissions/saveWinningTeam.txt", winner);
 
                 const results_Embed = resultsFunc(resultsArray);
                 const winner_Embed = winnerFunc(winner);

@@ -1,24 +1,22 @@
 const fs = require("fs");
 
+// For reading files into an object
 const read = (path) => {
-  let array = null;
+  let obj = null;
 
   try { // Stopping possible crashing in the case a file is emptied during runtime
-    const fileContent = fs.readFileSync(path);
-    array = JSON.parse(fileContent);
+    const content = fs.readFileSync(path);
+    obj = JSON.parse(content);
   } catch (error) {
     console.error(error);
   }
 
-  return array;
+  return obj;
 }
 
-const write = (array, path) => {
-  fs.writeFileSync(path, JSON.stringify(array));
+// For writing objects to files
+const write = (content, path) => {
+  fs.writeFileSync(path, JSON.stringify(content));
 }
 
-const writeNum = (num, path) => {
-  fs.writeFileSync(path, num);
-}
-
-module.exports = { read, write, writeNum } 
+module.exports = { read, write } 
