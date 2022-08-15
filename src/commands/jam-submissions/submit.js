@@ -75,12 +75,12 @@ module.exports = {
             write(dict, "src/txt/jam-submissions/submissionsDict.txt");
 
             // Store values in array for printing
-            const allEntries = [];
+            const submissions = [];
             for (const [key, val] of Object.entries(dict)) { // Add dict entries to array then save to file
                 const entry = `Team ${key}'s submission: ${val}`
-                allEntries.push(entry);
+                submissions.push(entry);
             }
-            write(allEntries, "src/txt/jam-submissions/submissionsArray.txt");
+            write(submissions, "src/txt/jam-submissions/submissionsArray.txt");
 
             const submit_Embed = new EmbedBuilder()
                 .setTitle("Submission added")
