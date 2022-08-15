@@ -55,6 +55,7 @@ client.log = logger;
 client.commands = new Collection();
 client.menus = new Collection();
 client.buttons = new Collection();
+client.modals = new Collection();
 
 const handlerFiles = fs.readdirSync(`${__dirname}/handlers`).filter((file) => file.endsWith(".js"));
 
@@ -66,4 +67,5 @@ client.eventHandler();
 client.commandHandler();
 client.menuHandler();
 client.buttonHandler();
+client.modalHandler();
 client.login(process.env.TOKEN);
