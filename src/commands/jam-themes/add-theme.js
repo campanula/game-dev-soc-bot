@@ -1,5 +1,5 @@
 const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
-const { read, write } = require("../../misc/saveArray.js");
+const { read, write } = require("../../functions/misc-functions/saveToFile.js");
 
 // Command to add themes to array
 module.exports = {
@@ -15,12 +15,12 @@ module.exports = {
 
         const value = interaction.options.getString("input").toLowerCase(); // convert to lower case for comparison
 
-        const theme = read("src/txt/themes.txt"); // Get current themelist as array
+        const theme = read("src/txt/jam-misc/themes.txt"); // Get current themelist as array
 
         if (!theme.includes(value)) {
             theme.push(value);
 
-            write(theme, "src/txt/themes.txt");
+            write(theme, "src/txt/jam-misc/themes.txt");
 
             const add_Embed = new EmbedBuilder()
                 .setDescription(`Theme ${value} added to list\nThere are now ${theme.length} themes in the list.`)

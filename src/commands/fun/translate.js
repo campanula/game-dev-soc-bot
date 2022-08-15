@@ -1,6 +1,6 @@
 const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
 const translate = require("google-translate-api-x");
-const { getCode } = require("../../misc/languages.js");
+const { getCode } = require("../../functions/misc-functions/languages.js");
 
 // Command to translate a users input
 module.exports = {

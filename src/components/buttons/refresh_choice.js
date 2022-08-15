@@ -1,5 +1,5 @@
 const { EmbedBuilder } = require("discord.js");
-const { read } = require("../misc/saveArray.js");
+const { read } = require("../../functions/misc-functions/saveToFile.js");
 
 // Button to choose a theme
 module.exports = {
@@ -9,7 +9,7 @@ module.exports = {
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} clicked the refresh_choice button in #${interaction.channel.name}`);
 
-        const theme = read("src/txt/themes.txt");
+        const theme = read("src/txt/jam-misc/themes.txt");
 
         if (theme.length !== 0) {
             const random = Math.floor(Math.random() * theme.length);

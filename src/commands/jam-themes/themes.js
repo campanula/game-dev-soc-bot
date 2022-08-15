@@ -1,5 +1,5 @@
 const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
-const { read } = require("../../misc/saveArray.js");
+const { read } = require("../../functions/misc-functions/saveToFile.js");
 
 // Command to send theme array as message
 module.exports = {
@@ -9,7 +9,7 @@ module.exports = {
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /themes command in #${interaction.channel.name}`);
 
-        const theme = read("src/txt/themes.txt"); // Get current themelist as array
+        const theme = read("src/txt/jam-misc/themes.txt"); // Get current themelist as array
 
         if (theme.length !== 0) {
             const themePrint = theme.join(",  ")

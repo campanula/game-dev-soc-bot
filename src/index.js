@@ -57,10 +57,10 @@ client.menus = new Collection();
 client.buttons = new Collection();
 client.modals = new Collection();
 
-const handlerFiles = fs.readdirSync(`${__dirname}/handlers`).filter((file) => file.endsWith(".js"));
+const handlerFiles = fs.readdirSync(`${__dirname}/functions/handlers`).filter((file) => file.endsWith(".js"));
 
 for (const file of handlerFiles) {
-    require(`${__dirname}/handlers/${file}`)(client);
+    require(`${__dirname}/functions/handlers/${file}`)(client);
 }
 
 client.eventHandler();

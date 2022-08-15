@@ -1,5 +1,5 @@
 const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
-const { read, write } = require("../../misc/saveArray.js");
+const { read, write } = require("../../functions/misc-functions/saveToFile.js");
 
 // Command to remove theme from array
 module.exports = {
@@ -14,14 +14,14 @@ module.exports = {
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /remove-theme command in #${interaction.channel.name}`);
 
-        const theme = read("src/txt/themes.txt"); // Get current themelist as array
+        const theme = read("src/txt/jam-misc/themes.txt"); // Get current themelist as array
         const value = interaction.options.getString("input").toLowerCase();
 
         const index = theme.indexOf(value);
         if (index > -1) { // splice array when theme is found
             theme.splice(index, 1); // Remove theme from array
 
-            write(theme, "src/txt/themes.txt");
+            write(theme, "src/txt/jam-misc/themes.txt");
 
             const delete_Embed = new EmbedBuilder()
                 .setDescription(`Theme ${value} deleted from list\nThere are now ${theme.length} themes in the list.`)

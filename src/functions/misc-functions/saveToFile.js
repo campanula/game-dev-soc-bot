@@ -21,17 +21,4 @@ const writeNum = (num, path) => {
   fs.writeFileSync(path, num);
 }
 
-
-const readTxt = (path) => {
-  let fileContent = null;
-
-  try { // Stopping possible crashing in the case a file is emptied during runtime
-    fileContent = fs.readFileSync(path);
-  } catch (error) {
-    console.error(error);
-  }
-
-  return fileContent;
-}
-
-module.exports = { read, write, readTxt, writeNum } 
+module.exports = { read, write, writeNum } 

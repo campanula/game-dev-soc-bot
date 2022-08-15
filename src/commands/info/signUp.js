@@ -1,5 +1,5 @@
 const { ModalBuilder, SlashCommandBuilder, TextInputBuilder, ActionRowBuilder, TextInputStyle } = require("discord.js");
-const { read } = require("../../misc/saveArray.js");
+const { read } = require("../../functions/misc-functions/saveToFile.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -9,7 +9,7 @@ module.exports = {
         client.log.interinfo(`${interaction.user.tag} used the /signup command in #${interaction.channel.name}`);
 
         // Using files so that its easier to change the name of the jam without hardcoding it in everywhere each time
-        const currentJam = read("src/txt/currentJam.txt");
+        const currentJam = read("src/txt/jam-misc/currentJam.txt");
 
         const modal = new ModalBuilder()
             .setCustomId('signup_modal')

@@ -1,6 +1,6 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, SlashCommandBuilder, ButtonStyle } = require("discord.js");
-const { read, write } = require("../../misc/saveArray.js");
-const { validUrl } = require("../../misc/checkURL.js");
+const { read, write } = require("../../functions/misc-functions/saveToFile.js");
+const { validUrl } = require("../../functions/misc-functions/checkURL.js");
 
 // Command for teams to add their jam submissions to a list so that they can be voted upon
 module.exports = {
@@ -20,7 +20,7 @@ module.exports = {
 
         const sub = interaction.options.getString("submission");
         const team = interaction.options.getString("team");
-        const dict = read("src/txt/submissionsDict.txt");
+        const dict = read("src/txt/jam-submissions/submissionsDict.txt");
 
         if (isNaN(Number(team)) || !validUrl(sub)) { // Add validation for team numbers and submissions
             const invalid_Embed = new EmbedBuilder()
@@ -46,7 +46,7 @@ module.exports = {
             await interaction.reply({ embeds: [invalid_Embed], ephemeral: true });
 
         } else if (team in dict) {
-            write(team, "src/txt/saveTeam.txt"); // Save team name to file to be used in overwrite_submission.js
+            write(team, "src/txt/jam-submissions/saveExistingTeam.txt"); // Save team name to file to be used in overwrite_submission.js
             // Using file in case the bot goes down halfway through the process
 
             const row = new ActionRowBuilder()
@@ -72,7 +72,7 @@ module.exports = {
 
             // Store values in dictionary for validation
             dict[team] = sub.toString(); // Create key value pair for team and their submission and save to file
-            write(dict, "src/txt/submissionsDict.txt");
+            write(dict, "src/txt/jam-submissions/submissionsDict.txt");
 
             // Store values in array for printing
             const allEntries = [];
@@ -80,7 +80,7 @@ module.exports = {
                 const entry = `Team ${key}'s submission: ${val}`
                 allEntries.push(entry);
             }
-            write(allEntries, "src/txt/submissions.txt");
+            write(allEntries, "src/txt/jam-submissions/submissionsArray.txt");
 
             const submit_Embed = new EmbedBuilder()
                 .setTitle("Submission added")

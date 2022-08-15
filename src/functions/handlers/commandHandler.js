@@ -1,4 +1,4 @@
-const { guildId } = require("../config.json");
+const { guildId } = require("../../config.json");
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
 
@@ -14,7 +14,7 @@ module.exports = (client) => {
             const commandFiles = fs.readdirSync(`./src/commands/${folder}`).filter((file) => file.endsWith(".js"));
 
             for (const file of commandFiles) {
-                const command = require(`../commands/${folder}/${file}`);
+                const command = require(`../../commands/${folder}/${file}`);
                 client.commands.set(command.data.name, command);
                 client.commandArray.push(command.data.toJSON());
             }

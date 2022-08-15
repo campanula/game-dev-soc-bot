@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require("discord.js");
-const { read, writeNum } = require("../../misc/saveArray.js");
-const { getMaxVotes, toArray } = require("../../misc/voteFuncs.js");
-const { voteEmbedFunc, resultsFunc, winnerFunc } = require("../../misc/storedEmbed.js");
+const { read, writeNum } = require("../../functions/misc-functions/saveToFile.js");
+const { getMaxVotes, toArray } = require("../../functions/misc-functions/voteFuncs.js");
+const { voteEmbedFunc, resultsFunc, winnerFunc } = require("../../functions/misc-functions/storedEmbed.js");
 
 // Command for reaction-based voting on submissions
 module.exports = {
@@ -11,8 +11,8 @@ module.exports = {
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /vote command in #${interaction.channel.name}`);
 
-        const submissions = read("src/txt/submissions.txt");
-        const dict = read("src/txt/submissionsDict.txt");
+        const submissions = read("src/txt/jam-submissions/submissionsArray.txt");
+        const dict = read("src/txt/jam-submissions/submissionsDict.txt");
 
         if (submissions.length !== 0) {
 
@@ -85,7 +85,7 @@ module.exports = {
 
                 const arr = toArray(getMaxVotes((resultsDict), 1)); // Get team(s) with the max amount of votes and save as winner
                 const winner = arr.join(" and ");
-                writeNum(winner, "src/txt/saveWinningTeam.txt");
+                writeNum(winner, "src/txt/jam-submissions/saveWinningTeam.txt");
 
                 const results_Embed = resultsFunc(resultsArray);
                 const winner_Embed = winnerFunc(winner);

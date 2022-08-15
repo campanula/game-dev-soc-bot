@@ -1,5 +1,5 @@
 const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
-const { read, write } = require("../../misc/saveArray.js");
+const { read, write } = require("../../functions/misc-functions/saveToFile.js");
 
 // Command to clear theme array
 module.exports = {
@@ -10,7 +10,7 @@ module.exports = {
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /clear-themes command in #${interaction.channel.name}`);
 
-        const theme = read("src/txt/themes.txt"); // Get current themelist as array
+        const theme = read("src/txt/jam-misc/themes.txt"); // Get current themelist as array
 
         if (theme.length === 0) {
             await interaction.reply({
@@ -19,7 +19,7 @@ module.exports = {
             });
         } else {
             theme.length = 0;
-            write(theme, "src/txt/themes.txt");
+            write(theme, "src/txt/jam-misc/themes.txt");
 
             const clear_Embed = new EmbedBuilder()
                 .setDescription(`List cleared\nThere are now ${theme.length} themes in the list.`)

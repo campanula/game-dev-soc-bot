@@ -1,5 +1,5 @@
 const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
-const { read } = require("../../misc/saveArray.js");
+const { read } = require("../../functions/misc-functions/saveToFile.js");
 
 // Command to send message with all current submissions
 module.exports = {
@@ -9,7 +9,7 @@ module.exports = {
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /submissions command in #${interaction.channel.name}`);
 
-        const submissions = read("src/txt/submissions.txt"); // Read submissions from file into array
+        const submissions = read("src/txt/jam-submissions/submissionsArray.txt"); // Read submissions from file into array
 
         if (submissions.length !== 0) {
 

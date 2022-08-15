@@ -1,5 +1,5 @@
 const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
-const { read, write } = require("../../misc/saveArray.js");
+const { read, write } = require("../../functions/misc-functions/saveToFile.js");
 
 // Command to clear the submissions.txt and submissionsDict.txt files
 
@@ -11,7 +11,7 @@ module.exports = {
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /clear-submissions command in #${interaction.channel.name}`);
 
-        const submissions = read("src/txt/submissions.txt"); // Open submissions.txt and put its contents into an array
+        const submissions = read("src/txt/jam-submissions/submissionsArray.txt"); // Open submissions.txt and put its contents into an array
 
         if (submissions.length === 0) {
             await interaction.reply({
@@ -24,8 +24,8 @@ module.exports = {
             const dict = {};
 
             // Write the empty dict and array to the files to overwrite the current contents
-            write(dict, "src/txt/submissionsDict.txt");
-            write(submissions, "src/txt/submissions.txt");
+            write(dict, "src/txt/jam-submissions/submissionsDict.txt");
+            write(submissions, "src/txt/jam-submissions/submissionsArray.txt");
 
             const clear_Embed = new EmbedBuilder()
                 .setDescription(`List cleared\nThere are now ${submissions.length} submissions in the list.`)

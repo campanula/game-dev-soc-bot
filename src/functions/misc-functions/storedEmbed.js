@@ -1,7 +1,7 @@
 const { EmbedBuilder } = require("discord.js");
-const { readTxt } = require("./saveArray.js");
+const { read } = require("./saveToFile.js");
 
-const currentJam = readTxt("src/txt/currentJam.txt");
+const currentJam = read("src/txt/jam-misc/currentJam.txt");
 
 const resultsFunc = (resultsArray) => {
 
@@ -32,6 +32,5 @@ const voteEmbedFunc = (inter, emojiEntries) => {
         });
 
 }
-
 
 module.exports = { voteEmbedFunc, resultsFunc, winnerFunc }
