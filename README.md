@@ -32,6 +32,7 @@ These commands are for adding theme ideas to a list to be chosen from every game
 
 These commands are for submitting entries for a game jam, and voting for those submissions.
 
+- signup: Access a form within Discord to sign up to the current game jam
 - submit [submission] [team]: Submits a game jam entry to the list. Only allows submission URL's from the sites https://github.com, https://itch.io, and https://gamejolt.com
 - submissions: Prints the current list of submissions
 - winner: Prints the last game jam winner
