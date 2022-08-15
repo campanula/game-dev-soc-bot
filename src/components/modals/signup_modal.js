@@ -1,3 +1,5 @@
+const { read, write } = require("../../functions/misc-functions/saveToFile.js");
+
 module.exports = {
     data: {
         name: "signup_modal",
@@ -12,7 +14,33 @@ module.exports = {
         const modalGithub = interaction.fields.getTextInputValue('modalGithubInput');
         const modalExp = interaction.fields.getTextInputValue('modalExpInput');
 
-        console.log({ modalName, modalEmail, modalGithub, modalExp });
+        client.log.interinfo(`Form input: ${modalName}, ${modalEmail}, ${modalGithub}, ${modalExp}`);
+
+        // Create dict with questions linked to answers
+        const signup_modal_dict = {};
+
+        const Questions = [
+            "Names",
+            "Emails",
+            "Githubs",
+            "Exp"
+        ];
+
+        const Answers = [
+            modalName,
+            modalEmail,
+            modalGithub,
+            modalExp
+        ];
+
+        for (let i = 0; i < Questions.length; i++) {
+            signup_modal_dict[Questions[i]] = Answers[i];
+        }
+
+        // add new Q/A object to array
+        const signup_modal_array = read("src/txt/jam-misc/signupForm.txt");
+        signup_modal_array.push(signup_modal_dict);
+        write(signup_modal_array, "src/txt/jam-misc/signupForm.txt");
 
         await interaction.reply({ content: 'Your submission was received successfully!\n Make sure to pick up the game jammer role in #roles so you can see the relevant channels in our discord!', ephemeral: true });
 
