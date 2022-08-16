@@ -1,4 +1,4 @@
-const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
+const { EmbedBuilder, SlashCommandBuilder, AttachmentBuilder } = require("discord.js");
 
 // Command to send a message congratulating another user
 module.exports = {
@@ -21,9 +21,10 @@ module.exports = {
             });
         } else { // if a user was input as target
 
+            const file = new AttachmentBuilder('./src/images/clapping-applause.gif');
             const userEmbed = new EmbedBuilder()
                 .setTitle("Congrats!")
-                .setImage("https://cdn.discordapp.com/attachments/1000126955024285736/1004531350394634380/clapping-applause.gif")
+                .setImage("attachment://clapping-applause.gif")
                 .setColor("#5865F2")
                 .setTimestamp()
                 .setFooter({
@@ -32,7 +33,7 @@ module.exports = {
 
             await interaction.reply({
                 content: `<@${interaction.user.id}> says well done to <@${target.id}>!`,
-                embeds: [userEmbed]
+                embeds: [userEmbed], files: [file]
             });
         }
     }

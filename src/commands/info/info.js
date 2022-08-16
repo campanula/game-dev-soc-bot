@@ -1,4 +1,4 @@
-const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
+const { EmbedBuilder, SlashCommandBuilder, AttachmentBuilder } = require("discord.js");
 const moment = require("moment");
 
 // Command to print various info according to its subcommands
@@ -23,13 +23,15 @@ module.exports = {
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /info command in #${interaction.channel.name}`);
 
+        const file = new AttachmentBuilder('./src/images/logo.png');
+
         switch (interaction.options.getSubcommand()) {
             case "society": {
 
                 const societyEmbed = new EmbedBuilder()
                     .setTitle("Essex Game Dev Society")
                     .setDescription("All the info and links you need :)")
-                    .setThumbnail("https://cdn.discordapp.com/attachments/1000126955024285736/1004446804873588867/Essex2.png")
+                    .setThumbnail("attachment://logo.png")
                     .addFields(
                         {
                             name: "Join  the society!",
@@ -49,7 +51,7 @@ module.exports = {
                         text: `Triggered by ${interaction.user.tag}`
                     })
 
-                await interaction.reply({ embeds: [societyEmbed] });
+                await interaction.reply({ embeds: [societyEmbed], files: [file] });
                 break;
             }
             case "bot": {

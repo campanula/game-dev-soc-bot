@@ -1,4 +1,4 @@
-const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
+const { EmbedBuilder, SlashCommandBuilder, AttachmentBuilder } = require("discord.js");
 
 // Command to print current society events
 module.exports = {
@@ -8,12 +8,12 @@ module.exports = {
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /events command in #${interaction.channel.name}`);
 
+        const file = new AttachmentBuilder('./src/images/logo.png');
+
         const eventEmbed = new EmbedBuilder()
             .setTitle("Current Events")
             .setDescription("Links to all our current events")
-            .setThumbnail(
-                "https://cdn.discordapp.com/attachments/1000126955024285736/1004446804873588867/Essex2.png"
-            )
+            .setThumbnail("attachment://logo.png")
             .addFields(
                 {
                     name: "Summer Game Jam Event Page",
@@ -32,6 +32,6 @@ module.exports = {
                 text: `Triggered by ${interaction.user.tag}`,
             });
 
-        await interaction.reply({ embeds: [eventEmbed] });
+        await interaction.reply({ embeds: [eventEmbed], files: [file] });
     },
 };
