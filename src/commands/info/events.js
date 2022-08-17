@@ -1,4 +1,5 @@
 const { EmbedBuilder, SlashCommandBuilder, AttachmentBuilder } = require("discord.js");
+const { read, write } = require("../../functions/misc-functions/saveToFile.js");
 
 // Command to print current society events
 module.exports = {
@@ -14,23 +15,24 @@ module.exports = {
             .setTitle("Current Events")
             .setDescription("Links to all our current events")
             .setThumbnail("attachment://logo.png")
-            .addFields(
-                {
-                    name: "Summer Game Jam Event Page",
-                    value: "https://www.essexstudent.com/events/12079/25962/",
-                    inline: true,
-                },
-                {
-                    name: "Link to sign up to jam",
-                    value: "https://forms.gle/4kHQtt9e1YN5FBM39",
-                    inline: true,
-                }
-            )
             .setColor("#5865F2")
             .setTimestamp()
             .setFooter({
                 text: `Triggered by ${interaction.user.tag}`,
             });
+        
+        // Get current events from file
+        let dict = read("src/txt/info/events.txt");
+
+        for (const [key, val] of Object.entries(dict)) {
+            eventEmbed.addFields(
+                {
+                    name: key,
+                    value: val,
+                    inline: true,
+                }
+            )
+        }
 
         await interaction.reply({ embeds: [eventEmbed], files: [file] });
     },
