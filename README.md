@@ -59,3 +59,23 @@ These commands contain general information about the bot/society/user.
 - avatar | avatar [user]: Sends a message with the avatar of either the user who used the command, or the targeted user. The [target] option is optional.
 - congrats [user]: Sends a message congratulating the targeted user.
 - translate [text] [origin] [target]: Translates a piece of text from its origin language to a target language. Can only translate to languages from the Google Translate API.
+
+# Logging
+
+All logging is done using Winston, and can be seen in the terminal. All logs relating to interactions are logged as interinfo, while logs relating to the bots main functions are logged as botinfo. For easy access to any errors, all error messages are logged both in the terminal and saved in a file as src/txt/logs.log.
+
+# Updating commands and their info
+
+**Help, I'm hosting the bot and need to update its info!**<br>
+All variables and info subject to changing often are stored in text files to make changing them easier without having to hardcode them in.
+
+#### Events
+
+To change the info fields printed by the /events command, go to events.txt under src/txt/info/events.txt. The field contents are stored as a dictionary. <br>
+To change the name of a field, change the key of the dictionary. To change the main contents (the value option) of a field, change the value of the dictionary. <br>
+To add a new field to the command, just add a new entry to the dictionary.
+
+#### Current Jam
+
+To change the name of the current Jam printed by commands, go to currentJam.txt under src/txt/jam-misc/currentJam.txt. The variable is stored as a string. <br>
+To change the variable, just replace the string in the file with whatever the current jam is called.
