@@ -15,7 +15,7 @@ function getMaxVotes(o, n) { // Get all max values from dictionary
 
 function toArray(dict) {
     const arr = [];
-    for (const [key, val] of Object.entries(dict)) {
+    for (const key in dict) {
         arr.push(key);
     }
     return arr;
