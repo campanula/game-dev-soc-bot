@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
 const { read } = require("../../functions/misc-functions/saveToFile.js");
 const { getMaxVotes, toArray } = require("../../functions/misc-functions/voteFuncs.js");
 const { voteEmbedFunc, resultsFunc, winnerFunc } = require("../../functions/misc-functions/storedEmbed.js");
@@ -8,7 +8,8 @@ const fs = require("fs");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("vote")
-        .setDescription("Starts the game jam voting process with all uploaded submissions - admin only"),
+        .setDescription("Starts the game jam voting process with all uploaded submissions - admin only")
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /vote command in #${interaction.channel.name}`);
 

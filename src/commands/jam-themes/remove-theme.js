@@ -1,4 +1,4 @@
-const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
+const { EmbedBuilder, SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
 const { read, write } = require("../../functions/misc-functions/saveToFile.js");
 
 // Command to remove theme from array
@@ -6,6 +6,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("remove-theme")
         .setDescription("Remove a theme from the list - admin only")
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
         .addStringOption(option =>
             option.setName("input")
                 .setDescription("The theme to remove")

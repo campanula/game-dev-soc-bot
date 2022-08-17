@@ -1,11 +1,12 @@
-const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
+const { EmbedBuilder, SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
 const { read, write } = require("../../functions/misc-functions/saveToFile.js");
 
 // Command to clear theme array
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("clear-themes")
-        .setDescription("Clears theme list - admin only"), // command perms currently controlled in server settings not here
+        .setDescription("Clears theme list - admin only")
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
     defaultPermission: false,
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /clear-themes command in #${interaction.channel.name}`);

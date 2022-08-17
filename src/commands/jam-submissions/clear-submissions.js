@@ -1,4 +1,4 @@
-const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
+const { EmbedBuilder, SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
 const { read, write } = require("../../functions/misc-functions/saveToFile.js");
 
 // Command to clear the submissions.txt and submissionsDict.txt files
@@ -6,8 +6,8 @@ const { read, write } = require("../../functions/misc-functions/saveToFile.js");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("clear-submissions")
-        .setDescription("Clears submission list - admin only"), // Command perms currently controlled in server settings not here
-    defaultPermission: false,
+        .setDescription("Clears submission list - admin only")
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /clear-submissions command in #${interaction.channel.name}`);
 

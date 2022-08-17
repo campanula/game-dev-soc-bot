@@ -1,4 +1,4 @@
-const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
+const { EmbedBuilder, SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
 const { read } = require("../../functions/misc-functions/saveToFile.js");
 const fs = require("fs");
 
@@ -6,7 +6,8 @@ const fs = require("fs");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("winner")
-        .setDescription("Prints the last game jam winner - admin only"),
+        .setDescription("Prints the last game jam winner - admin only")
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /winner command in #${interaction.channel.name}`);
 

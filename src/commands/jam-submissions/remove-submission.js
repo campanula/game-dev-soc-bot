@@ -1,4 +1,4 @@
-const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
+const { EmbedBuilder, SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
 const { read, write } = require("../../functions/misc-functions/saveToFile.js");
 
 // Command to remove a submission
@@ -6,11 +6,11 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("remove-submission")
         .setDescription("Remove a submission from the list - admin only")
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
         .addStringOption(option =>
             option.setName("team")
                 .setDescription("The team to remove")
                 .setRequired(true)),
-    defaultPermission: false,
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /remove-submission command in #${interaction.channel.name}`);
 
