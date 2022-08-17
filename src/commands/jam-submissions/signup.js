@@ -1,4 +1,4 @@
-const { ModalBuilder, SlashCommandBuilder, TextInputBuilder, ActionRowBuilder, TextInputStyle } = require("discord.js");
+const { SlashCommandBuilder, ActionRowBuilder, EmbedBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 const { read } = require("../../functions/misc-functions/saveToFile.js");
 
 module.exports = {
@@ -11,38 +11,32 @@ module.exports = {
         // Using files so that its easier to change the name of the jam without hardcoding it in everywhere each time
         const currentJam = read("src/txt/jam-misc/currentJam.txt");
 
-        const modal = new ModalBuilder()
-            .setCustomId('signup_modal')
-            .setTitle(`GDS ${currentJam} Sign-Up Form`);
+        const row = new ActionRowBuilder()
+            .addComponents(
+                new ButtonBuilder()
+                    .setLabel("🎮 Open Form")
+                    .setCustomId("signup_button")
+                    .setStyle(ButtonStyle.Primary),
+                new ButtonBuilder()
+                    .setLabel("💡 Check the rules")
+                    .setCustomId("rules_button")
+                    .setStyle(ButtonStyle.Secondary)
+            )
 
-        const modalNameInput = new TextInputBuilder()
-            .setCustomId('modalNameInput')
-            .setLabel("The names of everyone in your team")
-            .setStyle(TextInputStyle.Paragraph);
+        const signupEmbed = new EmbedBuilder()
+            .setTitle(`Sign up to the GDS ${currentJam}!`)
+            .setDescription("Click the 'Open Form' button below to open the sign-up form for the current game jam, or click the rules button for a recap on our general game jam rules. You can enter individually, or in teams of up to 4 people.")
+            .setColor("#5865F2")
+            .setTimestamp()
+            .setFooter({
+                text: `Triggered by ${interaction.user.tag}`
+            })
 
-        const modalEmailInput = new TextInputBuilder()
-            .setCustomId('modalEmailInput')
-            .setLabel("The Essex emails of everyone in your team")
-            .setStyle(TextInputStyle.Paragraph);
-
-        const modalGithubInput = new TextInputBuilder()
-            .setCustomId('modalGithubInput')
-            .setLabel("The GitHub username of each team member")
-            .setStyle(TextInputStyle.Paragraph);
-
-        const modalExpInput = new TextInputBuilder()
-            .setCustomId('modalExpInput')
-            .setLabel("From 1-5, how experienced are you at gamedev?")
-            .setStyle(TextInputStyle.Short);
-
-        const nameActionRow = new ActionRowBuilder().addComponents(modalNameInput);
-        const emailActionRow = new ActionRowBuilder().addComponents(modalEmailInput);
-        const githubActionRow = new ActionRowBuilder().addComponents(modalGithubInput);
-        const expActionRow = new ActionRowBuilder().addComponents(modalExpInput);
-
-        modal.addComponents(nameActionRow, emailActionRow, githubActionRow, expActionRow);
-
-        await interaction.showModal(modal);
+        await interaction.reply({
+            embeds: [signupEmbed],
+            components: [row],
+            ephemeral: true
+        });
 
     },
 };
