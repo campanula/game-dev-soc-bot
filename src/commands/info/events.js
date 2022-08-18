@@ -20,7 +20,7 @@ module.exports = {
             .setFooter({
                 text: `Triggered by ${interaction.user.tag}`,
             });
-        
+
         // Get current events from file
         let dict = read("src/txt/info/events.txt");
 

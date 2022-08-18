@@ -4,7 +4,8 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "test": "jest"
   },
   "author": "campanula",
   "license": "ISC",
@@ -17,5 +18,8 @@
     "moment": "^2.29.4",
     "moment-duration-format": "^2.3.2",
     "winston": "^3.8.1"
+  },
+  "devDependencies": {
+    "jest": "^28.1.3"
   }
 }

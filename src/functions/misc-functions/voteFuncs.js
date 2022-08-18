@@ -1,8 +1,9 @@
+// https://stackoverflow.com/questions/60105631/top-highest-values-in-an-object-more-if-there-are-more-max-values-and-they-are
 function getMaxVotes(o, n) { // Get all max values from dictionary
     // Get object values and sort descending
     const values = Object.values(o).sort((a, b) => b - a);
 
-    // Check if more values exi t than number required
+    // Check if more values exit than number required
     if (values.length <= n) return o;
 
     // Find nth maximum value
