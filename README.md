@@ -7,7 +7,7 @@ Multipurpose game-jam hosting bot for the Game Dev Society Discord server
 - Download the repo
 - Create an .env file in the root directory and add the applications client ID (as APP_ID) and token (as TOKEN) to it
 - Create a config.json file in /src, and add the guild ID as guildID, and the ID of the welcome channel as channelID
-- Then run the bot! Note that command permissions are **currently controlled using server settings** on the Discord app, so to make sure they're set up how you want them, go to Server Settings -> Integrations -> Bots and Apps -> [Your Application Name] -> Manage - > Command Permissions
+- Then run the bot!
 
 # Features
 
@@ -35,13 +35,13 @@ These commands are for submitting entries for a game jam, and voting for those s
 - signup: Access a form within Discord to sign up to the current game jam
 - submit [submission] [team]: Submits a game jam entry to the list. Only allows submission URL's from the sites https://github.com, https://itch.io, and https://gamejolt.com
 - submissions: Prints the current list of submissions
-- winner: Prints the last game jam winner
 
 #### Admin only
 
 - remove-submission [team]: Removes a submission if the team exists in the current list of submissions
 - clear-submissions: Clears the submissions list
 - vote: Starts a reaction-based vote with all the current submissions, printing the results and winner after 15 minutes
+- winner: Prints the last game jam winner
 
 ## Info commands
 
@@ -62,7 +62,8 @@ These commands contain general information about the bot/society/user.
 
 # Logging
 
-All logging is done using Winston, and can be seen in the terminal. All logs relating to interactions are logged as interinfo, while logs relating to the bots main functions are logged as botinfo. For easy access to any errors, all error messages are logged both in the terminal and saved in a file as src/txt/logs.log.
+All logging is done using Winston, and can be seen in the terminal. All logs relating to the process are logged as process, logs relating to interactions are logged as interinfo, while logs relating to the bots main functions are logged as botinfo.<br>
+For easy access to any errors, all error messages are logged both in the terminal and saved in a file as src/txt/logs/error_logs.log. Logs relating specifically to the process are saved in a file as src/txt/logs/process_logs.log.
 
 # Updating commands and their info
 
@@ -77,5 +78,5 @@ To add a new field to the command, just add a new entry to the dictionary.
 
 #### Current Jam
 
-To change the name of the current Jam printed by commands, go to currentJam.txt under src/txt/jam-misc/currentJam.txt. The variable is stored as a string. <br>
+To change the name of the current jam printed by commands, go to currentJam.txt under src/txt/jam-misc/currentJam.txt. The variable is stored as a string. <br>
 To change the variable, just replace the string in the file with whatever the current jam is called.
