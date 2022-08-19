@@ -1,4 +1,4 @@
-const { channelId } = require("../config.json");
+const { channelID } = require("../config.json");
 const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
@@ -6,7 +6,7 @@ module.exports = {
     execute(member, client) {
         client.log.interinfo(`${member.user} joined the server`);
 
-        const welcomeChannel = member.guild.channels.cache.get(channelId);
+        const welcomeChannel = member.guild.channels.cache.get(channelID);
         welcomeChannel.send(`${member.user} has joined the server!`);
 
         const dmWelEmbed = new EmbedBuilder()

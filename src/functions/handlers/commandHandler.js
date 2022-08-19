@@ -1,4 +1,4 @@
-const { guildId } = require("../../config.json");
+const { guildID } = require("../../config.json");
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
 
@@ -27,7 +27,7 @@ module.exports = (client) => {
                 client.log.botinfo("Started refreshing application (/) commands.");
 
                 await rest.put(
-                    Routes.applicationCommands(process.env.APP_ID, guildId),
+                    Routes.applicationCommands(process.env.APP_ID, guildID),
                     {
                         body: client.commandArray,
                     }
