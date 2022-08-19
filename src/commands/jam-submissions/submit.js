@@ -41,7 +41,7 @@ module.exports = {
                 .setTimestamp()
                 .setFooter({
                     text: `Triggered by ${interaction.user.tag}`
-                })
+                });
 
             await interaction.reply({ embeds: [invalid_Embed], ephemeral: true });
 
@@ -71,16 +71,20 @@ module.exports = {
         } else {
 
             // Store values in dictionary for validation
-            dict[team] = sub.toString(); // Create key value pair for team and their submission and save to file
+            dict[team] = sub; // Create key value pair for team and their submission and save to file
             write(dict, "src/txt/jam-submissions/submissionsDict.txt");
 
             // Store values in array for printing
-            const submissions = [];
-            for (const [key, val] of Object.entries(dict)) { // Add dict entries to array then save to file
-                const entry = `Team ${key}'s submission: ${val}`
-                submissions.push(entry);
+            const saveToArray = () => {
+                const submissions = [];
+                for (const [key, val] of Object.entries(dict)) { // Add dict entries to array then save to file
+                    const entry = `Team ${key}'s submission: ${val}`
+                    submissions.push(entry);
+                }
+                return submissions;
             }
-            write(submissions, "src/txt/jam-submissions/submissionsArray.txt");
+
+            write(saveToArray(), "src/txt/jam-submissions/submissionsArray.txt");
 
             const submit_Embed = new EmbedBuilder()
                 .setTitle("Submission added")

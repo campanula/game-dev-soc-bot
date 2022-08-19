@@ -16,4 +16,4 @@ function validUrl(string) {
     return false;
 }
 
-module.exports = { validUrl }
+module.exports = { validUrl };

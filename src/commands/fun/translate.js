@@ -54,7 +54,7 @@ module.exports = {
                     .setTimestamp()
                     .setFooter({
                         text: `Triggered by ${interaction.user.tag}`
-                    })
+                    });
 
                 await interaction.reply({ embeds: [translation_Embed] });
 
@@ -64,5 +64,5 @@ module.exports = {
                 throw error;
             }
         }
-    }
+    },
 };

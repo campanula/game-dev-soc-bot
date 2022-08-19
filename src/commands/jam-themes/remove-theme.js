@@ -11,7 +11,6 @@ module.exports = {
             option.setName("input")
                 .setDescription("The theme to remove")
                 .setRequired(true)),
-    defaultPermission: false,
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /remove-theme command in #${interaction.channel.name}`);
 
@@ -20,9 +19,13 @@ module.exports = {
 
         const index = theme.indexOf(value);
         if (index > -1) { // splice array when theme is found
-            theme.splice(index, 1); // Remove theme from array
 
-            write(theme, "src/txt/jam-misc/themes.txt");
+            const removeTheme = () => {
+                theme.splice(index, 1); // Remove theme from array
+                return theme;
+            }
+
+            write(removeTheme(), "src/txt/jam-misc/themes.txt");
 
             const delete_Embed = new EmbedBuilder()
                 .setDescription(`Theme ${value} deleted from list\nThere are now ${theme.length} themes in the list.`)
@@ -30,11 +33,11 @@ module.exports = {
                 .setTimestamp()
                 .setFooter({
                     text: `Triggered by ${interaction.user.tag}`
-                })
+                });
+
             await interaction.reply({ embeds: [delete_Embed] });
         } else {
             await interaction.reply({ content: "Could not remove theme", ephemeral: true });
         }
-
-    }
-}
+    },
+};

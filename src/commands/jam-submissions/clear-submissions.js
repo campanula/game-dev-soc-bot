@@ -20,22 +20,27 @@ module.exports = {
             });
         } else {
 
-            submissions.length = 0;
-            const dict = {};
+            const newList = () => {
 
-            // Write the empty dict and array to the files to overwrite the current contents
-            write(dict, "src/txt/jam-submissions/submissionsDict.txt");
-            write(submissions, "src/txt/jam-submissions/submissionsArray.txt");
+                submissions.length = 0;
+                const dict = {};
+
+                // Write the empty dict and array to the files to overwrite the current contents
+                write(dict, "src/txt/jam-submissions/submissionsDict.txt");
+                write(submissions, "src/txt/jam-submissions/submissionsArray.txt");
+
+                return submissions.length;
+            }
 
             const clear_Embed = new EmbedBuilder()
-                .setDescription(`List cleared\nThere are now ${submissions.length} submissions in the list.`)
+                .setDescription(`List cleared\nThere are now ${newList()} submissions in the list.`)
                 .setColor("#5865F2")
                 .setTimestamp()
                 .setFooter({
                     text: `Triggered by ${interaction.user.tag}`
-                })
+                });
 
             await interaction.reply({ embeds: [clear_Embed] });
         }
-    }
-}
+    },
+};

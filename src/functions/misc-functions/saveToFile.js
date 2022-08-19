@@ -19,4 +19,4 @@ const write = (content, path) => {
   fs.writeFileSync(path, JSON.stringify(content));
 }
 
-module.exports = { read, write } 
+module.exports = { read, write };

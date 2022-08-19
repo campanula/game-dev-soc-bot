@@ -49,7 +49,7 @@ module.exports = {
                     .setTimestamp()
                     .setFooter({
                         text: `Triggered by ${interaction.user.tag}`
-                    })
+                    });
 
                 await interaction.reply({ embeds: [societyEmbed], files: [file] });
                 break;
@@ -65,7 +65,7 @@ module.exports = {
                     .setTimestamp()
                     .setFooter({
                         text: `Triggered by ${interaction.user.tag}`
-                    })
+                    });
 
                 await interaction.reply({ embeds: [botEmbed] });
                 break;
@@ -185,4 +185,4 @@ module.exports = {
             }
         }
     },
-}
+};

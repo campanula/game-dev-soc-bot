@@ -28,12 +28,12 @@ module.exports = {
                 .setTimestamp()
                 .setFooter({
                     text: `Triggered by ${interaction.user.tag}`
-                })
+                });
 
 
             await interaction.reply({ embeds: [add_Embed] });
         } else {
             await interaction.reply({ content: "Theme already exists in list.", ephemeral: true });
         }
-    }
-}
+    },
+};

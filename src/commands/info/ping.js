@@ -40,9 +40,9 @@ module.exports = {
             .setTimestamp()
             .setFooter({
                 text: `Triggered by ${interaction.user.tag}`
-            })
+            });
 
-        await interaction.editReply({ content: "Pong!", embeds: [ping_Embed], ephemeral: true })
+        await interaction.editReply({ content: "Pong!", embeds: [ping_Embed], ephemeral: true });
 
     },
 };

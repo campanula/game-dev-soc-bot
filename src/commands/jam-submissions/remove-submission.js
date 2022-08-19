@@ -14,18 +14,31 @@ module.exports = {
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /remove-submission command in #${interaction.channel.name}`);
 
-        const dict = read("src/txt/jam-submissions/submissionsDict.txt"); // Get dict from file
+        let dict = read("src/txt/jam-submissions/submissionsDict.txt"); // Get dict from file
         const value = interaction.options.getString("team");
 
         if (value in dict) {
-            delete dict[value] // Overwrite file with new dict
-            write(dict, "src/txt/jam-submissions/submissionsDict.txt");
 
-            const submissions = [];
-            for (const [key, val] of Object.entries(dict)) { // Add dict entries to array then save to file
-                const entry = `Team ${key}'s submission: ${val}`
-                submissions.push(entry);
+            const removeSubmission = () => {
+                delete dict[value];
+                return dict;
             }
+
+            dict = removeSubmission();
+
+            const writeNewList = () => {
+                const submissions = [];
+                for (const [key, val] of Object.entries(dict)) { // Add dict entries to array 
+                    const entry = `Team ${key}'s submission: ${val}`;
+                    submissions.push(entry);
+                }
+
+                return submissions;
+            }
+
+            const submissions = writeNewList();
+
+            write(dict, "src/txt/jam-submissions/submissionsDict.txt"); // Overwrite submissions dict and array
             write(submissions, "src/txt/jam-submissions/submissionsArray.txt");
 
             const delete_Embed = new EmbedBuilder()
@@ -39,6 +52,5 @@ module.exports = {
         } else {
             await interaction.reply({ content: "Could not remove team", ephemeral: true });
         }
-
-    }
-}
+    },
+};

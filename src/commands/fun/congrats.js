@@ -29,12 +29,12 @@ module.exports = {
                 .setTimestamp()
                 .setFooter({
                     text: `Triggered by ${interaction.user.tag}`
-                })
+                });
 
             await interaction.reply({
                 content: `<@${interaction.user.id}> says well done to <@${target.id}>!`,
                 embeds: [userEmbed], files: [file]
             });
         }
-    }
-}
+    },
+};

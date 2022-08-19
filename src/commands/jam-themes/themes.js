@@ -21,7 +21,7 @@ module.exports = {
                 .setTimestamp()
                 .setFooter({
                     text: `Triggered by ${interaction.user.tag}`
-                })
+                });
 
             await interaction.reply({ embeds: [print_Embed] });
 

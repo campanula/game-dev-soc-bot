@@ -21,7 +21,7 @@ module.exports = {
                 .setTimestamp()
                 .setFooter({
                     text: `Triggered by ${interaction.user.tag}`
-                })
+                });
 
             const row = new ActionRowBuilder()
                 .addComponents(
@@ -54,7 +54,7 @@ module.exports = {
                 .setTimestamp()
                 .setFooter({
                     text: `Triggered by ${interaction.user.tag}`
-                })
+                });
 
             const row = new ActionRowBuilder()
                 .addComponents(
@@ -79,5 +79,5 @@ module.exports = {
                 components: [row]
             });
         }
-    }
-}
+    },
+};

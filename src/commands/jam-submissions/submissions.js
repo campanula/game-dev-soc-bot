@@ -13,7 +13,7 @@ module.exports = {
 
         if (submissions.length !== 0) {
 
-            const subPrint = submissions.join("\n")
+            const subPrint = submissions.join("\n");
 
             const submit_Embed = new EmbedBuilder()
                 .setTitle("All submissions")

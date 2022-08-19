@@ -157,4 +157,4 @@ function getCode(desiredLang) {
     return keys[0] || false;
 }
 
-module.exports = { getCode }
+module.exports = { getCode };

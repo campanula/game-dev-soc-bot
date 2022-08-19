@@ -22,7 +22,7 @@ module.exports = {
                 .setTitle(`✨ Game Jam Winner - ${currentJam} ✨`)
                 .setDescription(`The winner of the last game jam was 🎈 team ${winner}!! 🎈`)
                 .setColor("#5865F2")
-                .setTimestamp()
+                .setTimestamp();
 
             await interaction.reply({ embeds: [results_Embed] });
         }

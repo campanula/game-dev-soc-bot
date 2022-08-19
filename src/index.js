@@ -13,14 +13,14 @@ const levels = {
     interinfo: 1,
     debug: 2,
     error: 3,
-}
+};
 
 addColors({
     botinfo: "blue",
     interinfo: "magenta",
     debug: "bold green",
     error: "bold rainbow",
-})
+});
 
 const logger = createLogger({
     levels,
@@ -44,7 +44,7 @@ const logger = createLogger({
             timestamp(({ format: "YYYY-MM-DD HH:mm:ss" })),
             printf(info => `${info.timestamp} ${info.level}:${info.message}`))
     })],
-})
+});
 
 // Create a new client instance
 const client = new Client({

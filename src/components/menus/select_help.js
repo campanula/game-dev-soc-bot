@@ -29,6 +29,7 @@ module.exports = {
                 });
                 break;
             }
+
             case "jam_help": {
                 client.log.interinfo(`${interaction.user.tag} clicked jam_help on the help menu in #${interaction.channel.name}`);
 
@@ -65,6 +66,7 @@ module.exports = {
                 });
                 break;
             }
+
             case "fun_help": {
                 client.log.interinfo(`${interaction.user.tag} clicked fun_help on the help menu in #${interaction.channel.name}`);
 
@@ -90,6 +92,7 @@ module.exports = {
                 });
                 break;
             }
+
             default: {
                 await interaction.reply({
                     content: "Choose a valid option",

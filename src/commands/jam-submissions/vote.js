@@ -87,7 +87,7 @@ module.exports = {
                 return emojiFilter.includes(reaction.emoji.name) && !user.bot;
             };
 
-            const collector = message.createReactionCollector({ filter, time: 15000 });
+            const collector = message.createReactionCollector({ filter, time: 900000 });
 
             const addVote = (element) => {
                 for (const key of Object.keys(votingDict)) {

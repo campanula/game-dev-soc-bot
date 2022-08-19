@@ -33,4 +33,4 @@ const voteEmbedFunc = (inter, emojiEntries) => {
 
 }
 
-module.exports = { voteEmbedFunc, resultsFunc, winnerFunc }
+module.exports = { voteEmbedFunc, resultsFunc, winnerFunc };

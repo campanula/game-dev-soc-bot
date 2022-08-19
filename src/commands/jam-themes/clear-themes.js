@@ -7,7 +7,6 @@ module.exports = {
         .setName("clear-themes")
         .setDescription("Clears theme list - admin only")
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
-    defaultPermission: false,
     async execute(interaction, client) {
         client.log.interinfo(`${interaction.user.tag} used the /clear-themes command in #${interaction.channel.name}`);
 
@@ -18,20 +17,26 @@ module.exports = {
                 content: "The list is already empty!",
                 ephemeral: true
             });
+
         } else {
-            theme.length = 0;
-            write(theme, "src/txt/jam-misc/themes.txt");
+
+            const newList = () => {
+
+                theme.length = 0;
+                write(theme, "src/txt/jam-misc/themes.txt");
+
+                return theme.length;
+            }
 
             const clear_Embed = new EmbedBuilder()
-                .setDescription(`List cleared\nThere are now ${theme.length} themes in the list.`)
+                .setDescription(`List cleared\nThere are now ${newList()} themes in the list.`)
                 .setColor("#5865F2")
                 .setTimestamp()
                 .setFooter({
                     text: `Triggered by ${interaction.user.tag}`
-                })
-
+                });
 
             await interaction.reply({ embeds: [clear_Embed] });
         }
-    }
-}
+    },
+};

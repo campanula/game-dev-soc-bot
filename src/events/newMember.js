@@ -13,7 +13,7 @@ module.exports = {
             .setTitle("Welcome to Essex GDS!")
             .setDescription("Thanks for joining the server! If you're not a society member, you can pick up a membership for free from https://www.essexstudent.com/society/gamedevsociety/")
             .setColor("#5865F2")
-            .setTimestamp()
+            .setTimestamp();
 
         member.send({ embeds: [dmWelEmbed] });
 
@@ -28,7 +28,7 @@ module.exports = {
                 { name: "Need game dev help?", value: "Check out #🙌game-dev-help or #📚game-dev-resources" }
             )
             .setColor("#5865F2")
-            .setTimestamp()
+            .setTimestamp();
 
         welcomeChannel.send({ embeds: [welcomeEmbed] });
     }
