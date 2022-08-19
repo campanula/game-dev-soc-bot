@@ -75,6 +75,14 @@ module.exports = {
 
                 if (!target) { // if command user has not specified a target user, get info of command user
 
+                    const getUserAccentColour = async () => {
+                        const user = await interaction.member.user.fetch(true);
+                        if (user.hexAccentColor) {
+                            return user.hexAccentColor;
+                        }
+                        return "#5865F2";
+                    }
+
                     const userEmbed = new EmbedBuilder()
                         .setTitle("User Info")
                         .setThumbnail(interaction.member.user.avatarURL({ size: 256 }))
@@ -102,9 +110,14 @@ module.exports = {
                                 name: "Account Creation Date",
                                 value: `${moment.utc(new Date(interaction.user.createdTimestamp)).format("dddd, MMMM Do YYYY")}`,
                                 inline: true
-                            }
+                            },
+                            {
+                                name: "Roles",
+                                value: `${interaction.member.roles.cache.map(role => role).join(" ")}`,
+                                inline: false
+                            },
                         )
-                        .setColor("#5865F2")
+                        .setColor(await getUserAccentColour())
                         .setTimestamp()
                         .setFooter({
                             text: `Triggered by ${interaction.user.tag}`
@@ -113,6 +126,14 @@ module.exports = {
                     await interaction.reply({ embeds: [userEmbed] });
 
                 } else { // if command user has specified a target user, get info of target user
+
+                    const getTargAccentColour = async () => {
+                        const fetchTarget = await interaction.options.getUser("target").fetch(true);
+                        if (fetchTarget.hexAccentColor) {
+                            return fetchTarget.hexAccentColor;
+                        }
+                        return "#5865F2";
+                    }
 
                     const userEmbed = new EmbedBuilder()
                         .setTitle("User Info")
@@ -137,9 +158,14 @@ module.exports = {
                                 name: "Account Creation Date",
                                 value: `${moment.utc(new Date(target.createdTimestamp)).format("dddd, MMMM Do YYYY")}`,
                                 inline: true
-                            }
+                            },
+                            {
+                                name: "Roles",
+                                value: `${interaction.options.getMember("target").roles.cache.map(role => role).join(" ")}`,
+                                inline: false
+                            },
                         )
-                        .setColor("#5865F2")
+                        .setColor(await getTargAccentColour())
                         .setTimestamp()
                         .setFooter({
                             text: `Triggered by ${interaction.user.tag}`
