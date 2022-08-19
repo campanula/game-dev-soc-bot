@@ -24,15 +24,20 @@ module.exports = {
         // Get current events from file
         const dict = read("src/txt/info/events.txt");
 
-        for (const [key, val] of Object.entries(dict)) {
-            eventEmbed.addFields(
-                {
-                    name: key,
-                    value: val,
-                    inline: true,
-                }
-            )
+        const addInfo = () => {
+            for (const [key, val] of Object.entries(dict)) {
+                eventEmbed.addFields(
+                    {
+                        name: key,
+                        value: val,
+                        inline: true,
+                    }
+                )
+            }
+            return eventEmbed;
         }
+
+        addInfo();
 
         await interaction.reply({ embeds: [eventEmbed], files: [file] });
     },
