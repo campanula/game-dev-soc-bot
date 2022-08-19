@@ -1,7 +1,7 @@
 const fs = require("fs");
 
 module.exports = (client) => {
-    client.modalHandler = async () => {
+    client.modalHandler = () => {
         const modalFiles = fs.readdirSync("./src/components/modals").filter((file) => file.endsWith("js"));
 
         for (const file of modalFiles) {

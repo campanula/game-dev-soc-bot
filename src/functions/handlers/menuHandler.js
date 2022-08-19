@@ -1,7 +1,7 @@
 const fs = require("fs");
 
 module.exports = (client) => {
-    client.menuHandler = async () => {
+    client.menuHandler = () => {
         const menuFiles = fs.readdirSync("./src/components/menus").filter((file) => file.endsWith("js"));
 
         for (const file of menuFiles) {

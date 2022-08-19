@@ -23,13 +23,13 @@ addColors({
 })
 
 const logger = createLogger({
-    levels: levels,
+    levels,
     level: "debug",
     transports: [new transports.Console({
         colorize: process.stdout.isTTY, // Only colourise in terminals
         timestamp: true,
         format: combine(
-            padLevels({ levels: levels }),
+            padLevels({ levels }),
             timestamp(({ format: "YYYY-MM-DD HH:mm:ss" })),
             label({ label: '[LOGGER]' }),
             printf(info => `${info.label} ${info.timestamp} ${info.level}:${info.message}`),

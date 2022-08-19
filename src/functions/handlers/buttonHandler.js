@@ -1,7 +1,7 @@
 const fs = require("fs");
 
 module.exports = (client) => {
-    client.buttonHandler = async () => {
+    client.buttonHandler = () => {
         const buttonFiles = fs.readdirSync(`./src/components/buttons/`).filter((file) => file.endsWith("js"));
 
         for (const file of buttonFiles) {

@@ -1,7 +1,7 @@
 const fs = require("fs");
 
 module.exports = (client) => {
-    client.eventHandler = async () => {
+    client.eventHandler = () => {
 
         const eventFiles = fs.readdirSync("./src/events").filter((file) => file.endsWith("js"));
         for (const file of eventFiles) {

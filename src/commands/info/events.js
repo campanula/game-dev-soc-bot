@@ -1,5 +1,5 @@
 const { EmbedBuilder, SlashCommandBuilder, AttachmentBuilder } = require("discord.js");
-const { read, write } = require("../../functions/misc-functions/saveToFile.js");
+const { read } = require("../../functions/misc-functions/saveToFile.js");
 
 // Command to print current society events
 module.exports = {
@@ -22,7 +22,7 @@ module.exports = {
             });
 
         // Get current events from file
-        let dict = read("src/txt/info/events.txt");
+        const dict = read("src/txt/info/events.txt");
 
         for (const [key, val] of Object.entries(dict)) {
             eventEmbed.addFields(
