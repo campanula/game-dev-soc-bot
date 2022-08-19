@@ -16,7 +16,7 @@ module.exports = {
 
         if (Object.keys(submissionsDict).length !== 0) {
 
-            const setUpDictionary = (submissionsDict) => {
+            const setUpDictionary = () => {
 
                 const votingDict = {};
                 const emojis = ["✌", "😂", "😝", "😁", "😱", "👉", "🙌", "🍻", "🔥", "🌈", "☀", "🎈", "🌹", "💄", "🎀", "⚽", "🎾", "🏁", "😡", "👿", "🐻", "🐶", "🐬", "🐟", "🍀", "👀", "🚗", "🍎", "💝", "💙", "👌", "❤", "😍", "😉", "😓", "😳", "💪", "💩", "🍸", "🔑", "💖", "🌟", "🎉", "🌺", "🎶", "👠", "🏈", "⚾", "🏆", "👽", "💀", "🐵", "🐮", "🐩", "🐎", "💣", "👃", "👂", "🍓", "💘", "💜", "👊", "💋", "😘", "😜", "😵", "🙏", "👋", "🚽", "💃", "💎", "🚀", "🌙", "🎁", "⛄", "🌊", "⛵", "🏀", "🎱", "💰", "👶", "👸", "🐰", "🐷", "🐍", "🐫", "🔫", "👄", "🚲", "🍉", "💛", "💚"];
@@ -24,85 +24,99 @@ module.exports = {
                 // For every submission in the submissionsDict object
                 for (const [team, submission] of Object.entries(submissionsDict)) {
 
-                    let randEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+                    const randEmoji = emojis[Math.floor(Math.random() * emojis.length)];
                     emojis.splice(emojis.indexOf(randEmoji), 1); // Remove chosen emoji from emoji array
 
                     // Create an object with team as key containing all needed variables
                     votingDict[team] = {
                         "emoji": randEmoji,
-                        "team": team,
-                        "submission": submission,
+                        team,
+                        submission,
                         "vote": 0
                     };
                 }
                 return votingDict;
             }
 
-            let votingDict = setUpDictionary(submissionsDict);
+            const votingDict = setUpDictionary();
 
             // Create array to add to message
-            const createStartMessage = (votingDict) => {
+            const createStartMessage = () => {
                 const messageArray = [];
                 for (const key of Object.keys(votingDict)) {
-                    const entry = `${votingDict[key].emoji} Team ${votingDict[key].team}'s submission: ${votingDict[key].submission}`
+                    const entry = `${votingDict[key].emoji} Team ${votingDict[key].team}'s submission: ${votingDict[key].submission}`;
                     messageArray.push(entry);
                 }
 
                 return messageArray;
             }
 
-            const submit_Embed = voteEmbedFunc(`${interaction.user.tag}`, createStartMessage(votingDict));
+            const submit_Embed = voteEmbedFunc(`${interaction.user.tag}`, createStartMessage());
 
             const message = await interaction.reply({ content: "This vote will last for 15min\nPlease wait 5 seconds before voting to ensure your vote is counted", embeds: [submit_Embed], fetchReply: true });
 
-            // Add emojis to message and make filter for collector
-            const emojiFilter = [];
+            //Add emojis to message 
+            const addToMsg = async () => {
+                const reactArray = [];
+                try {
+                    for (const key of Object.keys(votingDict)) {
+                        reactArray.push(message.react(votingDict[key].emoji)); // For every emoji in votingDict, set emoji as reaction
+                    }
+                    return await Promise.all(reactArray);
 
-            try {
-                for (const key of Object.keys(votingDict)) {
-                    const val = votingDict[key].emoji;
-                    await message.react(val); // For every emoji in votingDict, set emoji as reaction
-                    emojiFilter.push(val); // and add emoji to array to be used in filter
+                } catch (error) {
+                    client.log.error("One of the emojis failed to react:", error);
+                    throw error;
                 }
-            } catch (error) {
-                client.log.error("One of the emojis failed to react:", error);
-                throw error;
             }
+
+            // Make filter for collector
+            const createFilter = () => {
+                const emojiFilter = [];
+                for (const key of Object.keys(votingDict)) {
+                    emojiFilter.push(votingDict[key].emoji); // and add emoji to array to be used in filter
+                }
+                return emojiFilter;
+            }
+
+            addToMsg();
+            const emojiFilter = createFilter();
 
             // Collector to get reactions
             const filter = (reaction, user) => {
                 return emojiFilter.includes(reaction.emoji.name) && !user.bot;
             };
 
-            const collector = message.createReactionCollector({ filter, time: 900000 });
+            const collector = message.createReactionCollector({ filter, time: 15000 });
 
-            const addVote = (votingDict, element) => {
+            const addVote = (element) => {
                 for (const key of Object.keys(votingDict)) {
                     if (votingDict[key].emoji === element) {
                         votingDict[key].vote++;
                     }
                 }
-                return votingDict
+                return votingDict;
             }
 
+            // Start collector
             collector.on("collect", (reaction, user) => {
                 client.log.interinfo(`Collected ${reaction.emoji.name} from ${user.tag}`);
 
                 emojiFilter.forEach(element => {
                     if (element === reaction.emoji.name) { // If the emoji matches the emojis added by the bot
-                        addVote(votingDict, element); // Increment the vote value by 1;
+                        addVote(element); // Increment the vote value by 1;
                     }
                 });
 
             });
 
-
+            // End collector
             collector.on("end", collected => {
-                message.reply("Voting concluded")
+                message.reply("Voting concluded");
                 client.log.interinfo(`Vote ended. Collected ${collected.size} items.`);
 
                 // Create array to add to message
-                const createVoteMessage = (votingDict) => {
+                const createVoteMessage = () => {
                     const resultsArray = [];
                     for (const key of Object.keys(votingDict)) {
                         resultsArray.push(`Team ${votingDict[key].team}'s results: ${votingDict[key].vote}`);
@@ -112,41 +126,35 @@ module.exports = {
                 }
 
                 // Get the teams with the max votes and assign them as the winners
-                const getWinner = (votingDict) => {
-                    const resultsDict = {};
+                const getWinner = () => {
                     const currentWinners = [];
                     let tmp = 0;
-                    let winner = null;
 
-                    for (const key of Object.keys(votingDict)) {
-                        resultsDict[votingDict[key].team] = votingDict[key].vote;
-                    }
-
-                    for (const key in resultsDict) {
-                        if (resultsDict[key] > tmp) {
-                            tmp = resultsDict[key];
+                    for (const key in votingDict) {
+                        if (votingDict[key].vote > tmp) {
+                            tmp = votingDict[key].vote;
                             currentWinners.length = 0;
-                            currentWinners.push(key);
+                            currentWinners.push(votingDict[key].team);
 
-                        } else if (resultsDict[key] === tmp && resultsDict[key] !== 0) {
-                            currentWinners.push(key);
+                        } else if (votingDict[key].vote === tmp && votingDict[key].vote !== 0) {
+                            currentWinners.push(votingDict[key].team);
                         }
                     }
 
-                    winner = currentWinners.join(" and ");
+                    const winner = currentWinners.join(" and ");
 
                     return winner;
                 }
 
-                const winner = getWinner(votingDict);
+                const winner = getWinner();
 
                 fs.writeFileSync("src/txt/jam-submissions/saveWinningTeam.txt", winner);
 
                 if (winner) {
-                    const results_Embed = resultsFunc(createVoteMessage(votingDict));
-                    const winner_Embed = winnerFunc(getWinner(votingDict));
+                    const results_Embed = resultsFunc(createVoteMessage());
+                    const winner_Embed = winnerFunc(winner);
                     message.reply({ embeds: [results_Embed] });
-                    message.reply({ embeds: [winner_Embed] })
+                    message.reply({ embeds: [winner_Embed] });
                 } else {
                     message.reply("No votes have been counted - there is no winner.");
                 }
@@ -160,4 +168,3 @@ module.exports = {
         }
     },
 };
-
