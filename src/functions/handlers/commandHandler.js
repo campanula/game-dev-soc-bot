@@ -35,7 +35,7 @@ module.exports = (client) => {
 
                 client.log.botinfo("Successfully reloaded application (/) commands.");
             } catch (error) {
-                client.log.error(error);
+                client.error(error);
                 throw error;
             }
         })();

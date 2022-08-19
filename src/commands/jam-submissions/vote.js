@@ -65,7 +65,7 @@ module.exports = {
                     return await Promise.all(reactArray);
 
                 } catch (error) {
-                    client.log.error("One of the emojis failed to react:", error);
+                    client.error("One of the emojis failed to react:", error);
                     throw error;
                 }
             }

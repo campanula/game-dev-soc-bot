@@ -12,7 +12,7 @@ module.exports = {
             try {
                 await command.execute(interaction, client);
             } catch (error) {
-                client.log.error(error);
+                client.error(error);
                 await interaction.reply({
                     content: "There was an error executing the command",
                     ephemeral: true
@@ -28,7 +28,7 @@ module.exports = {
             try {
                 await menu.execute(interaction, client);
             } catch (error) {
-                client.log.error(error);
+                client.error(error);
                 await interaction.reply({
                     content: "There was an error executing the menu",
                     ephemeral: true
@@ -43,7 +43,7 @@ module.exports = {
             try {
                 await button.execute(interaction, client);
             } catch (error) {
-                client.log.error(error);
+                client.error(error);
                 await interaction.reply({
                     content: "There was an error executing the button",
                     ephemeral: true
@@ -59,7 +59,7 @@ module.exports = {
             try {
                 await modal.execute(interaction, client);
             } catch (error) {
-                client.log.error(error);
+                client.error(error);
                 await interaction.reply({
                     content: "There was an error executing the modal",
                     ephemeral: true

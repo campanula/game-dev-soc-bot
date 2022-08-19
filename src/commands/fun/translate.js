@@ -59,7 +59,7 @@ module.exports = {
                 await interaction.reply({ embeds: [translation_Embed] });
 
             } catch (error) {
-                client.log.error(error);
+                client.error(error);
                 await interaction.reply({ content: "The API could not process this request", ephemeral: true });
                 throw error;
             }
