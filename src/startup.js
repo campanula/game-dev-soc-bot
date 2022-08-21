@@ -30,7 +30,6 @@ function start(nodefile, reboot) {
     child.on("exit", async function (code) {
         if (code == 1000) return processLogger.process(`[ CHILD ] = > Stopped with code: 1000, rebooting prevented`);
         processLogger.process("[ PARENT ] => Child process exited with code" + " " + code + "\n");
-        delete proc;
 
         processLogger.process("Rebooting in 3 seconds");
         await sleep(994);
