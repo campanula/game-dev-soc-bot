@@ -1,4 +1,4 @@
-function validUrl(string) {
+const validUrl = (string) => {
     let url = null;
 
     try {

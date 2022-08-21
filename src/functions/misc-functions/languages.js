@@ -136,8 +136,7 @@ const langs = {
     'yo': 'Yoruba',
     'zu': 'Zulu'
 };
-
-function getCode(desiredLang) {
+const getCode = (desiredLang) => {
     if (!desiredLang) {
         return false;
     }
